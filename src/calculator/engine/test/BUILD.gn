@@ -1,0 +1,26 @@
+# Copyright 2019 The Fuchsia Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//build/testing.gni")
+
+# All tests.
+group("test") {
+  testonly = true
+
+  data_deps = [
+    ":engine_host_unit_test",
+  ]
+}
+
+# Executable containing host unit tests.
+test("engine_host_unit_test") {
+  sources = [
+    "engine_host_unit_test.cc",
+  ]
+
+  deps = [
+    "//src/calculator/engine:lib",
+    "//third_party/googletest:gtest_main",
+  ]
+}

@@ -3,8 +3,17 @@
 # found in the LICENSE file.
 
 group("calculator") {
-  data_deps = []
+  data_deps = [
+    "//src/calculator/engine",
+  ]
   if (is_fuchsia) {
     data_deps += [ "//src/calculator/fidl" ]
   }
+}
+
+group("tests") {
+  testonly = true
+  data_deps = [
+    "//src/calculator/engine:tests",
+  ]
 }

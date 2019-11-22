@@ -1,0 +1,29 @@
+# Copyright 2019 The Fuchsia Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//third_party/fuchsia-sdk/build/config/package.gni")
+
+group("engine") {
+  public_deps = [
+    ":lib",
+  ]
+}
+
+# All tests.
+group("tests") {
+  testonly = true
+
+  public_deps = [
+    "//src/calculator/engine/test",
+  ]
+}
+
+# Math library. This source set contains the sources for the implementation of the arithmetic
+# operations.
+static_library("lib") {
+  sources = [
+    "engine.cc",
+    "engine.h",
+  ]
+}
