@@ -8,12 +8,12 @@ import("//build/testing.gni")
 group("test") {
   testonly = true
 
-  data_deps = [
+  deps = [
     ":engine_host_unit_test",
   ]
 }
 
-# Executable containing host unit tests.
+# An executable containing unit tests that can be run on the development host.
 test("engine_host_unit_test") {
   sources = [
     "engine_host_unit_test.cc",
@@ -21,6 +21,20 @@ test("engine_host_unit_test") {
 
   deps = [
     "//src/calculator/engine:lib",
+    "//third_party/googletest:gtest_main",
+  ]
+}
+
+# An executable containing test cases that can be run on a Fuchsia device.
+executable("engine_device_unit_test_bin") {
+  testonly = true
+
+  sources = [
+    "engine_device_unit_test.cc",
+  ]
+
+  deps = [
+    "//src/calculator/engine:driver",
     "//third_party/googletest:gtest_main",
   ]
 }

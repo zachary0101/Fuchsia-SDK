@@ -6,22 +6,26 @@
 
 group("default") {
   deps = [
-    "//src/calculator",
     "//src/hello_world",
   ]
   if (is_fuchsia) {
-    deps += [ "//src/rot13" ]
+    deps += [
+      "//src/calculator",
+      "//src/rot13",
+    ]
   }
 }
 
 group("tests") {
   testonly = true
   deps = [
-    "//src/calculator:tests",
     "//src/hello_world:tests",
   ]
   if (is_fuchsia) {
-    deps += [ "//src/rot13:tests" ]
+    deps += [
+      "//src/calculator:tests",
+      "//src/rot13:tests",
+    ]
   }
 }
 
