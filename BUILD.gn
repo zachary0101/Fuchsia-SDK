@@ -6,6 +6,7 @@
 
 group("default") {
   deps = [
+    "//src/calculator",
     "//src/hello_world",
   ]
   if (is_fuchsia) {
