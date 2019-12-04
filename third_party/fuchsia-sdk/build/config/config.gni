@@ -1,0 +1,37 @@
+# Copyright 2019 The Fuchsia Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+declare_args() {
+  # path to the unpacked SDK. This is based on this file being relative to
+  # the SDK via ../../sdk
+  fuchsia_sdk_base = get_path_info(
+          get_path_info(
+              get_path_info(get_path_info("config.gni", "abspath"), "dir"),
+              "dir"),
+          "dir")
+}
+
+declare_args() {
+  fuchsia_sdk = fuchsia_sdk_base + "/sdk"
+  fuchsia_sdk_id =
+      read_file(fuchsia_sdk_base + "/" + host_os + ".sdk.sha1", "trim string")
+}
+
+if (current_os == "fuchsia") {
+  needs_updating = exec_script("need_updated_sdk.py",
+                               [
+                                 rebase_path(fuchsia_sdk),
+                                 host_os,
+                                 fuchsia_sdk_id,
+                               ],
+                               "string")
+  if (needs_updating != 0) {
+    exec_script("update_sdk.py",
+                [
+                  rebase_path(fuchsia_sdk),
+                  host_os,
+                  fuchsia_sdk_id,
+                ])
+  }
+}

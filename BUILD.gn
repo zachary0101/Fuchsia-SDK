@@ -1,0 +1,38 @@
+# Copyright 2019 The Fuchsia Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# Top level BUILD file for gn samples
+
+group("default") {
+  deps = [
+    "//src/hello_world",
+  ]
+  if (is_fuchsia) {
+    deps += [ "//src/rot13" ]
+  }
+}
+
+group("tests") {
+  testonly = true
+  deps = [
+    "//src/hello_world:tests",
+  ]
+  if (is_fuchsia) {
+    deps += [ "//src/rot13:tests" ]
+  }
+}
+
+# A generated file that lists all of the test files.
+generated_file("all_host_tests") {
+  testonly = true
+  deps = [
+    "//:default",
+    "//:tests",
+  ]
+
+  outputs = [
+    "$root_build_dir/all_host_tests.txt",
+  ]
+  data_keys = [ "host_test_name" ]
+}

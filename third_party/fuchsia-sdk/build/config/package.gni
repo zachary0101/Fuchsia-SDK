@@ -1,0 +1,193 @@
+# Copyright 2019 The Fuchsia Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("config.gni")
+
+# Creates a Fuchsia .far package file.
+# deps: fuchsia_components to add to the package
+template("fuchsia_package") {
+  pkg = {
+    forward_variables_from(invoker, "*")
+
+    assert(defined(deps), "Cannot make empty packages")
+
+    if (!defined(invoker.package_name)) {
+      package_name = target_name
+    }
+  }
+
+  _depfile = "${target_gen_dir}/${target_name}_stamp.d"
+
+  # tool paths
+  _pm_tool_path = "${fuchsia_sdk}/tools/pm"
+
+  # target names
+  _write_manifest_target = "${pkg.package_name}__write_manifest"
+  _generate_key_target = "${pkg.package_name}__genkey"
+  _package_target = "${pkg.package_name}__pkg"
+
+  # output values
+  _pkg_out_dir = "${target_gen_dir}/${pkg.package_name}"
+  _runtime_deps_file = "$_pkg_out_dir/${pkg.package_name}.runtime_deps"
+  _archive_manifest = "$_pkg_out_dir/${pkg.package_name}.archive_manifest"
+  _build_ids_file = "$_pkg_out_dir/ids.txt"
+  _component_manifest = "$_pkg_out_dir/${pkg.package_name}.cmx"
+  _key_file = "$_pkg_out_dir/signing-key"
+  _meta_far_file = "$_pkg_out_dir/meta.far"
+  _final_far_file = "$_pkg_out_dir/${pkg.package_name}.far"
+
+  action(_write_manifest_target) {
+    forward_variables_from(invoker,
+                           [
+                             "deps",
+                             "testonly",
+                           ])
+    script = "${fuchsia_sdk_base}/build/config/prepare_package_inputs.py"
+
+    inputs = [
+      _runtime_deps_file,
+    ]
+
+    outputs = [
+      _archive_manifest,
+      _build_ids_file,
+      _component_manifest,
+    ]
+
+    if (!defined(deps)) {
+      deps = []
+    }
+    data_deps = deps
+
+    # Use a depfile to trigger package rebuilds if any of the files (static
+    # assets, shared libraries, etc.) included by the package have changed.
+    depfile = _depfile
+
+    args = [
+      "--root-dir",
+      rebase_path("//", root_build_dir),
+      "--out-dir",
+      rebase_path(root_out_dir, root_build_dir),
+      "--app-name",
+      pkg.package_name,
+      "--runtime-deps-file",
+      rebase_path(_runtime_deps_file, root_build_dir),
+      "--depfile-path",
+      rebase_path(_depfile, root_build_dir),
+      "--manifest-path",
+      rebase_path(_archive_manifest, root_build_dir),
+      "--build-ids-file",
+      rebase_path(_build_ids_file, root_build_dir),
+    ]
+
+    foreach(dep, pkg.deps) {
+      foreach(f, get_target_outputs(dep)) {
+        args += [
+          "--json-file",
+          rebase_path(f, root_build_dir),
+        ]
+      }
+    }
+
+    if (defined(pkg.excluded_files)) {
+      foreach(filename, pkg.excluded_files) {
+        args += [
+          "--exclude-file",
+          filename,
+        ]
+      }
+    }
+    write_runtime_deps = _runtime_deps_file
+  }
+
+  # Generates a signing key to use for building the package.
+  action(_generate_key_target) {
+    forward_variables_from(invoker, [ "testonly" ])
+
+    script = "${fuchsia_sdk_base}/build/gn_run_binary.py"
+
+    inputs = [
+      # Depend on the SDK hash, to ensure rebuild if the SDK tools change.
+      "${fuchsia_sdk}/meta/manifest.json",
+    ]
+
+    outputs = [
+      _key_file,
+    ]
+
+    args = [
+      rebase_path(_pm_tool_path, root_build_dir),
+      "-k",
+      rebase_path(_key_file, root_build_dir),
+      "genkey",
+    ]
+  }
+
+  # Creates a signed Fuchsia metadata package.
+  action(_package_target) {
+    forward_variables_from(invoker, [ "testonly" ])
+
+    script = "${fuchsia_sdk_base}/build/gn_run_binary.py"
+
+    deps = [
+      ":$_generate_key_target",
+      ":$_write_manifest_target",
+    ]
+
+    inputs = [
+      # Depend on the SDK hash, to ensure rebuild if the SDK tools change.
+      "${fuchsia_sdk}/meta/manifest.json",
+      _key_file,
+    ]
+
+    outputs = [
+      _meta_far_file,
+    ]
+
+    args = [
+      rebase_path(_pm_tool_path, root_build_dir),
+      "-o",
+      rebase_path(_pkg_out_dir, root_build_dir),
+      "-k",
+      rebase_path(_key_file, root_build_dir),
+      "-m",
+      rebase_path(_archive_manifest, root_build_dir),
+      "build",
+    ]
+  }
+
+  # Creates a package containing the metadata archive and blob data.
+  action(target_name) {
+    forward_variables_from(invoker, [ "testonly" ])
+
+    script = "${fuchsia_sdk_base}/build/gn_run_binary.py"
+
+    deps = [
+      ":$_package_target",
+      ":$_write_manifest_target",
+    ]
+
+    inputs = [
+      # Depend on the SDK hash, to ensure rebuild if the SDK tools change.
+      "${fuchsia_sdk}/meta/manifest.json",
+      _meta_far_file,
+      _archive_manifest,
+    ]
+
+    outputs = [
+      _final_far_file,
+    ]
+
+    args = [
+      rebase_path(_pm_tool_path, root_build_dir),
+      "-o",
+      rebase_path(_pkg_out_dir, root_build_dir),
+      "-m",
+      rebase_path(_archive_manifest, root_build_dir),
+      "archive",
+      "--output",
+      pkg.package_name,
+    ]
+  }
+}

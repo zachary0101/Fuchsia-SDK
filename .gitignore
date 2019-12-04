@@ -1,0 +1,6 @@
+.vscode/
+/out/
+/buildtools/
+*.pyc
+*.code-workspace
+.tmp-*

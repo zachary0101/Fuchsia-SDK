@@ -1,0 +1,74 @@
+# Copyright 2019 The Fuchsia Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("config.gni")
+
+# Defines a Fuchsia component.
+#
+# Parameters are:
+# component_name_override: Specifies the name of the package to generate,
+#     if different than |target_name|.
+# manifest: cmx file for the component.
+# data_deps:  targets that are the contents component.
+template("fuchsia_component") {
+  component = {
+    forward_variables_from(invoker, "*")
+
+    assert(defined(data_deps),
+           "data_deps required to define contents of this component")
+    assert(defined(manifest),
+           "manifest file (.cmx) required for this component")
+
+    if (!defined(resources)) {
+      resources = []
+    }
+
+    if (!defined(deps)) {
+      deps = []
+    }
+
+    if (!defined(test)) {
+      test = false
+    }
+  }
+
+  component_manifest = []
+
+  # TODO(fxb/42370): add cmx validation
+
+  foreach(dep, component.data_deps) {
+    component_manifest += [
+      {
+        type = "dep"
+        source = rebase_path(dep)
+      },
+    ]
+  }
+
+  foreach(resource, component.resources) {
+    component_manifest += [
+      {
+        type = "resource"
+        source = rebase_path(resource.path)
+      },
+    ]
+  }
+
+  component_manifest += [
+    {
+      type = "manifest"
+      source = rebase_path(invoker.manifest)
+    },
+  ]
+
+  generated_file(target_name) {
+    outputs = [
+      "$root_build_dir/$target_name.json",
+    ]
+    contents = component_manifest
+    output_conversion = "json"
+    deps = component.deps
+    data_deps = component.data_deps
+  }
+}
