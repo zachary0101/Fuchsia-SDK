@@ -25,7 +25,7 @@ UNUSED_SDK_SUBDIRS = [ "dart" ]
 def download_and_unpack_from_gcs(url, sdk_path, output_dir):
   # Pass the compressed stream directly to 'tarfile'; don't bother writing it
   # to disk first.
-  gsutil_path = os.path.join(sdk_path, "..", "bin", "gsutil")
+  gsutil_path = os.path.normpath(os.path.join(sdk_path, "..", "bin", "gsutil"))
   if not os.path.exists(gsutil_path):
     gsutil_path = "gsutil"
   cmd = [gsutil_path, 'cp', url, '-']
