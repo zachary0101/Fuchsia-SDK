@@ -130,7 +130,7 @@ if [ ! -d $DEPOT_TOOLS_DIR/gsutil-generic ]; then
   echo -e "Extracting gsutil archive...\c"
   unzip -q $DOWNLOADS_DIR/gsutil-$VER_GSUTIL.zip -d $DEPOT_TOOLS_DIR/gsutil-generic
   ln -sf $DEPOT_TOOLS_DIR/gsutil-generic/gsutil $DEPOT_TOOLS_DIR/gsutil
-  if [ ! -x $(which gsutil) ]; then
+  if [ ! -x "$(which gsutil)" ]; then
     ln -sf $DEPOT_TOOLS_DIR/gsutil-generic/gsutil $REPO_ROOT/third_party/fuchsia-sdk/bin/gsutil
   fi
   echo "complete."
