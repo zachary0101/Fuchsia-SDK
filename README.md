@@ -5,7 +5,7 @@ A collection of samples demonstrating how to build, run, and test Fuchsia compon
 |-------|
 
 ## Setup
-1. Install required dependencies: `sudo apt-get install curl unzip python2`
+1. Install required dependencies: `sudo apt-get install curl unzip python python2`
 1. Clone this repo and submodules: `git clone https://fuchsia.googlesource.com/samples --recursive`. If you have already cloned this repo without the `--recursive` flag you can run `git submodule init && git submodule update --recursive` to download the submodules.
 1. Change directory to the root of the repo: `cd samples` and setup and run the tests`./scripts/setup-and-test.sh`. This script downloads all required dependencies (this may take 5-30min), build the samples and run the tests. If the script completes without errors all tests have passed.
 
