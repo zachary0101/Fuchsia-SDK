@@ -73,6 +73,7 @@ executable("rot13_server_bin") {
   deps = [
     ":server_lib",
     "//third_party/fuchsia-sdk/sdk:async_loop_cpp",
+    "//third_party/fuchsia-sdk/sdk:async_loop_default",
   ]
 }
 

@@ -4,6 +4,7 @@
 
 #include <fuchsia/examples/rot13/cpp/fidl.h>
 #include <lib/async-loop/cpp/loop.h>
+#include <lib/async-loop/default.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,8 +14,7 @@
 
 int main(int argc, const char **argv) {
   std::string msg = "hello world";
-  std::string server_url =
-      "fuchsia-pkg://fuchsia.com/rot13_server#meta/rot13_server.cmx";
+  std::string server_url = "fuchsia-pkg://fuchsia.com/rot13_server#meta/rot13_server.cmx";
 
   for (int i = 1; i < argc - 1; ++i) {
     if (!strcmp("--server", argv[i])) {
@@ -23,7 +23,7 @@ int main(int argc, const char **argv) {
       msg = argv[++i];
     }
   }
-  async::Loop loop(&kAsyncLoopConfigAttachToThread);
+  async::Loop loop(&kAsyncLoopConfigAttachToCurrentThread);
 
   rot13::Rot13ClientApp app;
   app.Start(server_url);
@@ -43,9 +43,8 @@ int main(int argc, const char **argv) {
 
   app.rot13()->Encrypt(msg, [&app, &rotated](fidl::StringPtr value1) {
     printf("Rotated message is %s\n", value1->data());
-    app.rot13()->Encrypt(value1, [&rotated](fidl::StringPtr value2) {
-      rotated = value2.value_or("");
-    });
+    app.rot13()->Encrypt(value1,
+                         [&rotated](fidl::StringPtr value2) { rotated = value2.value_or(""); });
   });
 
   int ret = ZX_OK;
