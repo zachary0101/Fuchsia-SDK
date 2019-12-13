@@ -1,0 +1,62 @@
+// Copyright 2019 The Fuchsia Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+library fuchsia.feedback;
+
+using fuchsia.math;
+using fuchsia.mem;
+using zx;
+
+/// Provides data useful to attach in feedback reports (crash or user feedback).
+[Discoverable]
+protocol DataProvider {
+    /// Returns all the feedback data except the screenshot, which is provided
+    /// separately.
+    GetData() -> (Data data) error zx.status;
+
+    /// Returns an image of the current view encoded in the provided `encoding`.
+    ///
+    /// `screenshot` may be null if the encoding is not supported, the device
+    /// does not have a display, or there is not enough memory to allocate the
+    /// screenshot image.
+    ///
+    /// The screenshot is provided separately from the rest of the data as
+    /// callers might want to block on it before changing the view.
+    GetScreenshot(ImageEncoding encoding) -> (Screenshot? screenshot);
+};
+
+/// Data to attach to feedback reports.
+///
+/// Clients typically upload the data straight to servers without expecting some
+/// particular fields. So the data comes in the form of arbitrary key-value pairs
+/// that clients can directly forward to the servers.
+table Data {
+    /// A vector of key-value string pairs. Keys are guaranteed to be unique.
+    1: vector<Annotation>:32 annotations;
+
+    /// A bundle of Attachments objects stored as an Attachment itself, e.g., it
+    /// could be a ZIP archive bundling a vector of Attachment objects.
+    3: Attachment attachment_bundle;
+
+    // Deprecated.
+    2: reserved;
+};
+
+/// The encoding used for the image.
+///
+/// Today, only PNG is supported, but in the future the screenshot could be
+/// returned in other encodings if need arises.
+enum ImageEncoding {
+    PNG = 0;
+};
+
+/// An encoded image of the screen.
+struct Screenshot {
+    fuchsia.mem.Buffer image;
+
+    // While all encoded images contain their dimensions in their headers, some
+    // clients still expect to receive the width and height separately, so we
+    // also provide it separately so clients don't need to decode `image`.
+    fuchsia.math.Size dimensions_in_px;
+};

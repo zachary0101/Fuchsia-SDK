@@ -1,0 +1,32 @@
+// Copyright 2019 The Fuchsia Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+library fuchsia.settings;
+
+using fuchsia.intl;
+
+/// Settings related to internationalization such as locale, time zone, and
+/// temperature units.
+[Discoverable]
+protocol Intl {
+    /// Gets the current [IntlSettings]. Returns immediately on first call;
+    /// subsequent calls return when the value changes.
+    Watch() -> (IntlSettings settings) error Error;
+
+    /// Sets [IntlSettings] settings. Any field not explicitly set in the table performs a
+    /// no-op, and will not make any changes.
+    Set(IntlSettings settings) -> () error Error;
+};
+
+/// Collection of internationalization-related settings.
+table IntlSettings {
+    /// An ordered list of preferred locales.
+    1: vector<fuchsia.intl.LocaleId>:10 locales;
+
+    /// The preferred temperature unit.
+    2: fuchsia.intl.TemperatureUnit temperature_unit;
+
+    /// The currently set time zone.
+    3: fuchsia.intl.TimeZoneId time_zone_id;
+};

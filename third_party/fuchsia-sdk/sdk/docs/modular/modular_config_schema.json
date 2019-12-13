@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Schema for modular framework configuration",
+  "definitions": {
+    "basemgr": {
+      "type": "object",
+      "properties": {
+        "enable_cobalt": { "type": "boolean", "default": true },
+        "enable_presenter": { "type": "boolean", "default": false },
+        "test": { "type": "boolean", "default": false },
+        "use_minfs": { "type": "boolean", "default": true },
+        "use_session_shell_for_story_shell_factory": {
+          "type": "boolean",
+          "default": false
+        },
+        "base_shell": { "$ref": "#definitions/base_shell" },
+        "session_shells": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/session_shell" }
+        },
+        "story_shell_url": {
+          "type": "string",
+          "pattern": "^fuchsia-pkg://([^/]+)/([^/#]+)(/([^/#]+))?(#(.+))?$",
+          "default": "fuchsia-pkg://fuchsia.com/mondrian#meta/mondrian.cmx"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["base_shell", "session_shells"]
+    },
+    "base_shell": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^fuchsia-pkg://([^/]+)/([^/#]+)(/([^/#]+))?(#(.+))?$",
+          "default": "fuchsia-pkg://fuchsia.com/dev_base_shell#meta/dev_base_shell.cmx"
+        },
+        "keep_alive_after_login": { "type": "boolean", "default": false },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["url"]
+    },
+    "session_shell": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^fuchsia-pkg://([^/]+)/([^/#]+)(/([^/#]+))?(#(.+))?$",
+          "default": "fuchsia-pkg://fuchsia.com/ermine_session_shell#meta/ermine_session_shell.cmx"
+        },
+        "display_usage": { "type": "string" },
+        "screen_height": { "type": "number" },
+        "screen_width": { "type": "number" }
+      },
+      "additionalProperties": false,
+      "required": ["url"]
+    },
+    "sessionmgr": {
+      "type": "object",
+      "properties": {
+        "cloud_provider": {
+          "type": "string",
+          "enum": ["LET_LEDGER_DECIDE", "FROM_ENVIRONMENT", "NONE"],
+          "default": "LET_LEDGER_DECIDE"
+        },
+        "enable_cobalt": { "type": "boolean", "default": true },
+        "enable_story_shell_preload": { "type": "boolean", "default": true },
+        "use_memfs_for_ledger": { "type": "boolean", "default": false },
+        "startup_agents": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^fuchsia-pkg://([^/]+)/([^/#]+)(/([^/#]+))?(#(.+))?$"
+          },
+          "uniqueItems": true
+        },
+        "session_agents": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^fuchsia-pkg://([^/]+)/([^/#]+)(/([^/#]+))?(#(.+))?$"
+          },
+          "uniqueItems": true
+        },
+        "component_args": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/component_args"
+          }
+        },
+        "agent_service_index": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/agent_service_index_entry" },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "component_args": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "pattern": "^[a-z|-]+://.+"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "required": ["uri", "args"]
+      }
+    },
+    "agent_service_index_entry": {
+      "type": "object",
+      "properties": {
+        "service_name": {
+          "type": "string",
+          "pattern": "^[^.]+[.][^.]+([.][^.]+)*$"
+        },
+        "agent_url": {
+          "type": "string",
+          "pattern": "^fuchsia-pkg://([^/]+)/([^/#]+)(/([^/#]+))?(#(.+))?$"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["service_name", "agent_url"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "basemgr": { "$ref": "#/definitions/basemgr" },
+    "sessionmgr": { "$ref": "#/definitions/sessionmgr" }
+  },
+  "required": ["basemgr", "sessionmgr"],
+  "additionalProperties": false
+}

@@ -1,0 +1,164 @@
+// Copyright 2019 The Fuchsia Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+library fuchsia.modular.session;
+
+using fuchsia.io;
+using fuchsia.ui.policy;
+using fuchsia.sys;
+
+/// Descriptions and defaults for these configurations are echoed in
+/// peridot/docs/modular/guide/config.md.
+table BasemgrConfig {
+    /// When set to false, Cobalt statistics are disabled.
+    /// Default: true
+    1: bool enable_cobalt;
+
+    /// When set to true, wait for persistent data to initialize.
+    /// Default: true
+    2: bool use_minfs;
+
+    /// Create story shells through StoryShellFactory exposed by the session
+    /// shell instead of creating separate story shell components. When set,
+    /// `story_shell_url` and any story shell args are ignored.
+    /// Default: false
+    3: bool use_session_shell_for_story_shell_factory;
+
+    /// Launch configurations specific to base shell.
+    4: BaseShellConfig base_shell;
+
+    /// A map of launch configurations specific to session shells.
+    5: vector<SessionShellMapEntry> session_shell_map;
+
+    /// Launch configurations specific to story shell.
+    6: StoryShellConfig story_shell;
+
+    /// Temporary placeholder to pass configurations to sessionmgr. Will be
+    /// removed with the completion of MF-10.
+    7: AppConfig sessionmgr;
+};
+
+table BaseShellConfig {
+    /// Contains the fuchsia package url and arguments to pass to the shell.
+    1: AppConfig app_config;
+
+    /// When set to true, the base shell is kept alive after a log in. This is
+    /// used for testing because current integration tests expect base shell
+    /// to always be running.
+    /// Default: false
+    2: bool keep_alive_after_login;
+};
+
+table SessionShellMapEntry {
+    /// The name of the session shell represented by its url.
+    1: string:fuchsia.io.MAX_PATH name;
+
+    /// The launch configurations for the session shell.
+    2: SessionShellConfig config;
+};
+
+table SessionShellConfig {
+    /// Contains the fuchsia package url and arguments to pass to the shell.
+    1: AppConfig app_config;
+
+    /// The display usage policy for this session shell.
+    ///
+    /// Optional: defaults to DisplayUsage::kUnknown.
+    2: fuchsia.ui.policy.DisplayUsage display_usage;
+
+    /// The screen height in millimeters for the session shell's display.
+    ///
+    /// Optional: defaults to full screen.
+    3: float32 screen_height;
+
+    /// The screen width in millimeters for the session shell's display.
+    ///
+    /// Optional: defaults to full screen.
+    4: float32 screen_width;
+};
+
+table StoryShellConfig {
+    /// Contains the fuchsia package url and arguments to pass to the shell.
+    1: AppConfig app_config;
+};
+
+table SessionmgrConfig {
+    1: CloudProvider cloud_provider;
+
+    /// When set to false, Cobalt statistics are disabled. This is used for
+    /// testing.
+    /// Default: true
+    2: bool enable_cobalt;
+
+    /// When set to false, StoryShell instances are not warmed up as a startup
+    /// latency optimization. This is used for testing.
+    /// Default: true
+    3: bool enable_story_shell_preload;
+
+    /// Tells the sessionmgr whether it should host+pass a memfs-backed
+    /// directory to the ledger for the user's repository, or to use
+    /// /data/LEDGER.
+    /// Default: false
+    4: bool use_memfs_for_ledger;
+
+    /// A list of fuchsia package urls that specify which agents to launch at
+    /// startup.
+    5: vector<string:fuchsia.io.MAX_PATH> startup_agents;
+
+    /// A list of fuchsia package urls that specify which agents to launch at
+    /// startup with PuppetMaster and FocusProvider services.
+    6: vector<string:fuchsia.io.MAX_PATH> session_agents;
+
+    /// The fuchsia package url for which story shell to use.
+    7: string:fuchsia.io.MAX_PATH story_shell_url;
+
+    /// A map of agents to the arguments they should be started with.
+    8: vector<AppConfig> component_args;
+
+    /// Deprecated
+    9: bool use_parent_runner_for_story_realm;
+
+    /// A list of supported services and the URL of the agent known to provide
+    /// that service. Used by the Session Manager to implement
+    /// `ComponentContext` method ConnectToAgentService().
+    10: vector<AgentServiceIndexEntry> agent_service_index;
+};
+
+/// Used to pass around configuration references to apps such as base shell,
+/// session shell, story shell, and agents.
+table AppConfig {
+    /// The fuchsia package url for app.
+    1: string:fuchsia.io.MAX_PATH url;
+
+    /// The arguments for the app.
+    2: vector<string> args;
+};
+
+/// A service and the URL of the agent known to provide that service.
+table AgentServiceIndexEntry {
+    /// The service name.
+    1: string service_name;
+
+    /// The fuchsia component url for agent.
+    2: fuchsia.sys.component_url agent_url;
+};
+
+enum CloudProvider {
+    /// Use a cloud provider configured by Ledger.
+    LET_LEDGER_DECIDE = 1;
+
+    /// Use a cloud provider available in the incoming namespace, rather than
+    /// initializing and instance within sessionmgr. This can be used to inject
+    /// a custom cloud provider.
+    FROM_ENVIRONMENT = 2;
+
+    NONE = 3;
+};
+
+/// Contains the configurations for the modular framework components.
+table ModularConfig {
+    1: BasemgrConfig basemgr_config;
+
+    2: SessionmgrConfig sessionmgr_config;
+};
