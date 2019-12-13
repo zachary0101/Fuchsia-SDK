@@ -14,9 +14,9 @@ executable("rot13_client_bin") {
 
   deps = [
     "//src/rot13/fidl:fuchsia.examples.rot13",
-    "//third_party/fuchsia-sdk/sdk:async_loop_cpp",
-    "//third_party/fuchsia-sdk/sdk:async_loop_default",
-    "//third_party/fuchsia-sdk/sdk:sys_cpp",
+    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-cpp",
+    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-default",
+    "//third_party/fuchsia-sdk/sdk/pkg/sys_cpp",
   ]
 }
 

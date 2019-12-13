@@ -60,7 +60,7 @@ template("fidl_library") {
   _tables_file = "$_output_gen_dir/${_library_name}.fidl-tables.c"
 
   action("${target_name}_response_file") {
-    script = "${fuchsia_sdk_base}/gen_fidl_response_file.py"
+    script = "${fuchsia_sdk_base}/build/config/gen_fidl_response_file.py"
 
     forward_variables_from(invoker,
                            [
@@ -109,7 +109,7 @@ template("fidl_library") {
         gen_dir = get_label_info(dep, "target_gen_dir")
         name = get_label_info(dep, "name")
         dep_libraries += [ "$gen_dir/$name.fidl_libraries" ]
-        deps += [ "${dep}_response_file" ]
+        deps += [ "${dep}:${name}_response_file" ]
       }
 
       inputs = dep_libraries
@@ -215,8 +215,8 @@ template("fidl_library") {
       public_deps = []
     }
 
-    public_deps += [ fuchsia_sdk + ":fidl" ]
-    public_deps += [ fuchsia_sdk + ":fidl_cpp" ]
+    public_deps += [ fuchsia_sdk + "/pkg/fidl" ]
+    public_deps += [ fuchsia_sdk + "/pkg/fidl_cpp" ]
 
     public_configs = [ ":${invoker.target_name}_config" ]
   }

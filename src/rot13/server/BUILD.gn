@@ -30,7 +30,7 @@ source_set("server_lib") {
 
   public_deps = [
     "//src/rot13/fidl:fuchsia.examples.rot13",
-    "//third_party/fuchsia-sdk/sdk:sys_cpp",
+    "//third_party/fuchsia-sdk/sdk/pkg/sys_cpp",
   ]
   deps = [
     ":impl_lib",
@@ -72,8 +72,8 @@ executable("rot13_server_bin") {
 
   deps = [
     ":server_lib",
-    "//third_party/fuchsia-sdk/sdk:async_loop_cpp",
-    "//third_party/fuchsia-sdk/sdk:async_loop_default",
+    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-cpp",
+    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-default",
   ]
 }
 

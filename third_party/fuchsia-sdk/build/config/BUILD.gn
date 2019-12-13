@@ -50,6 +50,9 @@ config("compiler") {
     "_LARGEFILE64_SOURCE",
   ]
 
+  # Remove this once fxb/42154 is resolved.
+  cflags += [ "-Wno-c99-designator" ]
+
   asmflags += cflags
 }
 

@@ -9,16 +9,17 @@ err_print() {
 }
 trap 'err_print $LINENO' ERR
 DEBUG_LINE() {
-    $@
+    "$@"
 }
 
 SCRIPT_SRC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Common functions.
 source "${SCRIPT_SRC_DIR}/common.sh" || exit $?
-REPO_ROOT=$(get_gn_root) # finds path to REPO_ROOT
+REPO_ROOT="$(get_gn_root)" # finds path to REPO_ROOT
 
-$REPO_ROOT/scripts/download-build-tools.sh
-$REPO_ROOT/scripts/build.sh
-$REPO_ROOT/tests/run-far-tests.sh
-$REPO_ROOT/tests/run-host-tests.sh
+"${REPO_ROOT}/scripts/download-build-tools.sh"
+"${REPO_ROOT}/scripts/build.sh"
+"${REPO_ROOT}/tests/build-all-sdk-targets.sh"
+"${REPO_ROOT}/tests/run-far-tests.sh"
+"${REPO_ROOT}/tests/run-host-tests.sh"

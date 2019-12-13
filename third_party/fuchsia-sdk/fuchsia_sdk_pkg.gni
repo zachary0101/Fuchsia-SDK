@@ -4,6 +4,7 @@
 
 assert(is_fuchsia)
 
+import("build/config/config.gni")
 import("build/config/fidl_library.gni")
 
 # Templates for Fuchsia SDK packages.
@@ -60,7 +61,7 @@ template("fuchsia_sdk_pkg") {
     if (defined(invoker.sdk_dist_dir)) {
       sdk_dist_dir = invoker.sdk_dist_dir
     } else {
-      sdk_dist_dir = "arch/${target_cpu}/dist"
+      sdk_dist_dir = "${fuchsia_sdk}/arch/${target_cpu}/dist"
     }
 
     copy("${target_name}_dist_libs") {
@@ -89,7 +90,7 @@ template("fuchsia_sdk_pkg") {
     public_configs = [ ":${invoker.target_name}_config" ]
 
     if (defined(invoker.shared_libs)) {
-      configs += [ "//third_party/fuchsia-sdk:sdk_lib_dirs_config" ]
+      configs += [ "${fuchsia_sdk_base}:sdk_lib_dirs_config" ]
       libs = invoker.shared_libs
       data_deps = [
         ":${target_name}_dist_libs",
