@@ -4,13 +4,22 @@
 
 import("config.gni")
 
-# Defines a Fuchsia component.
+# Define a Fuchsia component() target.
 #
-# Parameters are:
-# component_name_override: Specifies the name of the package to generate,
-#     if different than |target_name|.
-# manifest: cmx file for the component.
-# data_deps:  targets that are the contents component.
+# The target generates a json file defining the component contents. This
+# component is used to assemble packages of components.
+#
+# Parameters
+#
+#   deps
+#     Optional: Dependencies for this component.
+# 
+#   data_deps
+#     Required: Dependencies examined for metadata. These dependencies define
+#     the contents of the component.
+#
+#   manifest
+#     Required: The manifest file for this component.
 template("fuchsia_component") {
   component = {
     forward_variables_from(invoker, "*")
@@ -26,10 +35,6 @@ template("fuchsia_component") {
 
     if (!defined(deps)) {
       deps = []
-    }
-
-    if (!defined(test)) {
-      test = false
     }
   }
 

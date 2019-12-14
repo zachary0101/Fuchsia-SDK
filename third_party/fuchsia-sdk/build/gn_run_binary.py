@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-"""Helper script for GN to run an arbitrary binary. See compiled_action.gni.
+"""Helper script for GN to run an arbitrary binary.
 
 Run with:
   python2 gn_run_binary.py <binary_name> [args ...]

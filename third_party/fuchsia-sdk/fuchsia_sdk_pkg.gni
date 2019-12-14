@@ -9,14 +9,27 @@ import("build/config/fidl_library.gni")
 
 # Templates for Fuchsia SDK packages.
 
-# Declares a package specifying FIDL files and its dependencies.
+# Defines a Fuchsia SDK FIDL library target.
 #
-# Parameters:
-#   package_name - Name of the library. target_name is used if name
-#                  is not specified explicitly.
-#   namespace    - FIDL namespace.
-#   sources      - List of sources relative to sdk/fidl/${name}.
-#   deps         - List of dependencies.
+# $namespace.$library_name must match the the library name specified in the FIDL
+# files.
+#
+# Parameters
+#
+#   sources
+#     Required: List of .fidl files.
+#
+#   library_name
+#     Optional: Name of the library. target_name is used if name
+#               is not specified explicitly.
+#
+#   namespace
+#     Optional: Namespace for the library.
+#
+#   deps
+#     Optional: List of other fidl_library() targets that this
+#               FIDL library depends on.
+#
 template("fuchsia_sdk_fidl_pkg") {
   _package_name = target_name
   if (defined(invoker.package_name)) {
@@ -42,15 +55,31 @@ template("fuchsia_sdk_fidl_pkg") {
   }
 }
 
+# Defines a Fuchsia SDK library target from source or prebuilt.
+#
+#
+# Parameters
+#
+#   package_name
+#     Optional: Name of the library. Default is target_name.
+#   sources
+#     Required: List of source files.
+#
+#   library_name
+#     Optional: Name of the library. target_name is used if name
+#               is not specified explicitly.
+#
+#   shared_libs
+#     Optional: List of shared libraries for this target.
+#
+#   static_libs
+#     Optional: List of static libraries for this target.
+#
+#   deps
+#     Optional: List of other targets that this library depends on.
+#
 # Declares a package containing uncompiled code and/or precompiled libraries.
 #
-# Parameters:
-#   package_name - Name of the library. target_name is used if name
-#                  is not specified explicitly.
-#   sources      - List of sources relative to sdk/pkg/${name}.
-#   deps         - List of dependencies.
-#   shared_libs  - List of precompiled shared libraries.
-#   static_libs  - List of precompiled static libraries.
 template("fuchsia_sdk_pkg") {
   config("${target_name}_config") {
     forward_variables_from(invoker, [ "include_dirs" ])
@@ -100,3 +129,4 @@ template("fuchsia_sdk_pkg") {
     }
   }
 }
+

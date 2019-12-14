@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "8894270568475957504",
+  "id": "8894157458133945424",
   "parts": [
     {
       "meta": "fidl/fuchsia.mem/meta.json",
@@ -139,6 +139,58 @@
     {
       "meta": "pkg/zx/meta.json",
       "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/memfs/meta.json",
+      "type": "cc_prebuilt_library"
+    },
+    {
+      "meta": "fidl/fuchsia.wlan.service/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "pkg/media_cpp_no_converters/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "fidl/fuchsia.wlan.stats/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.wlan.common/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "pkg/inspect/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/inspect_service_cpp/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/media_cpp/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/async-testing/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/images_cpp/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/scenic_cpp/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/svc/meta.json",
+      "type": "cc_prebuilt_library"
+    },
+    {
+      "meta": "pkg/sync/meta.json",
+      "type": "cc_prebuilt_library"
     },
     {
       "meta": "fidl/fuchsia.net.dhcp/meta.json",
@@ -475,58 +527,6 @@
     {
       "meta": "fidl/fuchsia.bluetooth/meta.json",
       "type": "fidl_library"
-    },
-    {
-      "meta": "pkg/memfs/meta.json",
-      "type": "cc_prebuilt_library"
-    },
-    {
-      "meta": "fidl/fuchsia.wlan.service/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "pkg/media_cpp_no_converters/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "fidl/fuchsia.wlan.stats/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.wlan.common/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "pkg/inspect/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/inspect_service_cpp/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/media_cpp/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/async-testing/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/images_cpp/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/scenic_cpp/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/svc/meta.json",
-      "type": "cc_prebuilt_library"
-    },
-    {
-      "meta": "pkg/sync/meta.json",
-      "type": "cc_prebuilt_library"
     },
     {
       "meta": "pkg/sys_cpp_testing/meta.json",

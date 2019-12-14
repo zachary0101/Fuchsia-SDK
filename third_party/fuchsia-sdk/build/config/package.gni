@@ -4,8 +4,18 @@
 
 import("config.gni")
 
-# Creates a Fuchsia .far package file.
-# deps: fuchsia_components to add to the package
+
+# Define a Fuchsia component package target.
+#
+# Parameters
+#
+#   package_name:
+#     Optional: Name of the package. Defaults to target_name
+#
+#   deps
+#     Required: List of fuchsia_component() targets that this
+#              package contains.
+#
 template("fuchsia_package") {
   pkg = {
     forward_variables_from(invoker, "*")
@@ -128,7 +138,7 @@ template("fuchsia_package") {
   action(_package_target) {
     forward_variables_from(invoker, [ "testonly" ])
 
-    script = "${fuchsia_sdk_base}/build/gn_run_binary.py"
+   script = "${fuchsia_sdk_base}/build/gn_run_binary.py"
 
     deps = [
       ":$_generate_key_target",
