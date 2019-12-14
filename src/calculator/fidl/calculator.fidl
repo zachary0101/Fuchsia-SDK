@@ -29,8 +29,8 @@ struct Error {
 
 /// The result of an operation. A result is either a single number or an [Error] value.
 xunion Result {
-    float64 number;
-    Error error;
+    1: float64 number;
+    2: Error error;
 };
 
 /// A calculator that can perform mathematical operations.
