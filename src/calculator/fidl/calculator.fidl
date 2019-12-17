@@ -27,11 +27,15 @@ struct Error {
     string:200? message;
 };
 
-/// The result of an operation. A result is either a single number or an [Error] value.
+// [START xunion]
+/// The result of an operation. A result is either a single number or an
+/// [Error] value.
 xunion Result {
     1: float64 number;
-    2: Error error;
+    2: reserved;
+    3: Error error;
 };
+// [END xunion]
 
 /// A calculator that can perform mathematical operations.
 [Discoverable]
