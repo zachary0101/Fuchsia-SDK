@@ -27,24 +27,6 @@ function fx-error {
   fi
 }
 
-function configure-ssh {
-  # $1 is "${PRIVATE_KEY_FILE}"
-  local SSH_ARGS=('ssh')
-  SSH_ARGS+=('-o' 'StrictHostKeyChecking=no'
-            '-o' 'UserKnownHostsFile=/dev/null'
-            '-o' 'ConnectTimeout=1'
-            '-o' 'ServerAliveInterval=1'
-            '-o' 'ControlPersist=yes'
-            '-o' 'ControlMaster=auto'
-            '-o' 'ControlPath=/tmp/fuchsia--%r@%h:%p'
-            )
-  if [[ -n "${1}" ]]; then
-    SSH_ARGS+=("-i" "${1}")
-  fi
-  echo "${SSH_ARGS[@]}"
-}
-
-
 function ssh-cmd {
   # Run SSH command. We use unquoted $@ here so splitting globbing works as expected.
   # shellcheck disable=SC2068

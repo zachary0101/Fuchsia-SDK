@@ -6,128 +6,8 @@
       "x64"
     ]
   },
-  "id": "8893636478988113424",
+  "id": "8893613420260039232",
   "parts": [
-    {
-      "meta": "tools/arm64/fidlgen-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/x64/fidlgen-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "pkg/vulkan_layers/meta.json",
-      "type": "loadable_module"
-    },
-    {
-      "meta": "pkg/sys_cpp_testing/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/sync/meta.json",
-      "type": "cc_prebuilt_library"
-    },
-    {
-      "meta": "tools/x64/fidlc-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "pkg/sys_inspect_cpp/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/memfs/meta.json",
-      "type": "cc_prebuilt_library"
-    },
-    {
-      "meta": "tools/arm64/fvm-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/x64/fidlcat-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/symbolize-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/cmc-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "pkg/syslog/meta.json",
-      "type": "cc_prebuilt_library"
-    },
-    {
-      "meta": "tools/arm64/bootserver-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/arm64/dev_finder-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "pkg/scenic_cpp/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "pkg/media_cpp_no_converters/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "tools/x64/far-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/far-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "pkg/vulkan/meta.json",
-      "type": "cc_prebuilt_library"
-    },
-    {
-      "meta": "tools/arm64/fidlc-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/pm-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "pkg/inspect/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "fidl/fuchsia.update.channel/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.ui.vectorial/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "tools/minfs-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/x64/loglistener-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.wlan.service/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.ui.scenic/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.wlan.common/meta.json",
-      "type": "fidl_library"
-    },
     {
       "meta": "fidl/fuchsia.ui.types/meta.json",
       "type": "fidl_library"
@@ -143,6 +23,102 @@
     {
       "meta": "pkg/inspect_service_cpp/meta.json",
       "type": "cc_source_library"
+    },
+    {
+      "meta": "tools/arm64/fidlgen-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "pkg/vulkan_layers/meta.json",
+      "type": "loadable_module"
+    },
+    {
+      "meta": "pkg/sys_cpp_testing/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "tools/arm64/bootserver-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/arm64/dev_finder-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/minfs-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/loglistener-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/fidlcat-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/fidlc-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/fidlgen-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "pkg/scenic_cpp/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/media_cpp_no_converters/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "pkg/sync/meta.json",
+      "type": "cc_prebuilt_library"
+    },
+    {
+      "meta": "pkg/async-testing/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "fidl/fuchsia.wlan.stats/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.update.channelcontrol/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.bluetooth.le/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.wlan.service/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.ui.scenic/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.wlan.common/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.ui.vectorial/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "pkg/inspect/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "fidl/fuchsia.update.channel/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.bluetooth.gatt/meta.json",
+      "type": "fidl_library"
     },
     {
       "meta": "docs/metadata_schemas.json",
@@ -293,6 +269,50 @@
       "type": "cc_source_library"
     },
     {
+      "meta": "fidl/fuchsia.hardware.goldfish/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.simplecamera/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.math/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.sysinfo/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.net.dhcp/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.media.drm/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.media.playback/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.tracing.provider/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.sys.test/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.scenic.scheduling/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.settings/meta.json",
+      "type": "fidl_library"
+    },
+    {
       "meta": "fidl/fuchsia.posix.socket/meta.json",
       "type": "fidl_library"
     },
@@ -361,6 +381,54 @@
       "type": "fidl_library"
     },
     {
+      "meta": "device/generic-x64.json",
+      "type": "device_profile"
+    },
+    {
+      "meta": "fidl/fuchsia.bluetooth.control/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "device/qemu-arm64.json",
+      "type": "device_profile"
+    },
+    {
+      "meta": "device/qemu-x64.json",
+      "type": "device_profile"
+    },
+    {
+      "meta": "docs/low_level.json",
+      "type": "documentation"
+    },
+    {
+      "meta": "docs/musl_license.json",
+      "type": "documentation"
+    },
+    {
+      "meta": "docs/open_source.json",
+      "type": "documentation"
+    },
+    {
+      "meta": "docs/vulkan_license.json",
+      "type": "documentation"
+    },
+    {
+      "meta": "device/generic-arm64.json",
+      "type": "device_profile"
+    },
+    {
+      "meta": "fidl/fuchsia.accessibility.semantics/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.auth.oldtokens/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "dart/sl4f/meta.json",
+      "type": "dart_library"
+    },
+    {
       "meta": "fidl/fuchsia.location.namedplace/meta.json",
       "type": "fidl_library"
     },
@@ -405,111 +473,11 @@
       "type": "fidl_library"
     },
     {
-      "meta": "tools/x64/zbi-meta.json",
-      "type": "host_tool"
+      "meta": "docs/modular_config_schema.json",
+      "type": "documentation"
     },
     {
-      "meta": "tools/dart_kernel_compiler-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.media/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "tools/x64/symbolize-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/bootserver-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.web/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "tools/arm64/device-finder-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.simplecamera/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "tools/x64/pm-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.media.drm/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "tools/fidlgen_dart-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.media.playback/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.media.audio/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.media.sessions2/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "tools/x64/fidl-format-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/x64/merkleroot-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/gen_snapshot-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/arm64/merkleroot-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/x64/zxdb-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.net.dhcp/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.factory/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "pkg/trace/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "tools/x64/minfs-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/arm64/loglistener-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/fvm-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.inspect/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "tools/arm64/pm-meta.json",
+      "meta": "tools/arm64/symbolize-meta.json",
       "type": "host_tool"
     },
     {
@@ -517,15 +485,15 @@
       "type": "cc_prebuilt_library"
     },
     {
-      "meta": "tools/fidlgen-meta.json",
+      "meta": "tools/x64/pm-meta.json",
       "type": "host_tool"
     },
     {
-      "meta": "tools/merkleroot-meta.json",
-      "type": "host_tool"
+      "meta": "fidl/fuchsia.factory/meta.json",
+      "type": "fidl_library"
     },
     {
-      "meta": "tools/x64/bootserver-meta.json",
+      "meta": "tools/arm64/zbi-meta.json",
       "type": "host_tool"
     },
     {
@@ -533,131 +501,11 @@
       "type": "host_tool"
     },
     {
-      "meta": "fidl/fuchsia.hardware.goldfish/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.math/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.sysinfo/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "tools/zbi-meta.json",
+      "meta": "tools/fidlgen-meta.json",
       "type": "host_tool"
     },
     {
-      "meta": "pkg/sysroot/meta.json",
-      "type": "sysroot"
-    },
-    {
-      "meta": "tools/loglistener-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/arm64/zbi-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/device-finder-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/zxdb-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/x64/device-finder-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/x64/dev_finder-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/fidlc-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/dev_finder-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "pkg/trace-provider-so/meta.json",
-      "type": "cc_prebuilt_library"
-    },
-    {
-      "meta": "tools/x64/cmc-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "pkg/svc/meta.json",
-      "type": "cc_prebuilt_library"
-    },
-    {
-      "meta": "tools/arm64/minfs-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/fidl-format-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/x64/fvm-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/arm64/fidl-format-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/arm64/symbolize-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "tools/arm64/far-meta.json",
-      "type": "host_tool"
-    },
-    {
-      "meta": "fidl/fuchsia.bluetooth.le/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "pkg/async-testing/meta.json",
-      "type": "cc_source_library"
-    },
-    {
-      "meta": "fidl/fuchsia.wlan.stats/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.update.channelcontrol/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.bluetooth.gatt/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "dart/fuchsia_logger/meta.json",
-      "type": "dart_library"
-    },
-    {
-      "meta": "fidl/fuchsia.intl/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "dart/composition_delegate/meta.json",
-      "type": "dart_library"
-    },
-    {
-      "meta": "dart/fuchsia/meta.json",
-      "type": "dart_library"
-    },
-    {
-      "meta": "dart/fuchsia_modular/meta.json",
+      "meta": "dart/fuchsia_scenic_flutter/meta.json",
       "type": "dart_library"
     },
     {
@@ -665,95 +513,23 @@
       "type": "dart_library"
     },
     {
-      "meta": "dart/fuchsia_inspect/meta.json",
-      "type": "dart_library"
-    },
-    {
-      "meta": "dart/fidl/meta.json",
-      "type": "dart_library"
-    },
-    {
-      "meta": "fidl/fuchsia.net.http/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.logger/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.bluetooth.control/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "dart/sl4f/meta.json",
-      "type": "dart_library"
-    },
-    {
-      "meta": "device/generic-arm64.json",
-      "type": "device_profile"
-    },
-    {
-      "meta": "device/generic-x64.json",
-      "type": "device_profile"
-    },
-    {
-      "meta": "device/qemu-arm64.json",
-      "type": "device_profile"
-    },
-    {
-      "meta": "device/qemu-x64.json",
-      "type": "device_profile"
-    },
-    {
-      "meta": "docs/low_level.json",
-      "type": "documentation"
-    },
-    {
-      "meta": "docs/musl_license.json",
-      "type": "documentation"
-    },
-    {
-      "meta": "docs/open_source.json",
-      "type": "documentation"
-    },
-    {
-      "meta": "docs/vulkan_license.json",
-      "type": "documentation"
-    },
-    {
-      "meta": "fidl/fuchsia.accessibility.semantics/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.auth.oldtokens/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.sys.test/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.scenic.scheduling/meta.json",
-      "type": "fidl_library"
-    },
-    {
-      "meta": "fidl/fuchsia.settings/meta.json",
-      "type": "fidl_library"
-    },
-    {
       "meta": "dart/zircon/meta.json",
       "type": "dart_library"
     },
     {
-      "meta": "fidl/fuchsia.tracing.provider/meta.json",
+      "meta": "fidl/fuchsia.inspect/meta.json",
       "type": "fidl_library"
     },
     {
-      "meta": "docs/modular_config_schema.json",
-      "type": "documentation"
+      "meta": "tools/zbi-meta.json",
+      "type": "host_tool"
     },
     {
       "meta": "dart/fuchsia_services/meta.json",
+      "type": "dart_library"
+    },
+    {
+      "meta": "dart/fuchsia_scenic/meta.json",
       "type": "dart_library"
     },
     {
@@ -761,16 +537,240 @@
       "type": "dart_library"
     },
     {
-      "meta": "dart/fuchsia_scenic_flutter/meta.json",
-      "type": "dart_library"
-    },
-    {
       "meta": "dart/fuchsia_webview_flutter/meta.json",
       "type": "dart_library"
     },
     {
-      "meta": "dart/fuchsia_scenic/meta.json",
+      "meta": "tools/zxdb-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "fidl/fuchsia.net.http/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "dart/fuchsia_modular/meta.json",
       "type": "dart_library"
+    },
+    {
+      "meta": "tools/arm64/minfs-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "fidl/fuchsia.media.audio/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "dart/fidl/meta.json",
+      "type": "dart_library"
+    },
+    {
+      "meta": "fidl/fuchsia.logger/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "dart/fuchsia/meta.json",
+      "type": "dart_library"
+    },
+    {
+      "meta": "dart/fuchsia_inspect/meta.json",
+      "type": "dart_library"
+    },
+    {
+      "meta": "dart/fuchsia_logger/meta.json",
+      "type": "dart_library"
+    },
+    {
+      "meta": "tools/cmc-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "dart/composition_delegate/meta.json",
+      "type": "dart_library"
+    },
+    {
+      "meta": "tools/gen_snapshot-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "fidl/fuchsia.media/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.web/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "tools/dart_kernel_compiler-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/fidlgen_dart-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/symbolize-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/loglistener-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/arm64/fidlc-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/pm-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/merkleroot-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/arm64/device-finder-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/arm64/fidl-format-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "fidl/fuchsia.intl/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "tools/arm64/pm-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/device-finder-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "pkg/memfs/meta.json",
+      "type": "cc_prebuilt_library"
+    },
+    {
+      "meta": "tools/x64/zbi-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "pkg/trace/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "fidl/fuchsia.media.sessions2/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "tools/arm64/far-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/arm64/merkleroot-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/symbolize-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/far-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "pkg/vulkan/meta.json",
+      "type": "cc_prebuilt_library"
+    },
+    {
+      "meta": "pkg/trace-provider-so/meta.json",
+      "type": "cc_prebuilt_library"
+    },
+    {
+      "meta": "tools/arm64/loglistener-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/far-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "pkg/sys_inspect_cpp/meta.json",
+      "type": "cc_source_library"
+    },
+    {
+      "meta": "tools/x64/cmc-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "pkg/sysroot/meta.json",
+      "type": "sysroot"
+    },
+    {
+      "meta": "pkg/svc/meta.json",
+      "type": "cc_prebuilt_library"
+    },
+    {
+      "meta": "tools/arm64/fvm-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "pkg/syslog/meta.json",
+      "type": "cc_prebuilt_library"
+    },
+    {
+      "meta": "tools/x64/merkleroot-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/fvm-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/bootserver-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/device-finder-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/minfs-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/fvm-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/fidlc-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/fidl-format-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/fidl-format-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/bootserver-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/dev_finder-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/zxdb-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/dev_finder-meta.json",
+      "type": "host_tool"
     }
   ],
   "schema_version": "1"
