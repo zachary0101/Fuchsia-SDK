@@ -12,15 +12,11 @@ SCRIPT_SRC_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 # Fuchsia command common functions.
 source "${SCRIPT_SRC_DIR}/fuchsia-common.sh" || exit $?
 
-FUCHSIA_SDK_PATH="$(realpath ${SCRIPT_SRC_DIR}/../sdk)"
-FUCHSIA_IMAGE_WORK_DIR="$(realpath ${SCRIPT_SRC_DIR}/../images)"
-
+FUCHSIA_SDK_PATH="$(realpath "${SCRIPT_SRC_DIR}/../sdk")"
 
 function usage {
   echo "Usage: $0"
-  echo "  [--sdk-path=<fuchsia sdk path>]"
-  echo "    Defaults to ${FUCHSIA_SDK_PATH}"
-  echo "  [--private-key=<identity file>]"
+  echo "  [--private-key <identity file>]"
   echo "    Uses additional rsa private key when using ssh to access the device."
 }
 
@@ -28,28 +24,26 @@ PRIVATE_KEY_FILE=""
 declare -a POSITIONAL
 
 # Parse command line
-for i in "$@"
-do
-case $i in
-    -s=*|--sdk-path=*)
-    FUCHSIA_SDK_PATH="${i#*=}"
-    ;;
-    --private-key=*)
-    PRIVATE_KEY_FILE="${i#*=}"
+while (( "$#" )); do
+case $1 in
+    --private-key)
+    shift
+    PRIVATE_KEY_FILE="${1}"
     ;;
     -*)
     if [[ "${#POSITIONAL[@]}" -eq 0 ]]; then
-      echo "Unknown option ${i}"
+      echo "Unknown option ${1}"
       usage
       exit 1
     else
-      POSITIONAL+=("${i}")
+      POSITIONAL+=("${1}")
     fi
     ;;
     *)
-      POSITIONAL+=("${i}")
+      POSITIONAL+=("${1}")
     ;;
 esac
+shift
 done
 
 # Check for core SDK being present
@@ -59,13 +53,15 @@ if [[ ! -d "${FUCHSIA_SDK_PATH}" ]]; then
 fi
 
 # Get the device IP address.
-DEVICE_IP="$(get_device_ip "${FUCHSIA_SDK_PATH}")"
+DEVICE_IP="$(get-device-ip "${FUCHSIA_SDK_PATH}")"
 if [[ -z ${DEVICE_IP} ]]; then
   fx-error "Error finding device"
   exit 2
 fi
 
-# Configure the SSH command
-SSH_ARGS="$(configure-ssh "${PRIVATE_KEY_FILE}")"
+PRIVATE_KEY_ARG=""
+if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
+  PRIVATE_KEY_ARG="-i ${PRIVATE_KEY_FILE}"
+fi
 
-${SSH_ARGS[@]} "${DEVICE_IP}" "${POSITIONAL[@]}"
+ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" "${POSITIONAL[@]}"

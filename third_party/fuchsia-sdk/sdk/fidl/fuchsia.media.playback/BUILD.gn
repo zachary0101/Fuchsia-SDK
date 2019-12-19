@@ -14,7 +14,6 @@ fuchsia_sdk_fidl_pkg("fuchsia.media.playback") {
         "../fuchsia.math",
         "../fuchsia.media",
         "../fuchsia.media.audio",
-        "../fuchsia.net.oldhttp",
         "../fuchsia.ui.views",
     ] 
   sources = [

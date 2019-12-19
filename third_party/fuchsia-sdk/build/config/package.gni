@@ -4,7 +4,6 @@
 
 import("config.gni")
 
-
 # Define a Fuchsia component package target.
 #
 # Parameters
@@ -12,20 +11,26 @@ import("config.gni")
 #   package_name:
 #     Optional: Name of the package. Defaults to target_name
 #
+#   excluded_files
+#     Optional: List of files to exclude from the package.
+#
 #   deps
 #     Required: List of fuchsia_component() targets that this
 #              package contains.
 #
 template("fuchsia_package") {
-  pkg = {
-    forward_variables_from(invoker, "*")
-
-    assert(defined(deps), "Cannot make empty packages")
 
     if (!defined(invoker.package_name)) {
       package_name = target_name
+    } else {
+      package_name = invoker.package_name
+
     }
-  }
+    if (!defined(invoker.excluded_files)) {
+      excluded_files = []
+    } else {
+      excluded_files = invoker.excluded_files
+    }
 
   _depfile = "${target_gen_dir}/${target_name}_stamp.d"
 
@@ -33,19 +38,37 @@ template("fuchsia_package") {
   _pm_tool_path = "${fuchsia_sdk}/tools/pm"
 
   # target names
-  _write_manifest_target = "${pkg.package_name}__write_manifest"
-  _generate_key_target = "${pkg.package_name}__genkey"
-  _package_target = "${pkg.package_name}__pkg"
+  _write_manifest_target = "${package_name}__write_manifest"
+  _package_target = "${package_name}__pkg"
 
   # output values
-  _pkg_out_dir = "${target_gen_dir}/${pkg.package_name}"
-  _runtime_deps_file = "$_pkg_out_dir/${pkg.package_name}.runtime_deps"
-  _archive_manifest = "$_pkg_out_dir/${pkg.package_name}.archive_manifest"
+  _pkg_out_dir = "${target_gen_dir}/${package_name}"
+  _runtime_deps_file = "$_pkg_out_dir/${package_name}.runtime_deps"
+  _archive_manifest = "$_pkg_out_dir/${package_name}.archive_manifest"
   _build_ids_file = "$_pkg_out_dir/ids.txt"
-  _component_manifest = "$_pkg_out_dir/${pkg.package_name}.cmx"
-  _key_file = "$_pkg_out_dir/signing-key"
   _meta_far_file = "$_pkg_out_dir/meta.far"
-  _final_far_file = "$_pkg_out_dir/${pkg.package_name}.far"
+  _final_far_file = "$_pkg_out_dir/${package_name}.far"
+  _packaged_components_metadata = "${target_gen_dir}/${package_name}_packaged_components_metadata.json"
+  _pkg_output_manifest = "$_pkg_out_dir/package_manifest.json"
+  _package_deps = []
+  if (defined(invoker.deps)) {
+    _package_deps += invoker.deps
+  }
+  if (defined(invoker.data_deps)) {
+    _package_deps += invoker.data_deps
+  }
+
+  # Generates a JSON file containing the contents of each of the 
+  # components being included in this package.
+  generated_file("${package_name}_packaged_components_metadata") {
+       forward_variables_from(invoker, [ "testonly" ])
+    outputs = [
+       _packaged_components_metadata
+    ]
+    data_keys = [ "contents" ]
+    output_conversion = "json"
+    deps = _package_deps
+  }
 
   action(_write_manifest_target) {
     forward_variables_from(invoker,
@@ -62,7 +85,6 @@ template("fuchsia_package") {
     outputs = [
       _archive_manifest,
       _build_ids_file,
-      _component_manifest,
     ]
 
     if (!defined(deps)) {
@@ -80,7 +102,7 @@ template("fuchsia_package") {
       "--out-dir",
       rebase_path(root_out_dir, root_build_dir),
       "--app-name",
-      pkg.package_name,
+      package_name,
       "--runtime-deps-file",
       rebase_path(_runtime_deps_file, root_build_dir),
       "--depfile-path",
@@ -89,19 +111,12 @@ template("fuchsia_package") {
       rebase_path(_archive_manifest, root_build_dir),
       "--build-ids-file",
       rebase_path(_build_ids_file, root_build_dir),
+        "--json-file",
+      rebase_path(_packaged_components_metadata),
     ]
 
-    foreach(dep, pkg.deps) {
-      foreach(f, get_target_outputs(dep)) {
-        args += [
-          "--json-file",
-          rebase_path(f, root_build_dir),
-        ]
-      }
-    }
-
-    if (defined(pkg.excluded_files)) {
-      foreach(filename, pkg.excluded_files) {
+    if (defined(excluded_files)) {
+      foreach(filename, excluded_files) {
         args += [
           "--exclude-file",
           filename,
@@ -111,59 +126,40 @@ template("fuchsia_package") {
     write_runtime_deps = _runtime_deps_file
   }
 
-  # Generates a signing key to use for building the package.
-  action(_generate_key_target) {
+
+  # Creates a Fuchsia metadata package.
+  action(_package_target) {
     forward_variables_from(invoker, [ "testonly" ])
 
     script = "${fuchsia_sdk_base}/build/gn_run_binary.py"
 
-    inputs = [
-      # Depend on the SDK hash, to ensure rebuild if the SDK tools change.
-      "${fuchsia_sdk}/meta/manifest.json",
-    ]
-
-    outputs = [
-      _key_file,
-    ]
-
-    args = [
-      rebase_path(_pm_tool_path, root_build_dir),
-      "-k",
-      rebase_path(_key_file, root_build_dir),
-      "genkey",
-    ]
-  }
-
-  # Creates a signed Fuchsia metadata package.
-  action(_package_target) {
-    forward_variables_from(invoker, [ "testonly" ])
-
-   script = "${fuchsia_sdk_base}/build/gn_run_binary.py"
-
     deps = [
-      ":$_generate_key_target",
       ":$_write_manifest_target",
     ]
 
     inputs = [
       # Depend on the SDK hash, to ensure rebuild if the SDK tools change.
       "${fuchsia_sdk}/meta/manifest.json",
-      _key_file,
+      _pm_tool_path,
     ]
 
     outputs = [
       _meta_far_file,
+      _pkg_output_manifest,
     ]
+
+    depfile = "$_pkg_out_dir/meta.far.d"
 
     args = [
       rebase_path(_pm_tool_path, root_build_dir),
       "-o",
       rebase_path(_pkg_out_dir, root_build_dir),
-      "-k",
-      rebase_path(_key_file, root_build_dir),
       "-m",
       rebase_path(_archive_manifest, root_build_dir),
       "build",
+      "-depfile",
+      "-output-package-manifest",
+      rebase_path(_pkg_output_manifest, root_build_dir),
     ]
   }
 
@@ -183,6 +179,7 @@ template("fuchsia_package") {
       "${fuchsia_sdk}/meta/manifest.json",
       _meta_far_file,
       _archive_manifest,
+      _pm_tool_path,
     ]
 
     outputs = [
@@ -197,7 +194,7 @@ template("fuchsia_package") {
       rebase_path(_archive_manifest, root_build_dir),
       "archive",
       "--output",
-      pkg.package_name,
+      package_name,
     ]
   }
 }

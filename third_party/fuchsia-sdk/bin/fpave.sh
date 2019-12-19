@@ -14,27 +14,23 @@ SCRIPT_SRC_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 # Fuchsia command common functions.
 source "${SCRIPT_SRC_DIR}/fuchsia-common.sh" || exit $?
 
-FUCHSIA_SDK_PATH="$(realpath ${SCRIPT_SRC_DIR}/../sdk)"
-FUCHSIA_IMAGE_WORK_DIR="$(realpath ${SCRIPT_SRC_DIR}/../images)"
+FUCHSIA_SDK_PATH="$(realpath "${SCRIPT_SRC_DIR}/../sdk")"
+FUCHSIA_IMAGE_WORK_DIR="$(realpath "${SCRIPT_SRC_DIR}/../images")"
 FUCHSIA_BUCKET="${DEFAULT_FUCHSIA_BUCKET}"
-
-
 IMAGE_NAME="generic-x64"
 
 function usage {
   echo "Usage: $0"
-  echo "  [--work-dir=<working directory to store image assets>]"
+  echo "  [--work-dir <working directory to store image assets>]"
   echo "    Defaults to ${FUCHSIA_IMAGE_WORK_DIR}"
-  echo "  [--sdk-path=<fuchsia sdk path>]"
-  echo "    Defaults to ${FUCHSIA_SDK_PATH}"
-  echo "  [--bucket=<fuchsia gsutil bucket>]"
+  echo "  [--bucket <fuchsia gsutil bucket>]"
   echo "    Defaults to ${FUCHSIA_BUCKET}"
-  echo "  [--image=<image name>]"
+  echo "  [--image <image name>]"
   echo "    Defaults to ${IMAGE_NAME}"
-  echo "  [--authorized-keys=<file>]"
+  echo "  [--authorized-keys <file>]"
   echo "    The authorized public key file for securing the device.  Defaults to "
   echo "    the output of 'ssh-agent -L'"
-  echo "  [--private-key=<identity file>]"
+  echo "  [--private-key <identity file>]"
   echo "    Uses additional rsa private key when using ssh to access the device."
 }
 
@@ -42,33 +38,36 @@ PRIVATE_KEY_FILE=""
 AUTH_KEYS_FILE=""
 
 # Parse command line
-for i in "$@"
-do
-case $i in
-    -w=*|--work-dir=*)
-    FUCHSIA_IMAGE_WORK_DIR="${i#*=}"
+while (( "$#" )); do
+case $1 in
+    --work-dir)
+      shift
+      FUCHSIA_IMAGE_WORK_DIR="$1"
     ;;
-    -s=*|--sdk-path=*)
-    FUCHSIA_SDK_PATH="${i#*=}"
+    --bucket)
+      shift
+      FUCHSIA_BUCKET="${1}"
     ;;
-    --bucket=*)
-    FUCHSIA_BUCKET="${i#*=}"
+    --image)
+      shift
+      IMAGE_NAME="${1}"
     ;;
-    --image=*)
-    IMAGE_NAME="${i#*=}"
+    --authorized-keys)
+      shift
+      AUTH_KEYS_FILE="${1}"
     ;;
-    --authorized-keys=*)
-    AUTH_KEYS_FILE="${i#*=}"
-    ;;
-    --private-key=*)
-    PRIVATE_KEY_FILE="${i#*=}"
+    --private-key)
+      shift
+      PRIVATE_KEY_FILE="${1}"
     ;;
     *)
     # unknown option
+    fx-error "Unknown option $1"
     usage
     exit 1
     ;;
 esac
+shift
 done
 
 # Check for core SDK being present
@@ -81,14 +80,11 @@ if [[ ! -f "${AUTH_KEYS_FILE}" ]]; then
     AUTH_KEYS_FILE="${FUCHSIA_SDK_PATH}/authkeys.txt"
 fi
 
-# Configure the SSH command
-SSH_ARGS=$(configure-ssh "${PRIVATE_KEY_FILE}")
-
-SDK_ID=$(get_sdk_version "${FUCHSIA_SDK_PATH}")
+SDK_ID=$(get-sdk-version "${FUCHSIA_SDK_PATH}")
 
 # Get the device IP address.  If we can't find it, it could be at the zedboot
 # page, so it is not fatal.
-DEVICE_IP=$(get_device_ip "${FUCHSIA_SDK_PATH}")
+DEVICE_IP=$(get-device-ip "${FUCHSIA_SDK_PATH}")
 
 # The image tarball.  We add the SDK ID to the filename to make them
 # unique.
@@ -96,24 +92,24 @@ DEVICE_IP=$(get_device_ip "${FUCHSIA_SDK_PATH}")
 # Consider cleaning up old tarballs when getting a new one?
 #
 if [[ ! -v  IMAGE_NAME ]]; then
-  IMAGES=("$(get_available_images "${SDK_ID}")")
+  IMAGES=("$(get-available-images "${SDK_ID}")")
   fx-error "IMAGE_NAME not set. Valid images for this SDK version are:" "${IMAGES[@]}"
   exit 1
 fi
 
-FUCHSIA_TARGET_IMAGE="$(get_image_src_path "${SDK_ID}" "${IMAGE_NAME}")"
+FUCHSIA_TARGET_IMAGE="$(get-image-src-path "${SDK_ID}" "${IMAGE_NAME}")"
 IMAGE_FILENAME="${SDK_ID}_${IMAGE_NAME}.tgz"
 
 # Validate the image is found
 if [[ ! -f "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}" ]] ; then
-  if ! run_gsutil ls "${FUCHSIA_TARGET_IMAGE}"; then
+  if ! run-gsutil ls "${FUCHSIA_TARGET_IMAGE}"; then
     echo "Image ${IMAGE_NAME} not found. Valid images for this SDK version are:"
-    IMAGES=("$(get_available_images "${SDK_ID}")")
+    IMAGES=("$(get-available-images "${SDK_ID}")")
     echo "${IMAGES[@]}"
     exit 2
   fi
 
-  if ! run_gsutil cp "${FUCHSIA_TARGET_IMAGE}" "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"; then
+  if ! run-gsutil cp "${FUCHSIA_TARGET_IMAGE}" "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"; then
     fx-error "Could not copy image from ${FUCHSIA_TARGET_IMAGE} to ${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"
     exit 2
   fi
@@ -146,22 +142,29 @@ if [[ ! -f "${AUTH_KEYS_FILE}" ]]; then
   fi
 fi
 
-if grep -q ecdsa-sha2 "${AUTH_KEYS_FILE}"; then
-  if [[ -n "${DEVICE_IP}" ]]; then
-    if ! ${SSH_ARGS[@]} "${DEVICE_IP}" "dm reboot-recovery"; then
-      fx-warn "Warning! Could not reboot device into recovery mode.  Paving may fail if device is not in Zedboot"
-    fi
-  else
-    fx-warn "Device not detected.  Make sure the device is connected and at the 'Zedboot' screen."
-  fi
-  PAVE_CMD=("${FUCHSIA_IMAGE_WORK_DIR}/image/pave.sh" "--authorized-keys" "${AUTH_KEYS_FILE}" "-1")
-  if ! "${PAVE_CMD[@]}"; then
-    # Currently there is a bug on the first attempt of paving, so retry.
-    sleep .33
-    if ! "${PAVE_CMD[@]}"; then
-      exit 2
-    fi
-  fi
-else
+if [[ ! "$(wc -l < "${AUTH_KEYS_FILE}")" -ge 1 ]]; then
   fx-error "Cannot determine authorized keys: $(cat "${AUTH_KEYS_FILE}")"
+  exit 2
 fi
+
+PRIVATE_KEY_ARG=""
+if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
+  PRIVATE_KEY_ARG="-i ${PRIVATE_KEY_FILE}"
+fi
+
+if [[ -n "${DEVICE_IP}" ]]; then
+    ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" dm reboot-recovery
+    fx-warn "Confirm device is rebooting into recovery mode.  Paving may fail if device is not in Zedboot"
+else
+    fx-warn "Device not detected.  Make sure the device is connected and at the 'Zedboot' screen."
+fi
+
+PAVE_CMD=("${FUCHSIA_IMAGE_WORK_DIR}/image/pave.sh" "--authorized-keys" "${AUTH_KEYS_FILE}" "-1")
+if ! "${PAVE_CMD[@]}"; then
+  # Currently there is a bug on the first attempt of paving, so retry.
+  sleep .33
+  if ! "${PAVE_CMD[@]}"; then
+    exit 2
+  fi
+fi
+

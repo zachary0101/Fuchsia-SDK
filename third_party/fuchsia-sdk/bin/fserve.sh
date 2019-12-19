@@ -10,54 +10,54 @@ SCRIPT_SRC_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 # Fuchsia command common functions.
 source "${SCRIPT_SRC_DIR}/fuchsia-common.sh" || exit $?
 
-FUCHSIA_SDK_PATH="$(realpath ${SCRIPT_SRC_DIR}/../sdk)"
-FUCHSIA_IMAGE_WORK_DIR="$(realpath ${SCRIPT_SRC_DIR}/../images)"
+FUCHSIA_SDK_PATH="$(realpath "${SCRIPT_SRC_DIR}/../sdk")"
+FUCHSIA_IMAGE_WORK_DIR="$(realpath "${SCRIPT_SRC_DIR}/../images")"
 FUCHSIA_BUCKET="${DEFAULT_FUCHSIA_BUCKET}"
 
 FUCHSIA_SERVER_PORT="8083"
 IMAGE_NAME="generic-x64"
 usage () {
   echo "Usage: $0"
-  echo "  [--tool-home=<directory to store image assets>]"
+  echo "  [--tool-home <directory to store image assets>]"
   echo "    Defaults to ${FUCHSIA_IMAGE_WORK_DIR}"
-  echo "  [--sdk-path=<fuchsia sdk path>]"
-  echo "    Defaults to ${FUCHSIA_SDK_PATH}"
-  echo "  [--bucket=<fuchsia gsutil bucket>]"
+  echo "  [--bucket <fuchsia gsutil bucket>]"
   echo "    Defaults to ${FUCHSIA_BUCKET}"
-  echo "  [--image=<image name>]"
+  echo "  [--image <image name>]"
   echo "    Defaults to ${IMAGE_NAME}"
-  echo "  [--private-key=<identity file>]"
+  echo "  [--private-key <identity file>]"
   echo "    Uses additional rsa private key when using ssh to access the device."
-  echo "  [--server-port=<port>]"
+  echo "  [--server-port <port>]"
   echo "    Port number to use when serving the packages.  Defaults to ${FUCHSIA_SERVER_PORT}."
   echo "  [--kill]"
   echo "    Kills any existing package manager server"
 }
 PRIVATE_KEY_FILE=""
 # Parse command line
-for i in "$@"
-do
-case $i in
-    -w=*|--work-dir=*)
-    FUCHSIA_IMAGE_WORK_DIR="${i#*=}"
+while (( "$#" )); do
+case $1 in
+    --work-dir)
+    shift
+    FUCHSIA_IMAGE_WORK_DIR="${1}"
     ;;
-    -s=*|--sdk-path=*)
-    FUCHSIA_SDK_PATH="${i#*=}"
+    --bucket)
+    shift
+    FUCHSIA_BUCKET="${1}"
     ;;
-    --bucket=*)
-    FUCHSIA_BUCKET="${i#*=}"
+    --image)
+    shift
+    IMAGE_NAME="${1}"
     ;;
-    --image=*)
-    IMAGE_NAME="${i#*=}"
+    --private-key)
+    shift
+    PRIVATE_KEY_FILE="${1}"
     ;;
-    --private-key=*)
-    PRIVATE_KEY_FILE="${i#*=}"
-    ;;
-    --server-port=*)
-    FUCHSIA_SERVER_PORT="${i#*=}"
+    --server-port)
+    shift
+    FUCHSIA_SERVER_PORT="${1}"
     ;;
     --kill)
-    exit $(kill_running_pm)
+    kill-running-pm
+    exit 0
     ;;
     *)
     # unknown option
@@ -65,6 +65,7 @@ case $i in
     exit 1
     ;;
 esac
+shift
 done
 
 # Check for core SDK being present
@@ -73,26 +74,11 @@ if [[ ! -d "${FUCHSIA_SDK_PATH}" ]]; then
   exit 2
 fi
 
-
-# Configure the SSH command
-SSH_ARGS=$(configure-ssh "${PRIVATE_KEY_FILE}")
-
-SDK_ID=$(get_sdk_version "${FUCHSIA_SDK_PATH}")
+SDK_ID=$(get-sdk-version "${FUCHSIA_SDK_PATH}")
 
 # Get the device IP address.
-DEVICE_IP=$(get_device_ip "${FUCHSIA_SDK_PATH}")
-DEVICE_NAME=$(get_device_name "${FUCHSIA_SDK_PATH}")
-HOST_IP=$(get_host_ip "${FUCHSIA_SDK_PATH}")
-
-kill_child_processes() {
-  child_pids=$(jobs -p)
-  if [[ -n "${child_pids}" ]]; then
-    # Note: child_pids must be expanded to args here.
-    kill ${child_pids} 2> /dev/null
-    wait 2> /dev/null
-  fi
-}
-trap kill_child_processes EXIT
+DEVICE_IP=$(get-device-ip "${FUCHSIA_SDK_PATH}")
+HOST_IP=$(get-host-ip "${FUCHSIA_SDK_PATH}")
 
 # The package tarball.  We add the SDK ID to the filename to make them
 # unique.
@@ -100,24 +86,24 @@ trap kill_child_processes EXIT
 # Consider cleaning up old tarballs when getting a new one?
 #
 if [[ ! -v  IMAGE_NAME ]]; then
-  IMAGES=("$(get_available_images "${SDK_ID}")")
+  IMAGES=("$(get-available-images "${SDK_ID}")")
   fx-error "IMAGE_NAME not set. Valid images for this SDK version are:" "${IMAGES[@]}"
   exit 1
 fi
 
-FUCHSIA_TARGET_PACKAGES=$(get_package_src_path "${SDK_ID}" "${IMAGE_NAME}")
+FUCHSIA_TARGET_PACKAGES=$(get-package-src-path "${SDK_ID}" "${IMAGE_NAME}")
 IMAGE_FILENAME="${SDK_ID}_${IMAGE_NAME}.tar.gz"
 
 # Validate the image is found
 if [[ ! -f "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}" ]] ; then
-  if ! run_gsutil ls "${FUCHSIA_TARGET_PACKAGES}"; then
+  if ! run-gsutil ls "${FUCHSIA_TARGET_PACKAGES}"; then
     echo "Packages for ${IMAGE_NAME} not found. Valid images for this SDK version are:"
-    IMAGES=("$(get_available_images "${SDK_ID}")")
+    IMAGES=("$(get-available-images "${SDK_ID}")")
     echo "${IMAGES[@]}"
     exit 2
   fi
 
-  if ! run_gsutil cp "${FUCHSIA_TARGET_PACKAGES}" "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"; then
+  if ! run-gsutil cp "${FUCHSIA_TARGET_PACKAGES}" "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"; then
     fx-error "Could not copy image from ${FUCHSIA_TARGET_PACKAGES} to ${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"
     exit 2
   fi
@@ -143,24 +129,18 @@ if [[ ! -d "${FUCHSIA_IMAGE_WORK_DIR}/packages/amber-files" ]]; then
 fi
 
 # kill existing pm if present
-$(kill_running_pm)
+kill-running-pm
 
 # Start the package server
 echo "** Starting package server in the background**"
 "${FUCHSIA_SDK_PATH}/tools/pm" serve -repo "${FUCHSIA_IMAGE_WORK_DIR}/packages/amber-files" -l "${HOST_IP}:${FUCHSIA_SERVER_PORT}"&
-serve_pid=$!
 
-# Update the device to point to the server
-if ! ${SSH_ARGS[@]} "${DEVICE_IP}" amber_ctl add_src -f "http://${HOST_IP}:${FUCHSIA_SERVER_PORT}/config.json"; then
-  echo "Error: could not update device"
+PRIVATE_KEY_ARG=""
+if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
+  PRIVATE_KEY_ARG="-i ${PRIVATE_KEY_FILE}"
 fi
 
-while true; do
-  sleep 1
-
-  if ! kill -0 ${serve_pid} 2> /dev/null; then
-      exit
-  fi
-done
-
-
+# Update the device to point to the server
+if ! ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" amber_ctl add_src -f "http://${HOST_IP}:${FUCHSIA_SERVER_PORT}/config.json"; then
+  echo "Error: could not update device"
+fi

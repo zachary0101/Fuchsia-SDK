@@ -14,43 +14,39 @@ SCRIPT_SRC_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 # Fuchsia command common functions.
 source "${SCRIPT_SRC_DIR}/fuchsia-common.sh" || exit $?
 
-FUCHSIA_SDK_PATH="$(realpath ${SCRIPT_SRC_DIR}/../sdk)"
-FUCHSIA_IMAGE_WORK_DIR="$(realpath ${SCRIPT_SRC_DIR}/../images)"
+FUCHSIA_SDK_PATH="$(realpath "${SCRIPT_SRC_DIR}/../sdk")"
+FUCHSIA_IMAGE_WORK_DIR="$(realpath "${SCRIPT_SRC_DIR}/../images")"
 
 
 usage () {
   echo "Usage: $0 <files.far>"
-  echo "  [--tool-home=<directory to store image assets>]"
+  echo "  [--work-dir <working directory to store image assets>]"
   echo "    Defaults to ${FUCHSIA_IMAGE_WORK_DIR}"
-  echo "  [--sdk-path=<fuchsia sdk path>]"
-  echo "    Defaults to ${FUCHSIA_SDK_PATH}"
 }
 
 POSITIONAL=()
 
 # Parse command line
-for i in "$@"
-do
-case $i in
-    -w=*|--work-dir=*)
-    FUCHSIA_IMAGE_WORK_DIR="${i#*=}"
-    ;;
-    -s=*|--sdk-path=*)
-    FUCHSIA_SDK_PATH="${i#*=}"
+while (( "$#" )); do
+case $1 in
+    --work-dir)
+    shift
+    FUCHSIA_IMAGE_WORK_DIR="${1}"
     ;;
     -*)
     if [[ "${#POSITIONAL[@]}" -eq 0 ]]; then
-      echo "Unknown option ${i}"
+      echo "Unknown option ${1}"
       usage
       exit 1
     else
-      POSITIONAL+=("${i}")
+      POSITIONAL+=("${1}")
     fi
     ;;
     *)
-      POSITIONAL+=("${i}")
+      POSITIONAL+=("${1}")
     ;;
 esac
+shift
 done
 
 # Check for core SDK being present

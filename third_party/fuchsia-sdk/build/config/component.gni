@@ -7,19 +7,24 @@ import("config.gni")
 # Define a Fuchsia component() target.
 #
 # The target generates a json file defining the component contents. This
-# component is used to assemble packages of components.
+# component is used to assemble components into distributions, such as packages.
 #
 # Parameters
 #
 #   deps
-#     Optional: Dependencies for this component.
-# 
+#     Optional: Dependencies for this component. These dependencies are external
+#       to the component, such as other components that are used via FIDL.
+#
 #   data_deps
 #     Required: Dependencies examined for metadata. These dependencies define
-#     the contents of the component.
+#     the contents of the component. These are executables and libraries.
 #
 #   manifest
 #     Required: The manifest file for this component.
+#
+#   resources
+#     Optional: Non-executable resources to include in the component.
+#
 template("fuchsia_component") {
   component = {
     forward_variables_from(invoker, "*")
@@ -67,13 +72,18 @@ template("fuchsia_component") {
     },
   ]
 
-  generated_file(target_name) {
-    outputs = [
-      "$root_build_dir/$target_name.json",
-    ]
-    contents = component_manifest
-    output_conversion = "json"
+  # The contents of the component are enumerated in the
+  # metadata. The metadata is processed by the package
+  # template, or the distribution rule.
+  group(target_name) {
+    forward_variables_from(invoker, "*")
+    metadata = {
+      contents = [ component_manifest ]
+    }
     deps = component.deps
-    data_deps = component.data_deps
+    if (!defined(data_deps)) {
+      data_deps = []
+    }
+    data_deps += component.data_deps
   }
 }

@@ -14,6 +14,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.ui.views") {
     ] 
   sources = [
         "commands.fidl",
+        "focuser.fidl",
         "view.fidl",
         "view_token.fidl",
   ]
