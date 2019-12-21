@@ -133,7 +133,10 @@ kill-running-pm
 
 # Start the package server
 echo "** Starting package server in the background**"
-"${FUCHSIA_SDK_PATH}/tools/pm" serve -repo "${FUCHSIA_IMAGE_WORK_DIR}/packages/amber-files" -l "${HOST_IP}:${FUCHSIA_SERVER_PORT}"&
+# `:port` syntax is valid for Go programs that intend to serve on every
+# interface on a given port. For example, if $FUCHSIA_SERVER_PORT is 54321,
+# this is similar to serving on [::]:54321 or 0.0.0.0:54321.
+"${FUCHSIA_SDK_PATH}/tools/pm" serve -repo "${FUCHSIA_IMAGE_WORK_DIR}/packages/amber-files" -l ":${FUCHSIA_SERVER_PORT}"&
 
 PRIVATE_KEY_ARG=""
 if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
@@ -141,6 +144,9 @@ if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
 fi
 
 # Update the device to point to the server
-if ! ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" amber_ctl add_src -f "http://${HOST_IP}:${FUCHSIA_SERVER_PORT}/config.json"; then
+# Because the URL to config.json contains an IPv6 address, the address needs
+# to be escaped in square brackets. This is not necessary for the ssh target,
+# since that's just an address and not a full URL.
+if ! ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" amber_ctl add_src -f "http://[${HOST_IP}]:$FUCHSIA_SERVER_PORT/config.json"; then
   echo "Error: could not update device"
 fi
