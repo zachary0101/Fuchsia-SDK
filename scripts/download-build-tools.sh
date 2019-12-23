@@ -112,6 +112,9 @@ if [ ! -d "${DEPOT_TOOLS_DIR}/clang-${ARCH}" ]; then
   unzip -q "${DOWNLOADS_DIR}/clang-${ARCH}-${VER_CLANG}.zip" -d "${DEPOT_TOOLS_DIR}/clang-${ARCH}"
   echo "complete."
 fi
+if [ ! -e "${DEPOT_TOOLS_DIR}/clang-format" ]; then
+  ln -sf "${DEPOT_TOOLS_DIR}/clang-${ARCH}/bin/clang-format" "${DEPOT_TOOLS_DIR}/clang-format"
+fi
 if [ ! -d "${DEPOT_TOOLS_DIR}/gn-${ARCH}" ]; then
   echo -e "Extracting gn archive...\c"
   unzip -q "${DOWNLOADS_DIR}/gn-${ARCH}-${VER_GN}.zip" -d "${DEPOT_TOOLS_DIR}/gn-${ARCH}"
