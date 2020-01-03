@@ -37,7 +37,7 @@ while (( "$#" )); do
 case $1 in
     --work-dir)
     shift
-    FUCHSIA_IMAGE_WORK_DIR="${1}"
+    FUCHSIA_IMAGE_WORK_DIR="${1:-.}"
     ;;
     --bucket)
     shift
@@ -87,7 +87,7 @@ HOST_IP=$(get-host-ip "${FUCHSIA_SDK_PATH}")
 #
 if [[ ! -v  IMAGE_NAME ]]; then
   IMAGES=("$(get-available-images "${SDK_ID}")")
-  fx-error "IMAGE_NAME not set. Valid images for this SDK version are:" "${IMAGES[@]}"
+  fx-error "IMAGE_NAME not set. Valid images for this SDK version are:" "${IMAGES[*]}."
   exit 1
 fi
 
@@ -99,33 +99,59 @@ if [[ ! -f "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}" ]] ; then
   if ! run-gsutil ls "${FUCHSIA_TARGET_PACKAGES}"; then
     echo "Packages for ${IMAGE_NAME} not found. Valid images for this SDK version are:"
     IMAGES=("$(get-available-images "${SDK_ID}")")
-    echo "${IMAGES[@]}"
+    echo "${IMAGES[*]}."
     exit 2
   fi
 
   if ! run-gsutil cp "${FUCHSIA_TARGET_PACKAGES}" "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"; then
-    fx-error "Could not copy image from ${FUCHSIA_TARGET_PACKAGES} to ${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"
-    exit 2
-  fi
-  if ! rm -rf "${FUCHSIA_IMAGE_WORK_DIR}/packages"; then
-    fx-error "Could not clean up old image"
+    fx-error "Could not copy image from ${FUCHSIA_TARGET_PACKAGES} to ${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}."
     exit 2
   fi
 else
   echo "Skipping download, packages tarball exists"
 fi
 
-  if ! mkdir -p "${FUCHSIA_IMAGE_WORK_DIR}/packages"; then
-    fx-error "Could not create packages directory"
+# The checksum file contains the output from `md5`. This is used to detect content
+# changes in the packages file.
+CHECKSUM_FILE="${FUCHSIA_IMAGE_WORK_DIR}/packages/packages.md5"
+
+
+# check that any existing contents of the image directory match the intended target device
+if [[ -f "${CHECKSUM_FILE}" ]]; then
+  if [[ "$(md5sum "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}")" != "$(cat "${CHECKSUM_FILE}")" ]]; then
+    fx-warn "Removing old package files."
+    if ! rm -f "$(cut -d ' '  -f3 "${CHECKSUM_FILE}")"; then
+      fx-error "Could not clean up old image archive."
+      exit 2
+    fi
+    if ! rm -rf "${FUCHSIA_IMAGE_WORK_DIR}/packages"; then
+      fx-error "Could not clean up old image."
+      exit 2
+    fi
+  fi
+else
+  # if the checksum file does not exist, something is inconsistent.
+  # so delete the entire directory to make sure we're starting clean.
+  # This also happens on a clean run, where the packages directory does not
+  # exist.
+  if ! rm -rf "${FUCHSIA_IMAGE_WORK_DIR}/packages"; then
+    fx-error "Could not clean up old packages."
     exit 2
   fi
+fi
+
+if ! mkdir -p "${FUCHSIA_IMAGE_WORK_DIR}/packages"; then
+  fx-error "Could not create packages directory."
+  exit 2
+fi
 
 # if the tarball is not untarred, do it.
 if [[ ! -d "${FUCHSIA_IMAGE_WORK_DIR}/packages/amber-files" ]]; then
   if ! tar xzf "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}" --directory "${FUCHSIA_IMAGE_WORK_DIR}/packages"; then
-    fx-error "Could not extract image from ${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}"
+    fx-error "Could not extract image from ${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}."
     exit 1
   fi
+  md5sum "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}" > "${CHECKSUM_FILE}"
 fi
 
 # kill existing pm if present
