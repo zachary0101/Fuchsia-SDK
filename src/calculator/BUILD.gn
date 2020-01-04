@@ -4,11 +4,9 @@
 
 group("calculator") {
   deps = [
+    "//src/calculator/cli",
     "//src/calculator/engine",
   ]
-  if (is_fuchsia) {
-    deps += [ "//src/calculator/fidl" ]
-  }
 }
 
 group("tests") {

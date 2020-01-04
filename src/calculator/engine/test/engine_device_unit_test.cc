@@ -53,7 +53,7 @@ struct TestRecorder {
   bool callbackCalled;
 };
 
-void recordingCallback(calculator::Result result, TestRecorder* recorder) {
+void recordingCallback(calculator::Result result, TestRecorder *recorder) {
   recorder->callbackCalled = true;
   recorder->result = std::move(result);
 }

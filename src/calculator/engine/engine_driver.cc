@@ -10,7 +10,7 @@
 
 namespace calculator_engine {
 
-namespace calculator = fuchsia::examples::calculator;
+namespace calculator = ::fuchsia::examples::calculator;
 
 Engine::Engine() : Engine(sys::ComponentContext::Create()) {}
 
