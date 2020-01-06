@@ -32,9 +32,12 @@ function usage {
   echo "    the output of 'ssh-add -L'"
   echo "  [--private-key <identity file>]"
   echo "    Uses additional rsa private key when using ssh to access the device."
+  echo "  [--prepare]"
+  echo "    Downloads any dependencies but does not pave to a device"
 }
 
 PRIVATE_KEY_FILE=""
+PREPARE_ONLY=""
 AUTH_KEYS_FILE=""
 
 # Parse command line
@@ -60,6 +63,9 @@ case $1 in
       shift
       PRIVATE_KEY_FILE="${1}"
     ;;
+    --prepare)
+      PREPARE_ONLY="yes"
+      ;;
     *)
     # unknown option
     fx-error "Unknown option $1."
@@ -81,11 +87,6 @@ if [[ ! -f "${AUTH_KEYS_FILE}" ]]; then
 fi
 
 SDK_ID=$(get-sdk-version "${FUCHSIA_SDK_PATH}")
-
-# Get the device IP address.  If we can't find it, it could be at the zedboot
-# page, so it is not fatal.
-DEVICE_IP=$(get-device-ip "${FUCHSIA_SDK_PATH}")
-
 
 if [[ ! -v  IMAGE_NAME ]]; then
   IMAGES=("$(get-available-images "${SDK_ID}")")
@@ -157,6 +158,11 @@ if [[ ! -f "${FUCHSIA_IMAGE_WORK_DIR}/image/pave.sh" ]]; then
   md5sum "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}" > "${CHECKSUM_FILE}"
 fi
 
+# Exit out if we only need to prepare the downloads
+if [[ "${PREPARE_ONLY}" == "yes" ]]; then
+  exit 0
+fi
+
 if [[ ! -f "${AUTH_KEYS_FILE}" ]]; then
   # Store the SSL auth keys to a file for sending to the device.
   if ! ssh-add -L > "${AUTH_KEYS_FILE}"; then
@@ -175,6 +181,9 @@ if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
   PRIVATE_KEY_ARG="-i ${PRIVATE_KEY_FILE}"
 fi
 
+# Get the device IP address.  If we can't find it, it could be at the zedboot
+# page, so it is not fatal.
+DEVICE_IP=$(get-device-ip "${FUCHSIA_SDK_PATH}")
 if [[ -n "${DEVICE_IP}" ]]; then
     ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" dm reboot-recovery
     fx-warn "Confirm device is rebooting into recovery mode.  Paving may fail if device is not in Zedboot."

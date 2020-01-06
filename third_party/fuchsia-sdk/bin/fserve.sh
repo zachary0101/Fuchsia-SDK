@@ -30,8 +30,11 @@ usage () {
   echo "    Port number to use when serving the packages.  Defaults to ${FUCHSIA_SERVER_PORT}."
   echo "  [--kill]"
   echo "    Kills any existing package manager server"
+  echo "  [--prepare]"
+  echo "    Downloads any dependencies but does not start the package server"
 }
 PRIVATE_KEY_FILE=""
+PREPARE_ONLY=""
 # Parse command line
 while (( "$#" )); do
 case $1 in
@@ -59,6 +62,9 @@ case $1 in
     kill-running-pm
     exit 0
     ;;
+    --prepare)
+    PREPARE_ONLY="yes"
+    ;;
     *)
     # unknown option
     usage
@@ -75,10 +81,6 @@ if [[ ! -d "${FUCHSIA_SDK_PATH}" ]]; then
 fi
 
 SDK_ID=$(get-sdk-version "${FUCHSIA_SDK_PATH}")
-
-# Get the device IP address.
-DEVICE_IP=$(get-device-ip "${FUCHSIA_SDK_PATH}")
-HOST_IP=$(get-host-ip "${FUCHSIA_SDK_PATH}")
 
 # The package tarball.  We add the SDK ID to the filename to make them
 # unique.
@@ -154,6 +156,11 @@ if [[ ! -d "${FUCHSIA_IMAGE_WORK_DIR}/packages/amber-files" ]]; then
   md5sum "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}" > "${CHECKSUM_FILE}"
 fi
 
+# Exit out if we only need to prepare the downloads
+if [[ "${PREPARE_ONLY}" == "yes" ]]; then
+  exit 0
+fi
+
 # kill existing pm if present
 kill-running-pm
 
@@ -173,6 +180,8 @@ fi
 # Because the URL to config.json contains an IPv6 address, the address needs
 # to be escaped in square brackets. This is not necessary for the ssh target,
 # since that's just an address and not a full URL.
+DEVICE_IP=$(get-device-ip "${FUCHSIA_SDK_PATH}")
+HOST_IP=$(get-host-ip "${FUCHSIA_SDK_PATH}")
 if ! ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" amber_ctl add_src -f "http://[${HOST_IP}]:$FUCHSIA_SERVER_PORT/config.json"; then
   echo "Error: could not update device"
 fi
