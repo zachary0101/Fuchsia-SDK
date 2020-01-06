@@ -18,7 +18,7 @@ FUCHSIA_SERVER_PORT="8083"
 IMAGE_NAME="generic-x64"
 usage () {
   echo "Usage: $0"
-  echo "  [--tool-home <directory to store image assets>]"
+  echo "  [--work-dir <directory to store image assets>]"
   echo "    Defaults to ${FUCHSIA_IMAGE_WORK_DIR}"
   echo "  [--bucket <fuchsia gsutil bucket>]"
   echo "    Defaults to ${FUCHSIA_BUCKET}"
