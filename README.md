@@ -42,8 +42,9 @@ GN samples has two third_party dependencies: the Fuchsia GN SDK and googletest (
 Fuchsia system images can be started with the included emulator scripts. Native Vulkan support on the host is required for graphics support.
 1. Install dependencies for Vulkan support: `sudo apt-get install libvulkan1 mesa-vulkan-drivers`.
 1. Download tool dependencies: `./scripts/download-build-tools.sh`.
-1. Build the bouncing_ball demo: `./scripts/build.sh`.
-1. Publish the updated package for bouncing_ball: `./third_party/fuchsia-sdk/bin/fpublish.sh ./out/x64/bouncing_ball.far`.
+1. Generate Ninja files for bouncing_ball demo: `./buildtools/linux64/gn gen out/x64 --args='target_os="fuchsia" target_cpu="x64"'`.
+1. Build the bouncing_ball demo: `./buildtools/linux64/ninja -C out/x64 bouncing_ball`
 1. Start the emulator with networking support: `./third_party/fuchsia-sdk/bin/femu.sh -N`.
 1. Start the package server: `./third_party/fuchsia-sdk/bin/fserve.sh --image qemu-x64`.
+1. Publish the updated package for bouncing_ball: `./third_party/fuchsia-sdk/bin/fpublish.sh ./out/x64/bouncing_ball.far`.
 1. SSH to the emulator and start up a demo: `./third_party/fuchsia-sdk/bin/fssh.sh tiles_ctl add fuchsia-pkg://fuchsia.com/bouncing_ball#meta/bouncing_ball.cmx`.

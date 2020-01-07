@@ -3,33 +3,6 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-set -eu # Error checking
-err_print() {
-  echo "Error on line $1"
-}
-trap 'err_print $LINENO' ERR
-DEBUG_LINE() {
-    "$@"
-}
-
-SCRIPT_SRC_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
-source "${SCRIPT_SRC_DIR}/fuchsia-common.sh" || exit $?
-
-# This is only used after femu.sh has been started
-function cleanup {
-  echo "Cleaning up femu pid $FEMU_PID, qemu child processes, and package server for exit ..."
-  # The qemu child needs to be terminated separately since it is detached from the script
-  kill $(ps -o pid= --ppid "${FEMU_PID}") &> /dev/null
-  kill "${FEMU_PID}" &> /dev/null
-  "${SCRIPT_SRC_DIR}/fserve.sh" --kill &> /dev/null
-}
-
-HEADLESS=""
-INTERACTIVE=""
-EXEC_SCRIPT=""
-IMAGE_NAME="qemu-x64"
-FEMU_LOG="/dev/null"
-
 function usage() {
   echo "Usage: $0"
   echo
@@ -49,6 +22,40 @@ function usage() {
   echo
   echo "  All other arguments are passed on, see femu.sh --help for more info"
 }
+
+set -eu # Error checking
+err_print() {
+  echo "Error at $1"
+}
+trap 'err_print $0:$LINENO' ERR
+
+SCRIPT_SRC_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
+source "${SCRIPT_SRC_DIR}/fuchsia-common.sh" || exit $?
+
+function get_child_pids {
+  local children=$(ps -o pid= --ppid "$1")
+  for pid in $children; do
+    get_child_pids "$pid"
+  done
+  echo "$children"
+}
+
+# This is only used after femu.sh has been started
+function cleanup {
+  # The emu, emulator*, and qemu* children need to be terminated separately since it is detached from the script
+  # Note that CHILD_PIDS needs to be used without quotes because we want the newlines to be removed
+  CHILD_PIDS=$(get_child_pids ${FEMU_PID})
+  echo "Cleaning up femu pid $FEMU_PID, qemu child processes" $CHILD_PIDS "and package server for exit ..."
+  kill ${CHILD_PIDS} &> /dev/null
+  kill "${FEMU_PID}" &> /dev/null
+  "${SCRIPT_SRC_DIR}/fserve.sh" --kill &> /dev/null
+}
+
+HEADLESS=""
+INTERACTIVE=""
+EXEC_SCRIPT=""
+IMAGE_NAME="qemu-x64"
+FEMU_LOG="/dev/null"
 
 # Check for some of the emu flags, but pass everything else on to femu.sh
 while (( "$#" )); do
@@ -117,19 +124,19 @@ echo "Emulator pid ${FEMU_PID} is running and accepting connections"
 
 # Start the package server after the emulator is ready, so we know it is configured when we run commands
 echo "Starting package server"
-"${SCRIPT_SRC_DIR}/fserve.sh" --image qemu-x64 &> /dev/null
+"${SCRIPT_SRC_DIR}/fserve.sh" --image "${IMAGE_NAME}" &> /dev/null
 
 # Execute the script specified on the command-line
 EXEC_RESULT=0
 if [[ "${EXEC_SCRIPT}" == "" ]]; then
-  echo "No --exec script specified, will now clean up"
+  fx-warn "No --exec script specified, will now clean up"
 else
   echo "Executing bash -c \"${EXEC_SCRIPT}\""
   bash -c "${EXEC_SCRIPT}" || EXEC_RESULT=$?
 fi
 
 if [[ "${EXEC_RESULT}" != "0" ]]; then
-  echo "ERROR: \"${EXEC_SCRIPT}\" returned ${EXEC_RESULT}"
+  fx-error "ERROR: \"${EXEC_SCRIPT}\" returned ${EXEC_RESULT}"
 fi
 
 # Exit with the result of the test script, and also run the cleanup function
