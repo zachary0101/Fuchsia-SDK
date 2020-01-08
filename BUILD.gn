@@ -10,6 +10,7 @@ group("default") {
   ]
   if (is_fuchsia) {
     deps += [
+      "//src/bouncing_ball",
       "//src/calculator",
       "//src/rot13",
     ]
