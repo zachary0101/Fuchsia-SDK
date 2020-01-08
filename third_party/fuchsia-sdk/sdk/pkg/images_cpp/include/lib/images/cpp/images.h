@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-
 #ifndef LIB_IMAGES_CPP_IMAGES_H_
 #define LIB_IMAGES_CPP_IMAGES_H_
 
