@@ -9,13 +9,9 @@ err_print() {
   echo "Error on line $1"
 }
 trap 'err_print $LINENO' ERR
-DEBUG_LINE() {
-    $@
-}
 
 SCRIPT_SRC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 FORCE=0
-OUT_DIR=out
 
 # Common functions.
 source "${SCRIPT_SRC_DIR}/common.sh" || exit $?
@@ -23,15 +19,16 @@ REPO_ROOT=$(get_gn_root) # finds path to REPO_ROOT
 BUILD_TOOLS_DIR=$(get_buildtools_dir) # finds path to BUILD_TOOLS_DIR
 DEPOT_TOOLS_DIR=$(get_depot_tools_dir) # finds path to DEPOT_TOOLS_DIR
 
+OUT_DIR="${REPO_ROOT}/out"
+
 cleanup() {
-  echo "Cleaning up built files..."
-  # Remove the out directory
-  CLEANUP_DIR=$REPO_ROOT/$OUT_DIR
-  if [ $CLEANUP_DIR == "/" ]; then
+  echo "Cleaning up built files in ${OUT_DIR} ..."
+  # Remove the out directory but check for safety
+  if [ "${OUT_DIR}" == "/" ]; then
     echo "Error: out directory cannot be \"/\""
-    exit 1;
+    exit 1
   else
-    rm -rf $CLEANUP_DIR
+    rm -rf "${CLEANUP_DIR}"
   fi
 }
 
@@ -57,28 +54,28 @@ esac
 done
 
 # Ensure build tools repo exists
-if [ ! -d "$BUILD_TOOLS_DIR" ]; then
+if [ ! -d "${BUILD_TOOLS_DIR}" ]; then
   echo "Error: Could not find build tools in \""$REPO_ROOT"/"$BUILD_TOOLS_DIR"\""
   echo "Have you run \"./scripts/download-build-tools.sh\"?"
   exit 1;
 fi
 
 # Cleanup before build it force flag is set.
-if [ ! "$FORCE" == 0 ]; then
+if [ ! "${FORCE}" == 0 ]; then
   cleanup
 fi
 
 echo "Building for Fuchsia on arm64..."
-$DEPOT_TOOLS_DIR/gn gen $OUT_DIR/arm64 --args='target_os="fuchsia" target_cpu="arm64"'
-$DEPOT_TOOLS_DIR/ninja -C $OUT_DIR/arm64 default tests
+"${DEPOT_TOOLS_DIR}/gn" gen "${OUT_DIR}/arm64" --args='target_os="fuchsia" target_cpu="arm64"'
+"${DEPOT_TOOLS_DIR}/ninja" -C "${OUT_DIR}/arm64" default tests
 
 echo "Building for Fuchsia on x64..."
-$DEPOT_TOOLS_DIR/gn gen $OUT_DIR/x64   --args='target_os="fuchsia" target_cpu="x64"'
-$DEPOT_TOOLS_DIR/ninja -C $OUT_DIR/x64 default tests
+"${DEPOT_TOOLS_DIR}/gn" gen "${OUT_DIR}/x64"   --args='target_os="fuchsia" target_cpu="x64"'
+"${DEPOT_TOOLS_DIR}/ninja" -C "${OUT_DIR}/x64" default tests
 
 echo "Building for linux on x64..."
-$DEPOT_TOOLS_DIR/gn gen $OUT_DIR/linux --args='target_os="linux"   target_cpu="x64"'
-$DEPOT_TOOLS_DIR/ninja -C $OUT_DIR/linux default tests
+"${DEPOT_TOOLS_DIR}/gn" gen "${OUT_DIR}/linux" --args='target_os="linux"   target_cpu="x64"'
+"${DEPOT_TOOLS_DIR}/ninja" -C "${OUT_DIR}/linux" default tests
 
 echo
 echo "Samples built successfully!"
