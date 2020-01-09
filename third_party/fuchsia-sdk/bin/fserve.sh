@@ -28,13 +28,18 @@ usage () {
   echo "    Uses additional rsa private key when using ssh to access the device."
   echo "  [--server-port <port>]"
   echo "    Port number to use when serving the packages.  Defaults to ${FUCHSIA_SERVER_PORT}."
+  echo "  [--device-name <device hostname>]"
+  echo "    Only serves packages to a device with the given device hostname."
   echo "  [--kill]"
   echo "    Kills any existing package manager server"
   echo "  [--prepare]"
   echo "    Downloads any dependencies but does not start the package server"
 }
+
 PRIVATE_KEY_FILE=""
 PREPARE_ONLY=""
+DEVICE_NAME_FILTER=""
+
 # Parse command line
 while (( "$#" )); do
 case $1 in
@@ -57,6 +62,10 @@ case $1 in
     --server-port)
     shift
     FUCHSIA_SERVER_PORT="${1}"
+    ;;
+    --device-name)
+    shift
+    DEVICE_NAME_FILTER="${1}"
     ;;
     --kill)
     kill-running-pm
@@ -161,6 +170,13 @@ if [[ "${PREPARE_ONLY}" == "yes" ]]; then
   exit 0
 fi
 
+HOST_IP=$(get-host-ip "${FUCHSIA_SDK_PATH}")
+DEVICE_IP=$(get-device-ip-by-name "$FUCHSIA_SDK_PATH" "$DEVICE_NAME_FILTER")
+if [[ ! "$?" || -z "$DEVICE_IP" ]]; then
+  fx-error "Could not get device IP address"
+  exit 2
+fi
+
 # kill existing pm if present
 kill-running-pm
 
@@ -176,12 +192,10 @@ if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
   PRIVATE_KEY_ARG="-i ${PRIVATE_KEY_FILE}"
 fi
 
-# Update the device to point to the server
+# Update the device to point to the server.
 # Because the URL to config.json contains an IPv6 address, the address needs
 # to be escaped in square brackets. This is not necessary for the ssh target,
 # since that's just an address and not a full URL.
-DEVICE_IP=$(get-device-ip "${FUCHSIA_SDK_PATH}")
-HOST_IP=$(get-host-ip "${FUCHSIA_SDK_PATH}")
 if ! ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" amber_ctl add_src -f "http://[${HOST_IP}]:$FUCHSIA_SERVER_PORT/config.json"; then
   echo "Error: could not update device"
 fi

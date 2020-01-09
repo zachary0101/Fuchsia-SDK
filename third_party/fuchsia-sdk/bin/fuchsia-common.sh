@@ -36,12 +36,30 @@ function ssh-cmd {
 function get-device-ip {
   # -ipv4 false: Disable IPv4. Fuchsia devices are IPv6-compatible, so
   #   forcing IPv6 allows for easier manipulation of the result.
-  "${1}/tools/dev_finder" list -netboot -device-limit 1 -ipv4=false
+  "${1}/tools/device-finder" list -netboot -device-limit 1 -ipv4=false
 }
 
 function get-device-name {
   # $1 is the SDK_PATH.
-  "${1}/tools/dev_finder" list -netboot -device-limit 1 -full | cut -d\  -f2
+  "${1}/tools/device-finder" list -netboot -device-limit 1 -full | cut -d\  -f2
+}
+
+function get-device-ip-by-name {
+  # Writes the IP address of the device with the given name.
+  # If no such device is found, this function returns with a non-zero status
+  # code.
+
+  # $1 is the SDK_PATH.
+  # $2 is the hostname of the Fuchsia device. If $2 is empty, this function
+  # returns the IP address of an arbitrarily selected Fuchsia device.
+
+  if [[ -n "$2" ]]; then
+    # There should typically only be one device that matches the domain filter,
+    # but we add a device-limit filter just in case.
+    "${1}/tools/device-finder" list -netboot -domain-filter "${2}" -device-limit 1 -ipv4 false
+  else
+    get-device-ip
+  fi
 }
 
 function get-host-ip {
@@ -55,7 +73,7 @@ function get-host-ip {
   #   the development host with a different scope than vice versa), we can
   #   strip this from the IPv6 result. This is reliable as long as the Fuchsia
   #   device only needs link-local networking on one interface.
-  "${1}/tools/dev_finder" resolve -local -ipv4=false "${DEVICE_NAME}" | head -1 | cut -d '%' -f1
+  "${1}/tools/device-finder" resolve -local -ipv4=false "${DEVICE_NAME}" | head -1 | cut -d '%' -f1
 }
 
 function get-sdk-version {

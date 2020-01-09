@@ -17,6 +17,7 @@ source "${SCRIPT_SRC_DIR}/fuchsia-common.sh" || exit $?
 FUCHSIA_SDK_PATH="$(realpath "${SCRIPT_SRC_DIR}/../sdk")"
 FUCHSIA_IMAGE_WORK_DIR="$(realpath "${SCRIPT_SRC_DIR}/../images")"
 FUCHSIA_BUCKET="${DEFAULT_FUCHSIA_BUCKET}"
+DEVICE_NAME_FILTER=""
 IMAGE_NAME="generic-x64"
 
 function usage {
@@ -32,6 +33,8 @@ function usage {
   echo "    the output of 'ssh-add -L'"
   echo "  [--private-key <identity file>]"
   echo "    Uses additional rsa private key when using ssh to access the device."
+  echo "  [--device-name <device hostname>]"
+  echo "    Only paves a device with the given device hostname"
   echo "  [--prepare]"
   echo "    Downloads any dependencies but does not pave to a device"
 }
@@ -63,9 +66,13 @@ case $1 in
       shift
       PRIVATE_KEY_FILE="${1}"
     ;;
+    --device-name)
+      DEVICE_NAME_FILTER="${1}"
+      shift
+    ;;
     --prepare)
       PREPARE_ONLY="yes"
-      ;;
+    ;;
     *)
     # unknown option
     fx-error "Unknown option $1."
@@ -183,8 +190,8 @@ fi
 
 # Get the device IP address.  If we can't find it, it could be at the zedboot
 # page, so it is not fatal.
-DEVICE_IP=$(get-device-ip "${FUCHSIA_SDK_PATH}")
-if [[ -n "${DEVICE_IP}" ]]; then
+DEVICE_IP=$(get-device-ip-by-name "$FUCHSIA_SDK_PATH" "$DEVICE_NAME_FILTER")
+if [[ "$?" && -n "$DEVICE_IP" ]]; then
     ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" dm reboot-recovery
     fx-warn "Confirm device is rebooting into recovery mode.  Paving may fail if device is not in Zedboot."
 else

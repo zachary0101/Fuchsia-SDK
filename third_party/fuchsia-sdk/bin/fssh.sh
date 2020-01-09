@@ -16,16 +16,23 @@ FUCHSIA_SDK_PATH="$(realpath "${SCRIPT_SRC_DIR}/../sdk")"
 
 function usage {
   echo "Usage: $0"
+  echo "  [--device-name <device hostname>]"
+  echo "    Connects to a device with the given device hostname."
   echo "  [--private-key <identity file>]"
   echo "    Uses additional rsa private key when using ssh to access the device."
 }
 
 PRIVATE_KEY_FILE=""
+DEVICE_NAME_FILTER=""
 declare -a POSITIONAL
 
 # Parse command line
 while (( "$#" )); do
 case $1 in
+    --device-name)
+      shift
+      DEVICE_NAME_FILTER="${1}"
+    ;;
     --private-key)
     shift
     PRIVATE_KEY_FILE="${1}"
@@ -53,8 +60,8 @@ if [[ ! -d "${FUCHSIA_SDK_PATH}" ]]; then
 fi
 
 # Get the device IP address.
-DEVICE_IP="$(get-device-ip "${FUCHSIA_SDK_PATH}")"
-if [[ -z ${DEVICE_IP} ]]; then
+DEVICE_IP=$(get-device-ip-by-name "$FUCHSIA_SDK_PATH" "$DEVICE_NAME_FILTER")
+if [[ ! "$?" || -z "$DEVICE_IP" ]]; then
   fx-error "Error finding device"
   exit 2
 fi
