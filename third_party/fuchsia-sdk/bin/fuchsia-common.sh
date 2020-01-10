@@ -56,7 +56,7 @@ function get-device-ip-by-name {
   if [[ -n "$2" ]]; then
     # There should typically only be one device that matches the domain filter,
     # but we add a device-limit filter just in case.
-    "${1}/tools/device-finder" list -netboot -domain-filter "${2}" -device-limit 1 -ipv4 false
+    "${1}/tools/device-finder" list -netboot -domain-filter "${2}" -device-limit 1 -ipv4=false
   else
     get-device-ip "$1"
   fi
