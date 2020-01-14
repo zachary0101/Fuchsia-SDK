@@ -26,7 +26,7 @@ import("config.gni")
 #     Optional: Non-executable resources to include in the component.
 #
 template("fuchsia_component") {
-  component = {
+  _component = {
     forward_variables_from(invoker, "*")
 
     assert(defined(data_deps),
@@ -43,12 +43,12 @@ template("fuchsia_component") {
     }
   }
 
-  component_manifest = []
+  _component_manifest = []
 
   # TODO(fxb/42370): add cmx validation
 
-  foreach(dep, component.data_deps) {
-    component_manifest += [
+  foreach(dep, _component.data_deps) {
+    _component_manifest += [
       {
         type = "dep"
         source = rebase_path(dep)
@@ -56,8 +56,8 @@ template("fuchsia_component") {
     ]
   }
 
-  foreach(resource, component.resources) {
-    component_manifest += [
+  foreach(resource, _component.resources) {
+    _component_manifest += [
       {
         type = "resource"
         source = rebase_path(resource.path)
@@ -65,7 +65,7 @@ template("fuchsia_component") {
     ]
   }
 
-  component_manifest += [
+  _component_manifest += [
     {
       type = "manifest"
       source = rebase_path(invoker.manifest)
@@ -78,12 +78,9 @@ template("fuchsia_component") {
   group(target_name) {
     forward_variables_from(invoker, "*")
     metadata = {
-      contents = [ component_manifest ]
+      contents = [ _component_manifest ]
     }
-    deps = component.deps
-    if (!defined(data_deps)) {
-      data_deps = []
-    }
-    data_deps += component.data_deps
+    deps = _component.deps
+    data_deps += _component.data_deps
   }
 }

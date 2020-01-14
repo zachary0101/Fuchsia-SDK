@@ -5,8 +5,11 @@
 declare_args() {
   # path to the unpacked SDK. This is based on this file being relative to
   # the SDK via ../../sdk
+  # aka Grandparent directory of this file.
   fuchsia_sdk_base = get_path_info(
+          # Parent directory of this file
           get_path_info(
+              # Directory of this file
               get_path_info(get_path_info("config.gni", "abspath"), "dir"),
               "dir"),
           "dir")

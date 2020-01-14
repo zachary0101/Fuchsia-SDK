@@ -19,18 +19,16 @@ import("config.gni")
 #              package contains.
 #
 template("fuchsia_package") {
-
-    if (!defined(invoker.package_name)) {
-      package_name = target_name
-    } else {
-      package_name = invoker.package_name
-
-    }
-    if (!defined(invoker.excluded_files)) {
-      excluded_files = []
-    } else {
-      excluded_files = invoker.excluded_files
-    }
+  if (!defined(invoker.package_name)) {
+    package_name = target_name
+  } else {
+    package_name = invoker.package_name
+  }
+  if (!defined(invoker.excluded_files)) {
+    excluded_files = []
+  } else {
+    excluded_files = invoker.excluded_files
+  }
 
   _depfile = "${target_gen_dir}/${target_name}_stamp.d"
 
@@ -38,8 +36,8 @@ template("fuchsia_package") {
   _pm_tool_path = "${fuchsia_sdk}/tools/pm"
 
   # target names
-  _write_manifest_target = "${package_name}__write_manifest"
-  _package_target = "${package_name}__pkg"
+  _write_manifest_target = "${package_name}_write_manifest"
+  _package_target = "${package_name}_pkg"
 
   # output values
   _pkg_out_dir = "${target_gen_dir}/${package_name}"
@@ -48,7 +46,8 @@ template("fuchsia_package") {
   _build_ids_file = "$_pkg_out_dir/ids.txt"
   _meta_far_file = "$_pkg_out_dir/meta.far"
   _final_far_file = "$_pkg_out_dir/${package_name}.far"
-  _packaged_components_metadata = "${target_gen_dir}/${package_name}_packaged_components_metadata.json"
+  _packaged_components_metadata =
+      "${target_gen_dir}/${package_name}_packaged_components_metadata.json"
   _pkg_output_manifest = "$_pkg_out_dir/package_manifest.json"
   _package_deps = []
   if (defined(invoker.deps)) {
@@ -58,13 +57,11 @@ template("fuchsia_package") {
     _package_deps += invoker.data_deps
   }
 
-  # Generates a JSON file containing the contents of each of the 
+  # Generates a JSON file containing the contents of each of the
   # components being included in this package.
   generated_file("${package_name}_packaged_components_metadata") {
-       forward_variables_from(invoker, [ "testonly" ])
-    outputs = [
-       _packaged_components_metadata
-    ]
+    forward_variables_from(invoker, [ "testonly" ])
+    outputs = [ _packaged_components_metadata ]
     data_keys = [ "contents" ]
     output_conversion = "json"
     deps = _package_deps
@@ -78,9 +75,7 @@ template("fuchsia_package") {
                            ])
     script = "${fuchsia_sdk_base}/build/config/prepare_package_inputs.py"
 
-    inputs = [
-      _runtime_deps_file,
-    ]
+    inputs = [ _runtime_deps_file ]
 
     outputs = [
       _archive_manifest,
@@ -111,7 +106,7 @@ template("fuchsia_package") {
       rebase_path(_archive_manifest, root_build_dir),
       "--build-ids-file",
       rebase_path(_build_ids_file, root_build_dir),
-        "--json-file",
+      "--json-file",
       rebase_path(_packaged_components_metadata),
     ]
 
@@ -126,16 +121,13 @@ template("fuchsia_package") {
     write_runtime_deps = _runtime_deps_file
   }
 
-
   # Creates a Fuchsia metadata package.
   action(_package_target) {
     forward_variables_from(invoker, [ "testonly" ])
 
     script = "${fuchsia_sdk_base}/build/gn_run_binary.py"
 
-    deps = [
-      ":$_write_manifest_target",
-    ]
+    deps = [ ":$_write_manifest_target" ]
 
     inputs = [
       # Depend on the SDK hash, to ensure rebuild if the SDK tools change.
@@ -182,9 +174,7 @@ template("fuchsia_package") {
       _pm_tool_path,
     ]
 
-    outputs = [
-      _final_far_file,
-    ]
+    outputs = [ _final_far_file ]
 
     args = [
       rebase_path(_pm_tool_path, root_build_dir),

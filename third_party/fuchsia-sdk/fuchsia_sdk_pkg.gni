@@ -11,7 +11,7 @@ import("build/config/fidl_library.gni")
 
 # Defines a Fuchsia SDK FIDL library target.
 #
-# $namespace.$library_name must match the the library name specified in the FIDL
+# $namespace.$package_name must match the the library name specified in the FIDL
 # files.
 #
 # Parameters
@@ -19,7 +19,7 @@ import("build/config/fidl_library.gni")
 #   sources
 #     Required: List of .fidl files.
 #
-#   library_name
+#   package_name
 #     Optional: Name of the library. target_name is used if name
 #               is not specified explicitly.
 #
@@ -65,6 +65,9 @@ template("fuchsia_sdk_fidl_pkg") {
 #   sources
 #     Required: List of source files.
 #
+#   include_dirs
+#     Optional: include_dirs to add to the configuration for the 
+#               target.
 #   library_name
 #     Optional: Name of the library. target_name is used if name
 #               is not specified explicitly.
@@ -75,6 +78,9 @@ template("fuchsia_sdk_fidl_pkg") {
 #   static_libs
 #     Optional: List of static libraries for this target.
 #
+#   sdk_dist_dir
+#     Optional: Directory of libraries to distribute in the
+#               target. Defaults to ${fuchsia_sdk}/arch/${target_cpu}/dist.
 #   deps
 #     Optional: List of other targets that this library depends on.
 #
