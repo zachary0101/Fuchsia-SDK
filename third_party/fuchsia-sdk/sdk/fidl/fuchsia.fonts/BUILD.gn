@@ -13,7 +13,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.fonts") {
   public_deps = [
         "../fuchsia.intl",
         "../fuchsia.mem",
-    ] 
+    ]
   sources = [
         "events.fidl",
         "font_provider.fidl",

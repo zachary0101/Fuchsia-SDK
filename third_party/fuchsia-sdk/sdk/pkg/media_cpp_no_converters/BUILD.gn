@@ -15,6 +15,6 @@ fuchsia_sdk_pkg("media_cpp_no_converters") {
         "include/lib/media/cpp/timeline_rate.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
   ]
 }

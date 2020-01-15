@@ -41,7 +41,7 @@ fuchsia_sdk_pkg("fidl_cpp") {
         "include/lib/fidl/cpp/type_converter.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../async",
         "../async-default",
         "../fidl",

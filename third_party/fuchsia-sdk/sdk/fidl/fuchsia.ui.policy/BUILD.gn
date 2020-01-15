@@ -14,7 +14,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.ui.policy") {
         "../fuchsia.ui.gfx",
         "../fuchsia.ui.input",
         "../fuchsia.ui.views",
-    ] 
+    ]
   sources = [
         "device_listener.fidl",
         "display_usage.fidl",

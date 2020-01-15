@@ -18,7 +18,7 @@ fuchsia_sdk_pkg("sys_service_cpp") {
         "include/lib/sys/service/cpp/service_watcher.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../../fidl/fuchsia.io",
         "../async-cpp",
         "../fdio",

@@ -37,6 +37,6 @@ fuchsia_sdk_pkg("fidl_base") {
         "include/lib/fidl/walker.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
   ]
 }

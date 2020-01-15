@@ -12,7 +12,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.camera2") {
   namespace = "fuchsia"
   public_deps = [
         "../fuchsia.sysmem",
-    ] 
+    ]
   sources = [
         "manager.fidl",
         "stream.fidl",

@@ -12,7 +12,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.net.http") {
   namespace = "fuchsia.net"
   public_deps = [
         "../fuchsia.mem",
-    ] 
+    ]
   sources = [
         "client.fidl",
   ]

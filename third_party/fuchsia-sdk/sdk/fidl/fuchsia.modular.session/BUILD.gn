@@ -14,7 +14,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.modular.session") {
         "../fuchsia.io",
         "../fuchsia.sys",
         "../fuchsia.ui.policy",
-    ] 
+    ]
   sources = [
         "modular_config.fidl",
   ]

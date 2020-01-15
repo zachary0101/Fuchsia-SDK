@@ -13,7 +13,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.media.sessions2") {
   public_deps = [
         "../fuchsia.media",
         "../fuchsia.media.audio",
-    ] 
+    ]
   sources = [
         "discovery.fidl",
         "images.fidl",

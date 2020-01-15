@@ -11,7 +11,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.hardware.goldfish") {
   package_name = "goldfish"
   namespace = "fuchsia.hardware"
   public_deps = [
-    ] 
+    ]
   sources = [
         "goldfish_address_space.fidl",
         "goldfish_control.fidl",

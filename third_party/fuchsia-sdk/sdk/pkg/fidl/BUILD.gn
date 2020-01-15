@@ -14,7 +14,7 @@ fuchsia_sdk_pkg("fidl") {
         "include/lib/fidl/epitaph.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../fidl_base",
   ]
 }

@@ -21,7 +21,7 @@ fuchsia_sdk_pkg("sys_cpp") {
         "include/lib/sys/cpp/termination_reason.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../../fidl/fuchsia.io",
         "../../fidl/fuchsia.sys",
         "../fit",

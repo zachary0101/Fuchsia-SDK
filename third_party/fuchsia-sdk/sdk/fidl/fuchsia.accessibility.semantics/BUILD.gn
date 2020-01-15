@@ -14,7 +14,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.accessibility.semantics") {
         "../fuchsia.math",
         "../fuchsia.ui.gfx",
         "../fuchsia.ui.views",
-    ] 
+    ]
   sources = [
         "node.fidl",
         "semantics_manager.fidl",

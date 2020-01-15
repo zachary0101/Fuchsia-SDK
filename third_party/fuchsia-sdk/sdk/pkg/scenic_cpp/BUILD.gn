@@ -22,7 +22,7 @@ fuchsia_sdk_pkg("scenic_cpp") {
         "include/lib/ui/scenic/cpp/view_token_pair.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../../fidl/fuchsia.images",
         "../../fidl/fuchsia.ui.gfx",
         "../../fidl/fuchsia.ui.scenic",

@@ -13,7 +13,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.camera2.hal") {
   public_deps = [
         "../fuchsia.camera2",
         "../fuchsia.sysmem",
-    ] 
+    ]
   sources = [
         "hal.fidl",
   ]

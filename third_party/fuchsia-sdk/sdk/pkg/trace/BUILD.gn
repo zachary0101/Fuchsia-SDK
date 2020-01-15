@@ -21,7 +21,7 @@ fuchsia_sdk_pkg("trace") {
         "include/lib/trace/observer.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../async",
         "../async-cpp",
         "../fit",

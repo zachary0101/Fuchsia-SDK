@@ -12,7 +12,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.posix.socket") {
   namespace = "fuchsia.posix"
   public_deps = [
         "../fuchsia.io",
-    ] 
+    ]
   sources = [
         "socket.fidl",
   ]

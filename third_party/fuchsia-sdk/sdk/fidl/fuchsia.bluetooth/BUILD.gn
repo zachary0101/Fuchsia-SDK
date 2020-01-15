@@ -11,7 +11,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.bluetooth") {
   package_name = "bluetooth"
   namespace = "fuchsia"
   public_deps = [
-    ] 
+    ]
   sources = [
         "address.fidl",
         "appearance.fidl",

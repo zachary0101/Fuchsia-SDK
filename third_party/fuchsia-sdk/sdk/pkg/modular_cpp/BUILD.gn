@@ -13,7 +13,7 @@ fuchsia_sdk_pkg("modular_cpp") {
         "include/lib/modular/cpp/agent.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../../fidl/fuchsia.modular",
         "../../fidl/fuchsia.sys",
         "../fidl_cpp",

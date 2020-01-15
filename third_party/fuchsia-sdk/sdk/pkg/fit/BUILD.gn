@@ -41,6 +41,6 @@ fuchsia_sdk_pkg("fit") {
         "include/lib/fit/variant.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
   ]
 }

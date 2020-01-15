@@ -13,7 +13,7 @@ fuchsia_sdk_pkg("fidl-async") {
         "include/lib/fidl-async/bind.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../async",
         "../fidl",
   ]

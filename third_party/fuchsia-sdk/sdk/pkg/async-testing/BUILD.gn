@@ -18,7 +18,7 @@ fuchsia_sdk_pkg("async-testing") {
         "include/lib/async-testing/test_subloop.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../async",
         "../async-cpp",
         "../async-default",

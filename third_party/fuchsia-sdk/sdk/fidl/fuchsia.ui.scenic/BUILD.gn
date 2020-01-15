@@ -18,7 +18,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.ui.scenic") {
         "../fuchsia.ui.input",
         "../fuchsia.ui.vectorial",
         "../fuchsia.ui.views",
-    ] 
+    ]
   sources = [
         "commands.fidl",
         "events.fidl",

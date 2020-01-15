@@ -14,7 +14,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.media") {
         "../fuchsia.images",
         "../fuchsia.media.audio",
         "../fuchsia.sysmem",
-    ] 
+    ]
   sources = [
         "audio.fidl",
         "audio_capturer.fidl",

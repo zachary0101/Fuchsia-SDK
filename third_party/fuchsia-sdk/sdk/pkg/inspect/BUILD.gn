@@ -33,7 +33,7 @@ fuchsia_sdk_pkg("inspect") {
         "include/lib/inspect/cpp/vmo/types.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../async",
         "../async-default",
         "../fdio",

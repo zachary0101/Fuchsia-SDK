@@ -15,7 +15,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.modular.testing") {
         "../fuchsia.modular",
         "../fuchsia.modular.session",
         "../fuchsia.sys",
-    ] 
+    ]
   sources = [
         "test_harness.fidl",
   ]

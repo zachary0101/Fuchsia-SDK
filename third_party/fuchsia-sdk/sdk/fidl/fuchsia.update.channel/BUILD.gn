@@ -11,7 +11,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.update.channel") {
   package_name = "channel"
   namespace = "fuchsia.update"
   public_deps = [
-    ] 
+    ]
   sources = [
         "channel.fidl",
   ]

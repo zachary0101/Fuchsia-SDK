@@ -12,7 +12,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.io") {
   namespace = "fuchsia"
   public_deps = [
         "../fuchsia.mem",
-    ] 
+    ]
   sources = [
         "io.fidl",
   ]

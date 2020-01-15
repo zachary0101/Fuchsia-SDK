@@ -15,7 +15,7 @@ fuchsia_sdk_pkg("inspect_service_cpp") {
         "include/lib/inspect/service/cpp/service.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../../fidl/fuchsia.inspect",
         "../async-cpp",
         "../inspect",

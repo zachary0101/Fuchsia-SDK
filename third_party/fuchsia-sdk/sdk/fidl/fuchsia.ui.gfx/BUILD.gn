@@ -14,7 +14,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.ui.gfx") {
         "../fuchsia.images",
         "../fuchsia.mem",
         "../fuchsia.ui.views",
-    ] 
+    ]
   sources = [
         "commands.fidl",
         "display_info.fidl",

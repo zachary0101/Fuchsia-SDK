@@ -12,7 +12,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.net.oldhttp") {
   namespace = "fuchsia.net"
   public_deps = [
         "../fuchsia.mem",
-    ] 
+    ]
   sources = [
         "http_error.fidl",
         "http_header.fidl",

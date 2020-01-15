@@ -62,6 +62,6 @@ fuchsia_sdk_pkg("zx") {
         "include/lib/zx/vmo.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
   ]
 }

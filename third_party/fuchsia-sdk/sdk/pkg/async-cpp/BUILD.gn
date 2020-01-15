@@ -26,7 +26,7 @@ fuchsia_sdk_pkg("async-cpp") {
         "include/lib/async/cpp/wait.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../async",
         "../fit",
         "../zx",

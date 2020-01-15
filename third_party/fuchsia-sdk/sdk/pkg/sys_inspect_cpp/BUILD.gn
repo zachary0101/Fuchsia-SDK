@@ -13,7 +13,7 @@ fuchsia_sdk_pkg("sys_inspect_cpp") {
         "include/lib/sys/inspect/cpp/component.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../inspect",
         "../sys_cpp",
   ]

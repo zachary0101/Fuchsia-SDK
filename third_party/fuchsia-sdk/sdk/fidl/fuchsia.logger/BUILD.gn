@@ -11,7 +11,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.logger") {
   package_name = "logger"
   namespace = "fuchsia"
   public_deps = [
-    ] 
+    ]
   sources = [
         "logger.fidl",
   ]

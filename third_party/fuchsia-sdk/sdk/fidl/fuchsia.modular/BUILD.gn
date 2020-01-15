@@ -17,7 +17,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.modular") {
         "../fuchsia.sys",
         "../fuchsia.ui.policy",
         "../fuchsia.ui.views",
-    ] 
+    ]
   sources = [
         "agent/agent.fidl",
         "agent/agent_context.fidl",

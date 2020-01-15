@@ -18,7 +18,7 @@ fuchsia_sdk_pkg("fidl_cpp_sync") {
         "include/lib/fidl/cpp/synchronous_interface_ptr.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../fidl",
         "../fidl-async",
         "../fidl_cpp_base",

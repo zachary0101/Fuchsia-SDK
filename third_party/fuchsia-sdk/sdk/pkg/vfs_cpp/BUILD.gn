@@ -43,7 +43,7 @@ fuchsia_sdk_pkg("vfs_cpp") {
         "include/lib/vfs/cpp/vmo_file.h",
   ]
   include_dirs = [ "include" ]
-  public_deps = [ 
+  public_deps = [
         "../../fidl/fuchsia.io",
         "../async",
         "../fdio",

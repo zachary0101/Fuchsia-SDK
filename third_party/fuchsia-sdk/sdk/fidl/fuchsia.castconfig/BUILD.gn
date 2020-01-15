@@ -12,7 +12,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.castconfig") {
   namespace = "fuchsia"
   public_deps = [
         "../fuchsia.mem",
-    ] 
+    ]
   sources = [
         "cast_config.fidl",
   ]

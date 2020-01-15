@@ -11,7 +11,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.mem") {
   package_name = "mem"
   namespace = "fuchsia"
   public_deps = [
-    ] 
+    ]
   sources = [
         "buffer.fidl",
         "range.fidl",

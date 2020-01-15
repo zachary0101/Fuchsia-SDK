@@ -16,7 +16,7 @@ fuchsia_sdk_fidl_pkg("fuchsia.web") {
         "../fuchsia.mem",
         "../fuchsia.net.http",
         "../fuchsia.ui.views",
-    ] 
+    ]
   sources = [
         "constants.fidl",
         "context.fidl",
