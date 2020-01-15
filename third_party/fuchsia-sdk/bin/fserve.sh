@@ -25,7 +25,7 @@ usage () {
   echo "  [--image <image name>]"
   echo "    Defaults to ${IMAGE_NAME}"
   echo "  [--private-key <identity file>]"
-  echo "    Uses additional rsa private key when using ssh to access the device."
+  echo "    Uses additional private key when using ssh to access the device."
   echo "  [--server-port <port>]"
   echo "    Port number to use when serving the packages.  Defaults to ${FUCHSIA_SERVER_PORT}."
   echo "  [--device-name <device hostname>]"
@@ -187,15 +187,16 @@ echo "** Starting package server in the background**"
 # this is similar to serving on [::]:54321 or 0.0.0.0:54321.
 "${FUCHSIA_SDK_PATH}/tools/pm" serve -repo "${FUCHSIA_IMAGE_WORK_DIR}/packages/amber-files" -l ":${FUCHSIA_SERVER_PORT}"&
 
-PRIVATE_KEY_ARG=""
+SSH_ARGS=()
 if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
-  PRIVATE_KEY_ARG="-i ${PRIVATE_KEY_FILE}"
+  SSH_ARGS+=( "-i" "${PRIVATE_KEY_FILE}" )
 fi
+SSH_ARGS+=( "${DEVICE_IP}" amber_ctl add_src -f "http://[${HOST_IP}]:$FUCHSIA_SERVER_PORT/config.json" )
 
 # Update the device to point to the server.
 # Because the URL to config.json contains an IPv6 address, the address needs
 # to be escaped in square brackets. This is not necessary for the ssh target,
 # since that's just an address and not a full URL.
-if ! ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" amber_ctl add_src -f "http://[${HOST_IP}]:$FUCHSIA_SERVER_PORT/config.json"; then
+if ! ssh-cmd "${SSH_ARGS[@]}" ; then
   echo "Error: could not update device"
 fi

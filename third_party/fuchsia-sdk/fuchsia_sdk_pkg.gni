@@ -2,8 +2,6 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-assert(is_fuchsia)
-
 import("build/config/config.gni")
 import("build/config/fidl_library.gni")
 
@@ -66,7 +64,7 @@ template("fuchsia_sdk_fidl_pkg") {
 #     Required: List of source files.
 #
 #   include_dirs
-#     Optional: include_dirs to add to the configuration for the 
+#     Optional: include_dirs to add to the configuration for the
 #               target.
 #   library_name
 #     Optional: Name of the library. target_name is used if name
@@ -105,9 +103,7 @@ template("fuchsia_sdk_pkg") {
         sources += [ "${sdk_dist_dir}/lib${lib}.so" ]
       }
 
-      outputs = [
-        "${root_out_dir}/lib/{{source_file_part}}",
-      ]
+      outputs = [ "${root_out_dir}/lib/{{source_file_part}}" ]
     }
   }
 
@@ -127,9 +123,7 @@ template("fuchsia_sdk_pkg") {
     if (defined(invoker.shared_libs)) {
       configs += [ "${fuchsia_sdk_base}:sdk_lib_dirs_config" ]
       libs = invoker.shared_libs
-      data_deps = [
-        ":${target_name}_dist_libs",
-      ]
+      data_deps = [ ":${target_name}_dist_libs" ]
     } else if (defined(invoker.static_libs)) {
       libs = invoker.static_libs
     }

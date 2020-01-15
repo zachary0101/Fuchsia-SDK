@@ -28,9 +28,7 @@ function fx-error {
 }
 
 function ssh-cmd {
-  # Run SSH command. We use unquoted $@ here so splitting globbing works as expected.
-  # shellcheck disable=SC2068
-  ssh -F "${SCRIPT_SRC_DIR}/sshconfig" $@
+  ssh -F "${SCRIPT_SRC_DIR}/sshconfig" "$@"
 }
 
 function get-device-ip {
@@ -64,7 +62,8 @@ function get-device-ip-by-name {
 
 function get-host-ip {
   # $1 is the SDK_PATH.
-  local DEVICE_NAME=$(get-device-name "${1}")
+  local DEVICE_NAME
+  DEVICE_NAME="$(get-device-name "${1}")"
   # -ipv4 false: Disable IPv4. Fuchsia devices are IPv6-compatible, so
   #   forcing IPv6 allows for easier manipulation of the result.
   # cut: Remove the IPv6 scope, if present. For link-local addresses, the scope

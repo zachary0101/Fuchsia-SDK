@@ -19,7 +19,7 @@ function usage {
   echo "  [--device-name <device hostname>]"
   echo "    Connects to a device with the given device hostname."
   echo "  [--private-key <identity file>]"
-  echo "    Uses additional rsa private key when using ssh to access the device."
+  echo "    Uses additional private key when using ssh to access the device."
 }
 
 PRIVATE_KEY_FILE=""
@@ -66,9 +66,12 @@ if [[ ! "$?" || -z "$DEVICE_IP" ]]; then
   exit 2
 fi
 
-PRIVATE_KEY_ARG=""
+SSH_ARGS=()
 if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
-  PRIVATE_KEY_ARG="-i ${PRIVATE_KEY_FILE}"
+  SSH_ARGS+=( "-i" "${PRIVATE_KEY_FILE}" )
 fi
 
-ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" "${POSITIONAL[@]}"
+SSH_ARGS+=( "${DEVICE_IP}" )
+SSH_ARGS+=( "${POSITIONAL[@]}" )
+
+ssh-cmd "${SSH_ARGS[@]}"

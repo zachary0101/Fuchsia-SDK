@@ -4,8 +4,6 @@
 
 import("config.gni")
 
-assert(is_fuchsia)
-
 config("compiler") {
   sdk_version = "${fuchsia_sdk_id}"
   defines = [
@@ -22,7 +20,9 @@ config("compiler") {
     assert(false, "Unsupported architecture")
   }
 
-
+  # Add libfdio by default. This may change in future versions
+  # in order to move away from POSIX applications and towards
+  # the Fuchsia programming model.
   ldflags += [
     # We always want fdio or else e.g. stdio wouldn't be initialized if fdio
     # happens to not be directly referenced. The common POSIX-y compiler setup
@@ -33,7 +33,6 @@ config("compiler") {
     "-Wl,--as-needed",
   ]
 
-  # Add SDK lib dir for -lfdio above.
   lib_dirs = [ "${fuchsia_sdk}/arch/${current_cpu}/lib" ]
 
   libs = [ "zircon" ]
@@ -42,9 +41,7 @@ config("compiler") {
   asmflags = cflags
 }
 
-# This is included by reference in the //build/config/compiler:runtime_library
-# config that is applied to all targets. It is here to separate out the logic
-# that is POSIIX-only.
+# This should be applied to all targets.
 config("runtime_library") {
   asmflags = []
   cflags = []
@@ -57,8 +54,8 @@ config("runtime_library") {
 
   sysroot = fuchsia_sdk + "/arch/$current_cpu/sysroot"
 
-    # Pass the sysroot to all C compiler variants, the assembler, and linker.
-    cflags = [ "--sysroot=" + rebase_path(sysroot, root_build_dir) ]
-    ldflags =  cflags
-    asmflags = cflags
+  # Pass the sysroot to all C compiler variants, the assembler, and linker.
+  cflags = [ "--sysroot=" + rebase_path(sysroot, root_build_dir) ]
+  ldflags = cflags
+  asmflags = cflags
 }

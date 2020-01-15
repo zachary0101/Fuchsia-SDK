@@ -25,10 +25,11 @@ def make_package_path(file_path, roots):
     file_path: The file path to relativize.
     roots: A list of directory paths which may serve as a relative root for
       |file_path|.
-  Examples:  >>> make_package_path('/foo/bar.txt', ['/foo/']) 'bar.txt'  >>>
-    make_package_path('/foo/dir/bar.txt', ['/foo/']) 'dir/bar.txt'  >>>
-    make_package_path('/foo/out/Debug/bar.exe', ['/foo/', '/foo/out/Debug/'])
-    'bar.exe'
+
+    For example:
+        * make_package_path('/foo/bar.txt', ['/foo/']) 'bar.txt'
+        * make_package_path('/foo/dir/bar.txt', ['/foo/']) 'dir/bar.txt'
+        * make_package_path('/foo/out/Debug/bar.exe', ['/foo/', '/foo/out/Debug/']) 'bar.exe'
   """
 
     # Prevents greedily matching against a shallow path when a deeper, better
@@ -71,10 +72,7 @@ def _is_binary(path):
 
 
 def _write_build_ids_txt(binary_paths, ids_txt_path):
-    """Writes an index text file that maps build IDs to the paths of unstripped
-
-  binaries.
-  """
+    """Writes an index text file mapping build IDs to unstripped binaries."""
 
     READELF_FILE_PREFIX = 'File: '
     READELF_BUILD_ID_PREFIX = 'Build ID: '

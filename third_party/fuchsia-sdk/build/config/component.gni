@@ -26,28 +26,31 @@ import("config.gni")
 #     Optional: Non-executable resources to include in the component.
 #
 template("fuchsia_component") {
-  _component = {
-    forward_variables_from(invoker, "*")
+  forward_variables_from(invoker,
+                         [
+                           "deps",
+                           "data_deps",
+                           "manifest",
+                           "resources",
+                         ])
 
-    assert(defined(data_deps),
-           "data_deps required to define contents of this component")
-    assert(defined(manifest),
-           "manifest file (.cmx) required for this component")
+  assert(defined(data_deps),
+         "data_deps required to define contents of this component")
+  assert(defined(manifest), "manifest file (.cmx) required for this component")
 
-    if (!defined(resources)) {
-      resources = []
-    }
+  if (!defined(resources)) {
+    resources = []
+  }
 
-    if (!defined(deps)) {
-      deps = []
-    }
+  if (!defined(deps)) {
+    deps = []
   }
 
   _component_manifest = []
 
   # TODO(fxb/42370): add cmx validation
 
-  foreach(dep, _component.data_deps) {
+  foreach(dep, data_deps) {
     _component_manifest += [
       {
         type = "dep"
@@ -56,7 +59,7 @@ template("fuchsia_component") {
     ]
   }
 
-  foreach(resource, _component.resources) {
+  foreach(resource, resources) {
     _component_manifest += [
       {
         type = "resource"
@@ -68,7 +71,7 @@ template("fuchsia_component") {
   _component_manifest += [
     {
       type = "manifest"
-      source = rebase_path(invoker.manifest)
+      source = rebase_path(manifest)
     },
   ]
 
@@ -76,11 +79,8 @@ template("fuchsia_component") {
   # metadata. The metadata is processed by the package
   # template, or the distribution rule.
   group(target_name) {
-    forward_variables_from(invoker, "*")
     metadata = {
       contents = [ _component_manifest ]
     }
-    deps = _component.deps
-    data_deps += _component.data_deps
   }
 }

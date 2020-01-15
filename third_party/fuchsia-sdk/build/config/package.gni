@@ -155,7 +155,7 @@ template("fuchsia_package") {
     ]
   }
 
-  # Creates a package containing the metadata archive and blob data.
+  # Creates an archive containing the metadata archive and blob data.
   action(target_name) {
     forward_variables_from(invoker, [ "testonly" ])
 

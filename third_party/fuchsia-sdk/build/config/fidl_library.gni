@@ -4,8 +4,6 @@
 
 import("config.gni")
 
-assert(is_fuchsia)
-
 # Define a Fuchsia FIDL library component() target.
 #
 # $namespace.$library_name must match the the library name specified in the FIDL

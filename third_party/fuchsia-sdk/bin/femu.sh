@@ -29,7 +29,7 @@ usage () {
   echo "    The authorized public key file for securing the device.  Defaults to "
   echo "    the output of 'ssh-add -L'"
 }
-PREPARE_ONLY=""
+
 AUTH_KEYS_FILE=""
 
 # Parse command line
@@ -88,16 +88,16 @@ set -e
 
 # Download the system images and packages
 echo "Checking for system images and packages"
-${SCRIPT_SRC_DIR}/fpave.sh  --prepare --image ${IMAGE_NAME} --bucket ${FUCHSIA_BUCKET} --work-dir ${FUCHSIA_IMAGE_WORK_DIR}
-${SCRIPT_SRC_DIR}/fserve.sh --prepare --image ${IMAGE_NAME} --bucket ${FUCHSIA_BUCKET} --work-dir ${FUCHSIA_IMAGE_WORK_DIR}
+"${SCRIPT_SRC_DIR}/fpave.sh"  --prepare --image "${IMAGE_NAME}" --bucket "${FUCHSIA_BUCKET}" --work-dir "${FUCHSIA_IMAGE_WORK_DIR}"
+"${SCRIPT_SRC_DIR}/fserve.sh" --prepare --image "${IMAGE_NAME}" --bucket "${FUCHSIA_BUCKET}" --work-dir "${FUCHSIA_IMAGE_WORK_DIR}"
 
 # Download aemu if it is not already present
 echo "Checking for aemu binaries"
-DOWNLOADS_DIR=${SCRIPT_SRC_DIR}/../images/emulator
+DOWNLOADS_DIR="${SCRIPT_SRC_DIR}/../images/emulator"
 ARCH=linux-amd64
 VER_AEMU=latest
 if [ ! -f "${DOWNLOADS_DIR}/aemu-${ARCH}-${VER_AEMU}.zip" ]; then
-  mkdir -p ${DOWNLOADS_DIR}
+  mkdir -p "${DOWNLOADS_DIR}"
   echo -e "Downloading aemu archive...\c"
   curl -sL "https://chrome-infra-packages.appspot.com/dl/fuchsia/third_party/aemu/${ARCH}/+/${VER_AEMU}" -o "${DOWNLOADS_DIR}/aemu-${ARCH}-${VER_AEMU}.zip"
   echo "complete."
@@ -109,54 +109,54 @@ if [ ! -d "${DOWNLOADS_DIR}/aemu-${ARCH}" ]; then
 fi
 
 # Configure paths to the various tools needed
-AEMU=${DOWNLOADS_DIR}/aemu-${ARCH}
-SDK=${SCRIPT_SRC_DIR}/../sdk
-FVMTOOL=${SCRIPT_SRC_DIR}/../sdk/tools/fvm
-ZBITOOL=${SCRIPT_SRC_DIR}/../sdk/tools/zbi
-SYSIMAGES=${SCRIPT_SRC_DIR}/../images/image
-TMPIMAGES=${SCRIPT_SRC_DIR}/../images/emulator
-INITRD=${TMPIMAGES}/tmp-fuchsia.zbi
-SYSTEM_FVM=${TMPIMAGES}/tmp-fvm.blk
-SYSTEM_QCOW=${TMPIMAGES}/tmp-qcow.blk
+AEMU="${DOWNLOADS_DIR}/aemu-${ARCH}"
+SDK="${SCRIPT_SRC_DIR}/../sdk"
+FVMTOOL="${SDK}/tools/fvm"
+ZBITOOL="${SDK}/tools/zbi"
+SYSIMAGES="${SCRIPT_SRC_DIR}/../images/image"
+TMPIMAGES="${SCRIPT_SRC_DIR}/../images/emulator"
+INITRD="${TMPIMAGES}/tmp-fuchsia.zbi"
+SYSTEM_FVM="${TMPIMAGES}/tmp-fvm.blk"
+SYSTEM_QCOW="${TMPIMAGES}/tmp-qcow.blk"
 
 # Add the public key into the ZBI disk image, so the emulator will allow us to connect in
 echo "Creating initrd fuchsia.zbi with SSH keys from ${AUTH_KEYS_FILE}"
-$ZBITOOL -o ${INITRD} ${SYSIMAGES}/zircon-a.zbi -e data/ssh/authorized_keys=${AUTH_KEYS_FILE}
+"${ZBITOOL}" -o "${INITRD}" "${SYSIMAGES}/zircon-a.zbi" -e "data/ssh/authorized_keys=${AUTH_KEYS_FILE}"
 
 # Copy the FVM image and resize it to 1GB, since the default is to have zero free space
 echo "Creating fvm blk and resizing it to 1GB"
-cp -f ${SYSIMAGES}/storage-full.blk ${SYSTEM_FVM}
-chmod u+w ${SYSTEM_FVM}
-${FVMTOOL} ${SYSTEM_FVM} extend --length 1073741824
+cp -f "${SYSIMAGES}/storage-full.blk" "${SYSTEM_FVM}"
+chmod u+w "${SYSTEM_FVM}"
+"${FVMTOOL}" "${SYSTEM_FVM}" extend --length 1073741824
 
 # Convert the image into QCOW2 format so we can create throwaway snapshots
 echo "Creating qcow blk as copy-on-write snapshot"
-$AEMU/qemu-img convert -f raw -O qcow2 -c ${SYSTEM_FVM} ${SYSTEM_QCOW}
+"${AEMU}/qemu-img" convert -f raw -O qcow2 -c "${SYSTEM_FVM}" "${SYSTEM_QCOW}"
 
 # MAC address configuration from $FUCHSIA/tools/devshell/emu script
 echo "Configuring networking for qemu tun/tap device"
 IFNAME="qemu"
-HASH=$(echo $IFNAME | shasum)
-SUFFIX=$(for i in {0..2}; do echo -n :${HASH:$(( 2 * $i )):2}; done)
-MACADDR="52:54:00$SUFFIX"
-TAP_IFS=$(ip tuntap show 2>/dev/null)
-if [[ ! "$TAP_IFS" =~ "${IFNAME}:" ]]; then
+HASH="$(echo $IFNAME | shasum)"
+SUFFIX="$(for i in {0..2}; do echo -n :"${HASH:$(( 2 * i )):2}"; done)"
+MACADDR="52:54:00${SUFFIX}"
+TAP_IFS="$(ip tuntap show 2>/dev/null)"
+if [[ ! "$TAP_IFS" =~ ${IFNAME}: ]]; then
   echo
-  echo "ERROR! qemu network device not found"
-  echo "To use aemu with networking on Linux, configure tun/tap:"
+  fx-error "ERROR! qemu network device not found"
+  fx-error "To use aemu with networking on Linux, configure tun/tap:"
   echo
-  echo "sudo ip tuntap add dev $IFNAME mode tap user $USER && sudo ip link set $IFNAME up"
+  fx-error "sudo ip tuntap add dev $IFNAME mode tap user $USER && sudo ip link set $IFNAME up"
   exit 1
 fi
 
 # Other qemu variables
-KERNEL=${SYSIMAGES}/qemu-kernel.kernel
-ENTROPY=$(head -c 32 /dev/urandom | shasum -a 256 | awk '{ print $1 }')
+KERNEL="${SYSIMAGES}/qemu-kernel.kernel"
+ENTROPY="$(head -c 32 /dev/urandom | shasum -a 256 | awk '{ print $1 }')"
 
 export LD_LIBRARY_PATH="${AEMU}/lib64/qt/lib:${AEMU}/lib64/"
 
 echo "Starting aemu"
-${AEMU}/emulator \
+"${AEMU}/emulator" \
   -feature VirtioInput,RefCountPipe,KVM,GLDirectMem,Vulkan \
   -window-size 1280x800 \
   -gpu host \
@@ -174,8 +174,8 @@ ${AEMU}/emulator \
   -enable-kvm \
   -cpu host,migratable=no,+invtsc \
   -netdev type=tap,ifname=qemu,script=no,downscript=no,id=net0 \
-  -device e1000,netdev=net0,mac=${MACADDR} \
+  -device e1000,netdev=net0,mac="${MACADDR}" \
   -snapshot \
-  -drive file=${SYSTEM_QCOW},format=qcow2,if=none,id=blobstore,snapshot=on \
+  -drive file="${SYSTEM_QCOW},format=qcow2,if=none,id=blobstore,snapshot=on" \
   -device virtio-blk-pci,drive=blobstore \
   -append "TERM=xterm kernel.serial=legacy kernel.entropy-mixin=${ENTROPY} kernel.halt-on-panic=true "

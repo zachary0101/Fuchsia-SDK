@@ -32,7 +32,7 @@ function usage {
   echo "    The authorized public key file for securing the device.  Defaults to "
   echo "    the output of 'ssh-add -L'"
   echo "  [--private-key <identity file>]"
-  echo "    Uses additional rsa private key when using ssh to access the device."
+  echo "    Uses additional private key when using ssh to access the device."
   echo "  [--device-name <device hostname>]"
   echo "    Only paves a device with the given device hostname"
   echo "  [--prepare]"
@@ -183,16 +183,18 @@ if [[ ! "$(wc -l < "${AUTH_KEYS_FILE}")" -ge 1 ]]; then
   exit 2
 fi
 
-PRIVATE_KEY_ARG=""
+SSH_ARGS=()
+
 if [[ "${PRIVATE_KEY_FILE}" != "" ]]; then
-  PRIVATE_KEY_ARG="-i ${PRIVATE_KEY_FILE}"
+  SSH_ARGS+=( "-i"  "${PRIVATE_KEY_FILE}" )
 fi
 
 # Get the device IP address.  If we can't find it, it could be at the zedboot
 # page, so it is not fatal.
 DEVICE_IP=$(get-device-ip-by-name "$FUCHSIA_SDK_PATH" "$DEVICE_NAME_FILTER")
 if [[ "$?" && -n "$DEVICE_IP" ]]; then
-    ssh-cmd "${PRIVATE_KEY_ARG}" "${DEVICE_IP}" dm reboot-recovery
+    SSH_ARGS+=( "${DEVICE_IP}" dm reboot-recovery )
+    ssh-cmd "${SSH_ARGS[@]}"
     fx-warn "Confirm device is rebooting into recovery mode.  Paving may fail if device is not in Zedboot."
 else
     fx-warn "Device not detected.  Make sure the device is connected and at the 'Zedboot' screen."
