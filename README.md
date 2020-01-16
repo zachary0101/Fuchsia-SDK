@@ -5,7 +5,7 @@ A collection of samples demonstrating how to build, run, and test Fuchsia compon
 |-------|
 
 ## Setup
-1. Install required dependencies: `sudo apt-get install curl unzip python python2`
+1. Install required dependencies for building: `sudo apt-get install curl unzip python python2`.
 1. Clone this repo and submodules: `git clone https://fuchsia.googlesource.com/samples --recursive`. If you have already cloned this repo without the `--recursive` flag you can run `git submodule init && git submodule update --recursive` to download the submodules.
 1. Change directory to the root of the repo: `cd samples` and setup and run the tests`./scripts/setup-and-test.sh`. This script downloads all required dependencies (this may take 5-30min), build the samples and run the tests. If the script completes without errors all tests have passed.
 
@@ -37,3 +37,13 @@ The `src` directory contains the source code for the two C++ samples: hello worl
 GN samples has two third_party dependencies: the Fuchsia GN SDK and googletest (googletest is only required for testing):
 * **Fuchsia SDK**: The Fuchsia SDK is a set of tools and libraries required to build Fuchsia components outside Fuchsia source code tree. It contains libraries and tools for: Installing/running Fuchsia and Fuchsia components/packages on a device, Fuchsia's interprocess communication (IPC) system (FIDL), and other tasks needed to build, run, and test Fuchsia componenets.
 * **googletest**: googletest is a C++ testing framework. googletest is used to write tests for the rot13 and hello world samples. googletest is only required for testing.
+
+## Emulator
+Fuchsia system images can be started with the included emulator scripts. Native Vulkan support on the host is required for graphics support.
+1. Install dependencies for Vulkan support: `sudo apt-get install libvulkan1 mesa-vulkan-drivers`.
+1. Download tool dependencies: `./scripts/download-build-tools.sh`.
+1. Build the bouncing_ball demo: `./scripts/build.sh`.
+1. Publish the updated package for bouncing_ball: `./third_party/fuchsia-sdk/bin/fpublish.sh ./out/x64/bouncing_ball.far`.
+1. Start the emulator with networking support: `./third_party/fuchsia-sdk/bin/femu.sh -N`.
+1. Start the package server: `./third_party/fuchsia-sdk/bin/fserve.sh --image qemu-x64`.
+1. SSH to the emulator and start up a demo: `./third_party/fuchsia-sdk/bin/fssh.sh tiles_ctl add fuchsia-pkg://fuchsia.com/bouncing_ball#meta/bouncing_ball.cmx`.
