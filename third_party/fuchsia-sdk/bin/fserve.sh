@@ -129,7 +129,7 @@ CHECKSUM_FILE="${FUCHSIA_IMAGE_WORK_DIR}/packages/packages.md5"
 
 # check that any existing contents of the image directory match the intended target device
 if [[ -f "${CHECKSUM_FILE}" ]]; then
-  if [[ "$(md5sum "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}")" != "$(cat "${CHECKSUM_FILE}")" ]]; then
+  if ! md5sum --check "${CHECKSUM_FILE}" --quiet; then
     fx-warn "Removing old package files."
     if ! rm -f "$(cut -d ' '  -f3 "${CHECKSUM_FILE}")"; then
       fx-error "Could not clean up old image archive."
