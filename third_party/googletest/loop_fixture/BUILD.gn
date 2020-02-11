@@ -1,0 +1,68 @@
+# Copyright 2016 The Fuchsia Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+source_set("loop_fixture") {
+  testonly = true
+
+  sources = [
+    "real_loop_fixture.cc",
+    "real_loop_fixture.h",
+    "test_loop_fixture.cc",
+    "test_loop_fixture.h",
+  ]
+
+  deps = [
+    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-cpp",
+  ]
+
+  public_deps = [
+    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-cpp",
+    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-default",
+    "//third_party/fuchsia-sdk/sdk/pkg/async-testing",
+    "//third_party/fuchsia-sdk/sdk/pkg/fit",
+    "//third_party/fuchsia-sdk/sdk/pkg/zx",
+    "//third_party/googletest:gtest",
+  ]
+
+  # public_configs = [ "//garnet/public:config" ]
+}
+
+executable("loop_fixture_unittests") {
+  testonly = true
+
+  sources = [
+    "real_loop_fixture_unittest.cc",
+    "test_loop_fixture_unittest.cc",
+  ]
+
+  deps = [
+    ":loop_fixture",
+    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-cpp",
+    "//third_party/googletest:gmock",
+    "//third_party/googletest:gtest_main",
+  ]
+}
+
+if (defined(unittest_package)) {
+  unittest_package("loop_fixture_tests") {
+    deps = [
+      ":loop_fixture_unittests",
+    ]
+
+    tests = [
+      {
+        name = "loop_fixture_unittests"
+        environments = basic_envs
+      },
+    ]
+  }
+
+  group("tests") {
+    testonly = true
+
+    deps = [
+      ":loop_fixture_tests",
+    ]
+  }
+}
