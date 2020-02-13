@@ -1,0 +1,29 @@
+{
+  "binaries": {
+    "arm64": {
+      "debug": ".build-id/27/fb95e9e16b0faa.debug",
+      "dist": "arch/arm64/dist/libmemfs.so",
+      "dist_path": "lib/libmemfs.so",
+      "link": "arch/arm64/lib/libmemfs.so"
+    },
+    "x64": {
+      "debug": ".build-id/d8/eb96da99c35d9b.debug",
+      "dist": "arch/x64/dist/libmemfs.so",
+      "dist_path": "lib/libmemfs.so",
+      "link": "arch/x64/lib/libmemfs.so"
+    }
+  },
+  "deps": [
+    "async",
+    "fit",
+    "sync"
+  ],
+  "format": "shared",
+  "headers": [
+    "pkg/memfs/include/lib/memfs/memfs.h"
+  ],
+  "include_dir": "pkg/memfs/include",
+  "name": "memfs",
+  "root": "pkg/memfs",
+  "type": "cc_prebuilt_library"
+}

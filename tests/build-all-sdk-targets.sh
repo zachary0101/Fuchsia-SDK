@@ -23,5 +23,5 @@ OUT_DIRS=( 'out/arm64' 'out/x64' )
 
 for DIR in "${OUT_DIRS[@]}"; do
   echo "==== Building all Fuchsia SDK targets in ${DIR} ===="
-  "${DEPOT_TOOLS_DIR}/ninja" -C "${REPO_ROOT}/${DIR}" third_party/fuchsia-sdk:all_fidl_targets
+  "${DEPOT_TOOLS_DIR}/ninja" -C "${REPO_ROOT}/${DIR}" all_sdk_targets
 done

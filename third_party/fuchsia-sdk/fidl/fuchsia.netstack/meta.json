@@ -1,0 +1,13 @@
+{
+  "deps": [
+    "fuchsia.net.dhcp",
+    "fuchsia.hardware.ethernet",
+    "fuchsia.net"
+  ],
+  "name": "fuchsia.netstack",
+  "root": "fidl/fuchsia.netstack",
+  "sources": [
+    "fidl/fuchsia.netstack/netstack.fidl"
+  ],
+  "type": "fidl_library"
+}

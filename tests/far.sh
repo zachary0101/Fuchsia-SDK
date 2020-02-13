@@ -25,7 +25,7 @@ cleanup() {
 }
 
 # Ensure far tool is present
-FAR_BIN="$REPO_ROOT/third_party/fuchsia-sdk/sdk/tools/far"
+FAR_BIN="$REPO_ROOT/third_party/fuchsia-sdk/tools/far"
 if [ ! -x "$FAR_BIN" ]; then
   echo "Error: Could not find file far tool in \""$FAR_BIN"\""
   exit 1;

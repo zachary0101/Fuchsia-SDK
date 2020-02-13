@@ -1,0 +1,15 @@
+{
+  "deps": [
+    "fuchsia.math",
+    "fuchsia.mem"
+  ],
+  "name": "fuchsia.feedback",
+  "root": "fidl/fuchsia.feedback",
+  "sources": [
+    "fidl/fuchsia.feedback/annotation.fidl",
+    "fidl/fuchsia.feedback/attachment.fidl",
+    "fidl/fuchsia.feedback/crash_reporter.fidl",
+    "fidl/fuchsia.feedback/data_provider.fidl"
+  ],
+  "type": "fidl_library"
+}

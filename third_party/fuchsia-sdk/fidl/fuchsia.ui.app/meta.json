@@ -1,0 +1,14 @@
+{
+  "deps": [
+    "fuchsia.intl",
+    "fuchsia.sys"
+  ],
+  "name": "fuchsia.ui.app",
+  "root": "fidl/fuchsia.ui.app",
+  "sources": [
+    "fidl/fuchsia.ui.app/view.fidl",
+    "fidl/fuchsia.ui.app/view_config.fidl",
+    "fidl/fuchsia.ui.app/view_provider.fidl"
+  ],
+  "type": "fidl_library"
+}

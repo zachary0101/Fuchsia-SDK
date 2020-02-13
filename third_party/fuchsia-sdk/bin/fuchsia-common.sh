@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2019 The Fuchsia Authors. All rights reserved.
+# Copyright 2020 The Fuchsia Authors. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 #
@@ -8,6 +8,7 @@
 
 SCRIPT_SRC_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 DEFAULT_FUCHSIA_BUCKET="fuchsia"
+SSH_BIN="$(command -v ssh)"
 
 # fx-warn prints a line to stderr with a yellow WARNING: prefix.
 function fx-warn {
@@ -27,8 +28,12 @@ function fx-error {
   fi
 }
 
+function set-ssh-path {
+  SSH_BIN="$1"
+}
+
 function ssh-cmd {
-  ssh -F "${SCRIPT_SRC_DIR}/sshconfig" "$@"
+  "${SSH_BIN}" -F "${SCRIPT_SRC_DIR}/sshconfig" "$@"
 }
 
 function get-device-ip {
@@ -62,8 +67,10 @@ function get-device-ip-by-name {
 
 function get-host-ip {
   # $1 is the SDK_PATH.
+  # $2 is the hostname of the Fuchsia device. If $2 is empty, this function
+  # returns the IP address of an arbitrarily selected Fuchsia device.
   local DEVICE_NAME
-  DEVICE_NAME="$(get-device-name "${1}")"
+  DEVICE_NAME="$(get-device-name "${1}" "${2}")"
   # -ipv4 false: Disable IPv4. Fuchsia devices are IPv6-compatible, so
   #   forcing IPv6 allows for easier manipulation of the result.
   # cut: Remove the IPv6 scope, if present. For link-local addresses, the scope
@@ -111,12 +118,16 @@ function run-gsutil {
 
 function get-available-images {
   # $1 is the SDK ID.
+  # $2 is the bucket, or uses the default.
   local IMAGES=()
-  for f in $(run-gsutil "ls" "gs://${FUCHSIA_BUCKET}/development/${1}/images" | cut -d/ -f7)
+  local BUCKET=""
+
+  BUCKET="${2:-${DEFAULT_FUCHSIA_BUCKET}}"
+  for f in $(run-gsutil "ls" "gs://${BUCKET}/development/${1}/images" | cut -d/ -f7)
   do
     IMAGES+=("${f%.*}")
   done
-  if [[ "${FUCHSIA_BUCKET}" != "${DEFAULT_FUCHSIA_BUCKET}" ]]; then
+  if [[ "${BUCKET}" != "${DEFAULT_FUCHSIA_BUCKET}" ]]; then
       for f in $(run-gsutil "ls" "gs://${DEFAULT_FUCHSIA_BUCKET}/development/${1}/images" | cut -d/ -f7)
       do
         IMAGES+=("${f%.*}")
@@ -139,5 +150,3 @@ function kill-running-pm {
   fi
   return 0
 }
-
-

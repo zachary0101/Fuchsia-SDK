@@ -3,8 +3,8 @@
 # found in the LICENSE file.
 
 import("//build/testing.gni")
-import("//third_party/fuchsia-sdk/build/config/component.gni")
-import("//third_party/fuchsia-sdk/build/config/package.gni")
+import("//third_party/fuchsia-sdk/build/component.gni")
+import("//third_party/fuchsia-sdk/build/package.gni")
 
 group("host_tests") {
   # Tests run on the host. These are unit tests that are platform independent.
@@ -30,7 +30,7 @@ source_set("server_lib") {
 
   public_deps = [
     "//src/rot13/fidl:fuchsia.examples.rot13",
-    "//third_party/fuchsia-sdk/sdk/pkg/sys_cpp",
+    "//third_party/fuchsia-sdk/pkg/sys_cpp",
   ]
   deps = [
     ":impl_lib",
@@ -72,8 +72,8 @@ executable("rot13_server_bin") {
 
   deps = [
     ":server_lib",
-    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-cpp",
-    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-default",
+    "//third_party/fuchsia-sdk/pkg/async-loop-cpp",
+    "//third_party/fuchsia-sdk/pkg/async-loop-default",
   ]
 }
 

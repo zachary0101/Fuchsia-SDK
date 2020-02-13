@@ -4,6 +4,8 @@
 
 # Top level BUILD file for gn samples
 
+
+
 group("default") {
   deps = [
     "//src/hello_world",
@@ -28,6 +30,12 @@ group("tests") {
       "//src/rot13:tests",
     ]
   }
+}
+
+# build all the targets exposed by the Fuchsia sdk.
+if (is_fuchsia) {
+  import("//third_party/fuchsia-sdk/build/test_targets.gni")
+  fuchsia_sdk_test_targets("all_sdk_targets") {}
 }
 
 # A generated file that lists all of the test files.

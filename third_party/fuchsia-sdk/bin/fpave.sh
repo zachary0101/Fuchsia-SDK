@@ -14,7 +14,7 @@ SCRIPT_SRC_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd)"
 # Fuchsia command common functions.
 source "${SCRIPT_SRC_DIR}/fuchsia-common.sh" || exit $?
 
-FUCHSIA_SDK_PATH="$(realpath "${SCRIPT_SRC_DIR}/../sdk")"
+FUCHSIA_SDK_PATH="$(realpath "${SCRIPT_SRC_DIR}/..")"
 FUCHSIA_IMAGE_WORK_DIR="$(realpath "${SCRIPT_SRC_DIR}/../images")"
 FUCHSIA_BUCKET="${DEFAULT_FUCHSIA_BUCKET}"
 DEVICE_NAME_FILTER=""
@@ -129,7 +129,7 @@ CHECKSUM_FILE="${FUCHSIA_IMAGE_WORK_DIR}/image/image.md5"
 
 # check that any existing contents of the image directory match the intended target device
 if [[ -f "${CHECKSUM_FILE}" ]]; then
-  if [[ "$(md5sum "${FUCHSIA_IMAGE_WORK_DIR}/${IMAGE_FILENAME}")" != "$(cat "${CHECKSUM_FILE}")" ]]; then
+  if ! md5sum --check "${CHECKSUM_FILE}" --quiet ; then
     fx-warn "Removing old image files."
     if ! rm -f "$(cut -d ' ' -f3 "${CHECKSUM_FILE}")"; then
       fx-error "Could not clean up old image archive."
@@ -208,4 +208,3 @@ if ! "${PAVE_CMD[@]}"; then
     exit 2
   fi
 fi
-

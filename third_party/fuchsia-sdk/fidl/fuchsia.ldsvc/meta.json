@@ -1,0 +1,9 @@
+{
+  "deps": [],
+  "name": "fuchsia.ldsvc",
+  "root": "fidl/fuchsia.ldsvc",
+  "sources": [
+    "fidl/fuchsia.ldsvc/ldsvc.fidl"
+  ],
+  "type": "fidl_library"
+}

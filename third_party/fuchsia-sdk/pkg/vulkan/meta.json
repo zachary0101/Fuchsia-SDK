@@ -1,0 +1,26 @@
+{
+  "binaries": {
+    "arm64": {
+      "debug": ".build-id/b2/f23f752af4c41e.debug",
+      "dist": "arch/arm64/dist/libvulkan.so",
+      "dist_path": "lib/libvulkan.so",
+      "link": "arch/arm64/lib/libvulkan.so"
+    },
+    "x64": {
+      "debug": ".build-id/7b/2d81351cea0ab4.debug",
+      "dist": "arch/x64/dist/libvulkan.so",
+      "dist_path": "lib/libvulkan.so",
+      "link": "arch/x64/lib/libvulkan.so"
+    }
+  },
+  "deps": [
+    "async-default",
+    "fdio"
+  ],
+  "format": "shared",
+  "headers": [],
+  "include_dir": "pkg/vulkan/include",
+  "name": "vulkan",
+  "root": "pkg/vulkan",
+  "type": "cc_prebuilt_library"
+}

@@ -1,0 +1,9 @@
+{
+  "deps": [],
+  "name": "fuchsia.hardware.ethernet",
+  "root": "fidl/fuchsia.hardware.ethernet",
+  "sources": [
+    "fidl/fuchsia.hardware.ethernet/ethernet.fidl"
+  ],
+  "type": "fidl_library"
+}

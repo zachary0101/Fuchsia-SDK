@@ -1,0 +1,11 @@
+{
+  "deps": [
+    "fuchsia.io"
+  ],
+  "name": "fuchsia.posix.socket",
+  "root": "fidl/fuchsia.posix.socket",
+  "sources": [
+    "fidl/fuchsia.posix.socket/socket.fidl"
+  ],
+  "type": "fidl_library"
+}

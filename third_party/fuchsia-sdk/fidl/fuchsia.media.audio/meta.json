@@ -1,0 +1,10 @@
+{
+  "deps": [],
+  "name": "fuchsia.media.audio",
+  "root": "fidl/fuchsia.media.audio",
+  "sources": [
+    "fidl/fuchsia.media.audio/gain_control.fidl",
+    "fidl/fuchsia.media.audio/volume_control.fidl"
+  ],
+  "type": "fidl_library"
+}

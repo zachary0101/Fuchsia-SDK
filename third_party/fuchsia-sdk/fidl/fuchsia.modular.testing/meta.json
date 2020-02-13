@@ -1,0 +1,14 @@
+{
+  "deps": [
+    "fuchsia.modular",
+    "fuchsia.modular.session",
+    "fuchsia.sys",
+    "fuchsia.mem"
+  ],
+  "name": "fuchsia.modular.testing",
+  "root": "fidl/fuchsia.modular.testing",
+  "sources": [
+    "fidl/fuchsia.modular.testing/test_harness.fidl"
+  ],
+  "type": "fidl_library"
+}

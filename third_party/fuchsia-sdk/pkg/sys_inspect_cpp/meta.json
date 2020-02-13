@@ -1,0 +1,18 @@
+{
+  "banjo_deps": [],
+  "deps": [
+    "sys_cpp",
+    "inspect"
+  ],
+  "fidl_deps": [],
+  "headers": [
+    "pkg/sys_inspect_cpp/include/lib/sys/inspect/cpp/component.h"
+  ],
+  "include_dir": "pkg/sys_inspect_cpp/include",
+  "name": "sys_inspect_cpp",
+  "root": "pkg/sys_inspect_cpp",
+  "sources": [
+    "pkg/sys_inspect_cpp/component.cc"
+  ],
+  "type": "cc_source_library"
+}

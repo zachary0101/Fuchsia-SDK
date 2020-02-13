@@ -1,0 +1,11 @@
+{
+  "deps": [],
+  "name": "fuchsia.net",
+  "root": "fidl/fuchsia.net",
+  "sources": [
+    "fidl/fuchsia.net/connectivity.fidl",
+    "fidl/fuchsia.net/namelookup.fidl",
+    "fidl/fuchsia.net/net.fidl"
+  ],
+  "type": "fidl_library"
+}

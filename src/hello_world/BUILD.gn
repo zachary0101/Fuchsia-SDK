@@ -62,8 +62,8 @@ test("hello_world_test") {
 }
 
 if (is_fuchsia) {
-  import("//third_party/fuchsia-sdk/build/config/component.gni")
-  import("//third_party/fuchsia-sdk/build/config/package.gni")
+  import("//third_party/fuchsia-sdk/build/component.gni")
+  import("//third_party/fuchsia-sdk/build/package.gni")
 
   fuchsia_component("hello_world_cmx") {
     manifest = "hello_world.cmx"

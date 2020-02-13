@@ -1,0 +1,9 @@
+{
+  "deps": [],
+  "name": "fuchsia.scenic.scheduling",
+  "root": "fidl/fuchsia.scenic.scheduling",
+  "sources": [
+    "fidl/fuchsia.scenic.scheduling/prediction_info.fidl"
+  ],
+  "type": "fidl_library"
+}

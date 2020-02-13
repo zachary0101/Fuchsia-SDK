@@ -1,0 +1,34 @@
+{
+  "binaries": {
+    "arm64": [
+      "arch/arm64/dist/VkLayer_core_validation.so",
+      "arch/arm64/dist/VkLayer_object_lifetimes.so",
+      "arch/arm64/dist/VkLayer_thread_safety.so",
+      "arch/arm64/dist/VkLayer_stateless_validation.so",
+      "arch/arm64/dist/VkLayer_unique_objects.so",
+      "arch/arm64/dist/VkLayer_khronos_validation.so",
+      "arch/arm64/dist/libVkLayer_image_pipe_swapchain.so"
+    ],
+    "x64": [
+      "arch/x64/dist/VkLayer_core_validation.so",
+      "arch/x64/dist/VkLayer_object_lifetimes.so",
+      "arch/x64/dist/VkLayer_thread_safety.so",
+      "arch/x64/dist/VkLayer_stateless_validation.so",
+      "arch/x64/dist/VkLayer_unique_objects.so",
+      "arch/x64/dist/VkLayer_khronos_validation.so",
+      "arch/x64/dist/libVkLayer_image_pipe_swapchain.so"
+    ]
+  },
+  "name": "vulkan_layers",
+  "resources": [
+    "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_core_validation.json",
+    "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_object_lifetimes.json",
+    "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_thread_safety.json",
+    "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_stateless_validation.json",
+    "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_unique_objects.json",
+    "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_khronos_validation.json",
+    "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_standard_validation.json",
+    "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_image_pipe_swapchain.json"
+  ],
+  "type": "loadable_module"
+}

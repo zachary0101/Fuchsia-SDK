@@ -2,8 +2,8 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-import("//third_party/fuchsia-sdk/build/config/component.gni")
-import("//third_party/fuchsia-sdk/build/config/package.gni")
+import("//third_party/fuchsia-sdk/build/component.gni")
+import("//third_party/fuchsia-sdk/build/package.gni")
 
 # A FIDL client that can connect to a Calculator engine.
 source_set("client") {
@@ -14,11 +14,11 @@ source_set("client") {
 
   deps = [
     "//src/calculator/fidl:fuchsia.examples.calculator",
-    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-cpp",
+    "//third_party/fuchsia-sdk/pkg/async-loop-cpp",
   ]
 
   public_deps = [
-    "//third_party/fuchsia-sdk/sdk/pkg/sys_cpp",
+    "//third_party/fuchsia-sdk/pkg/sys_cpp",
   ]
 }
 
@@ -31,8 +31,8 @@ executable("cli_bin") {
   deps = [
     ":client",
     "//src/calculator/fidl:fuchsia.examples.calculator",
-    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-cpp",
-    "//third_party/fuchsia-sdk/sdk/pkg/async-loop-default",
+    "//third_party/fuchsia-sdk/pkg/async-loop-cpp",
+    "//third_party/fuchsia-sdk/pkg/async-loop-default",
   ]
 }
 

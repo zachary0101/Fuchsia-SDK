@@ -4,7 +4,7 @@
 
 assert(is_fuchsia)
 
-import("//third_party/fuchsia-sdk/build/config/fidl_library.gni")
+import("//third_party/fuchsia-sdk/build/fidl_library.gni")
 
 # This group makes all FIDL targets available as public dependencies.
 # This group is named the same # as its GN package so that the group

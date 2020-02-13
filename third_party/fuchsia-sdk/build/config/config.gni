@@ -3,24 +3,27 @@
 # found in the LICENSE file.
 
 declare_args() {
-  # path to the unpacked SDK. This is based on this file being relative to
-  # the SDK via ../../sdk
-  # aka Grandparent directory of this file.
-  fuchsia_sdk_base = get_path_info(
-          # Parent directory of this file
-          get_path_info(
-              # Directory of this file
-              get_path_info(get_path_info("config.gni", "abspath"), "dir"),
-              "dir"),
-          "dir")
+  # Path to the fuchsia SDK. This is intended for use in other templates & rules
+  # to reference the contents of the fuchsia SDK.
+  fuchsia_sdk = get_path_info("../..", "abspath")
+
+  # Build ID uniquely identifying the Fuchsia IDK. This is exposed as a property so
+  # it can be used to locate images and packages on GCS and as a marker to indicate the
+  # "version" of the IDK. If it is empty, then it is most likely that something is fatally wrong.
+  fuchsia_sdk_id = ""
 }
 
 declare_args() {
-  fuchsia_sdk = fuchsia_sdk_base + "/sdk"
+  # The SDK manifest file. This is useful to include as a dependency
+  # for some targets in order to cause a rebuild when the version of the
+  # SDK is changed.
+  fuchsia_sdk_manifest_file = "$fuchsia_sdk/meta/manifest.json"
 }
 
-_meta = read_file(fuchsia_sdk + "/meta/manifest.json", "json")
-
-declare_args() {
+if (fuchsia_sdk_id == "") {
+  # Note: If we need to expose more than just the id in the future,
+  # we should consider exposing the entire json object for the metadata vs.
+  # adding a bunch of variables.
+  _meta = read_file(fuchsia_sdk_manifest_file, "json")
   fuchsia_sdk_id = _meta.id
 }
