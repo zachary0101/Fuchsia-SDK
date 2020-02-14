@@ -31,6 +31,10 @@ function get_buildtools_dir() {
   echo "$(get_gn_root)/buildtools"
 }
 
+function get_third_party_dir() {
+  echo "$(get_gn_root)/third_party"
+}
+
 function get_depot_tools_dir() {
   # Make the host os specific subdir
   # The directory structure is designed to be compatibile with
