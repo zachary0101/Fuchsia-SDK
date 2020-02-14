@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "8888630701958476736",
+  "id": "8888110105758747200",
   "parts": [
     {
       "meta": "bin/fpave-meta.json",
@@ -122,6 +122,10 @@
     },
     {
       "meta": "fidl/fuchsia.cobalt/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.component/meta.json",
       "type": "fidl_library"
     },
     {
@@ -342,6 +346,10 @@
     },
     {
       "meta": "fidl/fuchsia.ui.input2/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.ui.input3/meta.json",
       "type": "fidl_library"
     },
     {

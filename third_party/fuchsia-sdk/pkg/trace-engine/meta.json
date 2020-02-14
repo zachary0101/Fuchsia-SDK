@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/68/6ff1edc48b9b3e.debug",
+      "debug": ".build-id/9f/c2b89ab5721e26.debug",
       "dist": "arch/arm64/dist/libtrace-engine.so",
       "dist_path": "lib/libtrace-engine.so",
       "link": "arch/arm64/lib/libtrace-engine.so"
     },
     "x64": {
-      "debug": ".build-id/f2/8569a09142490a.debug",
+      "debug": ".build-id/81/f04afbf6aa0bd0.debug",
       "dist": "arch/x64/dist/libtrace-engine.so",
       "dist_path": "lib/libtrace-engine.so",
       "link": "arch/x64/lib/libtrace-engine.so"
