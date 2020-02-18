@@ -84,24 +84,24 @@ ARCH=linux-amd64
 # Check if downloaded ZIPs exist, if not download them.
 echo "==== Downloading needed archives ===="
 if [ ! -f "${DOWNLOADS_DIR}/clang-${ARCH}-${VER_CLANG}.zip" ]; then
-  echo -e "Downloading clang archive...\c"
-  curl -sL "https://chrome-infra-packages.appspot.com/dl/fuchsia/clang/${ARCH}/+/${VER_CLANG}" -o "${DOWNLOADS_DIR}/clang-${ARCH}-${VER_CLANG}.zip"
-  echo "complete."
+  echo "Downloading clang archive..."
+  curl -L "https://chrome-infra-packages.appspot.com/dl/fuchsia/clang/${ARCH}/+/${VER_CLANG}" -o "${DOWNLOADS_DIR}/clang-${ARCH}-${VER_CLANG}.zip" -#
+  echo
 fi
 if [ ! -f "${DOWNLOADS_DIR}/gn-${ARCH}-${VER_GN}.zip" ]; then
-  echo -e "Downloading gn archive...\c"
-  curl -sL "https://chrome-infra-packages.appspot.com/dl/gn/gn/${ARCH}/+/${VER_GN}" -o "${DOWNLOADS_DIR}/gn-${ARCH}-${VER_GN}.zip"
-  echo "complete."
+  echo "Downloading gn archive..."
+  curl -L "https://chrome-infra-packages.appspot.com/dl/gn/gn/${ARCH}/+/${VER_GN}" -o "${DOWNLOADS_DIR}/gn-${ARCH}-${VER_GN}.zip" -#
+  echo
 fi
 if [ ! -f "${DOWNLOADS_DIR}/ninja-${ARCH}-${VER_NINJA}.zip" ]; then
-  echo -e "Downloading ninja archive...\c"
-  curl -sL "https://chrome-infra-packages.appspot.com/dl/fuchsia/buildtools/ninja/${ARCH}/+/${VER_NINJA}" -o "${DOWNLOADS_DIR}/ninja-${ARCH}-${VER_NINJA}.zip"
-  echo "complete."
+  echo "Downloading ninja archive..."
+  curl -L "https://chrome-infra-packages.appspot.com/dl/fuchsia/buildtools/ninja/${ARCH}/+/${VER_NINJA}" -o "${DOWNLOADS_DIR}/ninja-${ARCH}-${VER_NINJA}.zip" -#
+  echo
 fi
 if [ ! -f "${DOWNLOADS_DIR}/gsutil-${VER_GSUTIL}.zip" ]; then
-  echo -e "Downloading gsutil archive...\c"
-  curl -sL "https://chrome-infra-packages.appspot.com/dl/infra/gsutil/+/${VER_GSUTIL}" -o "${DOWNLOADS_DIR}/gsutil-${VER_GSUTIL}.zip"
-  echo "complete."
+  echo "Downloading gsutil archive..."
+  curl -L "https://chrome-infra-packages.appspot.com/dl/infra/gsutil/+/${VER_GSUTIL}" -o "${DOWNLOADS_DIR}/gsutil-${VER_GSUTIL}.zip" -#
+  echo
 fi
 
 # Check if unzipped folders exist, if not unzip them.
