@@ -4,8 +4,8 @@
   "versions": {
     "arm64": {
       "debug_libs": [
-        ".build-id/f1/d0ff35aadef34a.debug",
-        ".build-id/23/71e17d790d92e6.debug"
+        ".build-id/2f/ccaab93b0f12f6.debug",
+        ".build-id/22/61b2ae27af76af.debug"
       ],
       "dist_dir": "arch/arm64/sysroot",
       "dist_libs": [
@@ -108,6 +108,7 @@
         "arch/arm64/sysroot/include/../../vdso/vmar.fidl",
         "arch/arm64/sysroot/include/../../vdso/vmo.fidl",
         "arch/arm64/sysroot/include/../../vdso/zx.fidl",
+        "arch/arm64/sysroot/include/zircon/testonly-syscalls.h",
         "arch/arm64/sysroot/include/alloca.h",
         "arch/arm64/sysroot/include/ar.h",
         "arch/arm64/sysroot/include/arpa/ftp.h",
@@ -309,8 +310,8 @@
     },
     "x64": {
       "debug_libs": [
-        ".build-id/55/092439993385d7.debug",
-        ".build-id/c5/9c6a8a208ece7b.debug"
+        ".build-id/1b/b288935424e250.debug",
+        ".build-id/8e/4f0d4f32ed4e78.debug"
       ],
       "dist_dir": "arch/x64/sysroot",
       "dist_libs": [
@@ -413,6 +414,7 @@
         "arch/x64/sysroot/include/../../vdso/vmar.fidl",
         "arch/x64/sysroot/include/../../vdso/vmo.fidl",
         "arch/x64/sysroot/include/../../vdso/zx.fidl",
+        "arch/x64/sysroot/include/zircon/testonly-syscalls.h",
         "arch/x64/sysroot/include/alloca.h",
         "arch/x64/sysroot/include/ar.h",
         "arch/x64/sysroot/include/arpa/ftp.h",

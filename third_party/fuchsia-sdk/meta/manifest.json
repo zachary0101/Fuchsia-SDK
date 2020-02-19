@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "8888110105758747200",
+  "id": "8888018462650134400",
   "parts": [
     {
       "meta": "bin/fpave-meta.json",
@@ -166,6 +166,10 @@
     },
     {
       "meta": "fidl/fuchsia.images/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.input/meta.json",
       "type": "fidl_library"
     },
     {

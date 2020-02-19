@@ -30,5 +30,6 @@
     "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_standard_validation.json",
     "pkg/vulkan_layers/data/vulkan/explicit_layer.d/VkLayer_image_pipe_swapchain.json"
   ],
+  "root": "pkg/vulkan_layers",
   "type": "loadable_module"
 }

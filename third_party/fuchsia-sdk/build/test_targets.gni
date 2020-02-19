@@ -45,6 +45,7 @@ template("fuchsia_sdk_test_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.hardware.power.statecontrol",
       "${fuchsia_sdk}/fidl/fuchsia.hwinfo",
       "${fuchsia_sdk}/fidl/fuchsia.images",
+      "${fuchsia_sdk}/fidl/fuchsia.input",
       "${fuchsia_sdk}/fidl/fuchsia.inspect",
       "${fuchsia_sdk}/fidl/fuchsia.intl",
       "${fuchsia_sdk}/fidl/fuchsia.io",

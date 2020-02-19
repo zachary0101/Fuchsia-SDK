@@ -28,6 +28,7 @@
     "fidl/fuchsia.hardware.power.statecontrol/BUILD.gn",
     "fidl/fuchsia.hwinfo/BUILD.gn",
     "fidl/fuchsia.images/BUILD.gn",
+    "fidl/fuchsia.input/BUILD.gn",
     "fidl/fuchsia.inspect/BUILD.gn",
     "fidl/fuchsia.intl/BUILD.gn",
     "fidl/fuchsia.io/BUILD.gn",

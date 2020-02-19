@@ -194,9 +194,7 @@ copy("VkLayer_image_pipe_swapchain_config") {
 
 copy("VkLayer_image_pipe_swapchain_lib") {
   sources = [
-    # Layer VkLayer_image_pipe_swapchain has a config but does not have a binary.
-    # This path will result in a build error.
-    "../../MISSING/VkLayer_image_pipe_swapchain.so",
+    "../../arch/${target_cpu}/dist/libVkLayer_image_pipe_swapchain.so",
   ]
   outputs = [
     "${root_out_dir}/lib/{{source_file_part}}",
