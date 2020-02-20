@@ -156,33 +156,6 @@ group("VkLayer_khronos_validation") {
   ]
 }
 
-copy("VkLayer_standard_validation_config") {
-  sources = [
-    "data/vulkan/explicit_layer.d/VkLayer_standard_validation.json",
-  ]
-  outputs = [
-    "${root_gen_dir}/data/vulkan/explicit_layer.d/VkLayer_standard_validation.json",
-  ]
-}
-
-copy("VkLayer_standard_validation_lib") {
-  sources = [
-    # Layer VkLayer_standard_validation has a config but does not have a binary.
-    # This path will result in a build error.
-    "../../MISSING/VkLayer_standard_validation.so",
-  ]
-  outputs = [
-    "${root_out_dir}/lib/{{source_file_part}}",
-  ]
-}
-
-group("VkLayer_standard_validation") {
-  data_deps = [
-    ":VkLayer_standard_validation_config",
-    ":VkLayer_standard_validation_lib",
-  ]
-}
-
 copy("VkLayer_image_pipe_swapchain_config") {
   sources = [
     "data/vulkan/explicit_layer.d/VkLayer_image_pipe_swapchain.json",
@@ -205,6 +178,7 @@ group("VkLayer_image_pipe_swapchain") {
   data_deps = [
     ":VkLayer_image_pipe_swapchain_config",
     ":VkLayer_image_pipe_swapchain_lib",
+    "../trace-engine",
   ]
 }
 

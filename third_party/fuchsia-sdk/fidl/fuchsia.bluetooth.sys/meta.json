@@ -1,0 +1,16 @@
+{
+  "deps": [
+    "fuchsia.bluetooth"
+  ],
+  "name": "fuchsia.bluetooth.sys",
+  "root": "fidl/fuchsia.bluetooth.sys",
+  "sources": [
+    "fidl/fuchsia.bluetooth.sys/access.fidl",
+    "fidl/fuchsia.bluetooth.sys/bootstrap.fidl",
+    "fidl/fuchsia.bluetooth.sys/host_watcher.fidl",
+    "fidl/fuchsia.bluetooth.sys/identity.fidl",
+    "fidl/fuchsia.bluetooth.sys/pairing_delegate.fidl",
+    "fidl/fuchsia.bluetooth.sys/peer.fidl"
+  ],
+  "type": "fidl_library"
+}
