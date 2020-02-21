@@ -6,8 +6,12 @@
       "x64"
     ]
   },
-  "id": "0.20200221.1.1",
+  "id": "0.20200221.2.1",
   "parts": [
+    {
+      "meta": "bin/femu-meta.json",
+      "type": "host_tool"
+    },
     {
       "meta": "bin/fpave-meta.json",
       "type": "host_tool"
