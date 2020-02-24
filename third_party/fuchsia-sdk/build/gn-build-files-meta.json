@@ -19,6 +19,7 @@
     "fidl/fuchsia.castsysteminfo/BUILD.gn",
     "fidl/fuchsia.cobalt/BUILD.gn",
     "fidl/fuchsia.component/BUILD.gn",
+    "fidl/fuchsia.data/BUILD.gn",
     "fidl/fuchsia.deprecatedtimezone/BUILD.gn",
     "fidl/fuchsia.developer.tiles/BUILD.gn",
     "fidl/fuchsia.factory/BUILD.gn",
