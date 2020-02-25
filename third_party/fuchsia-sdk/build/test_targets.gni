@@ -36,6 +36,7 @@ template("fuchsia_sdk_test_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.castsysteminfo",
       "${fuchsia_sdk}/fidl/fuchsia.cobalt",
       "${fuchsia_sdk}/fidl/fuchsia.component",
+      "${fuchsia_sdk}/fidl/fuchsia.component.runner",
       "${fuchsia_sdk}/fidl/fuchsia.data",
       "${fuchsia_sdk}/fidl/fuchsia.deprecatedtimezone",
       "${fuchsia_sdk}/fidl/fuchsia.developer.tiles",

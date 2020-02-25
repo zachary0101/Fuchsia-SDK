@@ -6,8 +6,12 @@
       "x64"
     ]
   },
-  "id": "0.20200224.1.1",
+  "id": "0.20200225.2.1",
   "parts": [
+    {
+      "meta": "bin/fcp-meta.json",
+      "type": "host_tool"
+    },
     {
       "meta": "bin/fdevtools-meta.json",
       "type": "host_tool"
@@ -134,6 +138,10 @@
     },
     {
       "meta": "fidl/fuchsia.cobalt/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.component.runner/meta.json",
       "type": "fidl_library"
     },
     {
