@@ -9,7 +9,7 @@ err_print() {
 }
 trap 'err_print $LINENO' ERR
 DEBUG_LINE() {
-    $@
+    "$@"
 }
 
 TEST_SRC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -26,19 +26,22 @@ FAR_DIRS=(
 FAR_DIRS=( "${FAR_DIRS[@]/#/$REPO_ROOT/}" )
 
 echo "==== Testing FAR files ===="
-FAR_FILES=(`find $(IFS=$' '; echo ${FAR_DIRS[*]}) -maxdepth 1  -name "*.far"`)
-if [ ! ${#FAR_FILES[@]} -eq 0 ]; then
-    printf '%s\n' "${FAR_FILES[@]}"
+far_files=()
+for d in "${FAR_DIRS[@]}"; do
+  while IFS='' read -r line; do far_files+=("$line"); done < <(find "${d}" -name "*.far" ! -name "meta.far")
+done
+if [ ! ${#far_files[@]} -eq 0 ]; then
+    printf '%s\n' "${far_files[@]}"
 else
-    echo "Error: No far files found in \"${FAR_FILES[@]}\""
+    echo "Error: No far files found in \"${FAR_DIRS[*]}\""
     exit 1;
 fi
 
 echo
 echo "==== Scanning FAR files to check for missing shared libraries ===="
 
-for far in "${FAR_FILES[@]}"; do
-  $TEST_SRC_DIR/far.sh $far
+for far in "${far_files[@]}"; do
+    "${TEST_SRC_DIR}/far.sh" "${far}"
 done
 
 echo
