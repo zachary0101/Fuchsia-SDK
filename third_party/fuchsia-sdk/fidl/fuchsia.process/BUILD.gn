@@ -20,3 +20,9 @@ fidl_library("fuchsia.process") {
     "resolver.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.process",
+  ]
+}

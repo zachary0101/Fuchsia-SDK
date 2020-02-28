@@ -20,3 +20,9 @@ fidl_library("fuchsia.ui.activity") {
     "tracker.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.activity",
+  ]
+}

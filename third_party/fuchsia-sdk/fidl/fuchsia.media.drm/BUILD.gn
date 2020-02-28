@@ -23,3 +23,9 @@ fidl_library("fuchsia.media.drm") {
     "services.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.media.drm",
+  ]
+}

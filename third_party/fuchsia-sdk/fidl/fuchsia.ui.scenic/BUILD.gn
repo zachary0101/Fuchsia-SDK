@@ -28,3 +28,9 @@ fidl_library("fuchsia.ui.scenic") {
     "snapshot.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.scenic",
+  ]
+}

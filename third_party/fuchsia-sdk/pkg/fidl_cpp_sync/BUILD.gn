@@ -27,3 +27,9 @@ fuchsia_sdk_pkg("fidl_cpp_sync") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fidl_cpp_sync",
+  ]
+}

@@ -18,3 +18,9 @@ fidl_library("fuchsia.castconfig") {
     "cast_config.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.castconfig",
+  ]
+}

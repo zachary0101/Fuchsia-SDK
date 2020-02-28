@@ -21,3 +21,9 @@ fidl_library("fuchsia.ui.input3") {
     "modifiers.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.input3",
+  ]
+}

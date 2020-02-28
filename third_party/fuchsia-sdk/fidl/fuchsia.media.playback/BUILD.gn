@@ -24,3 +24,9 @@ fidl_library("fuchsia.media.playback") {
     "source_manager.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.media.playback",
+  ]
+}

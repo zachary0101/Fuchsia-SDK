@@ -19,3 +19,9 @@ fidl_library("fuchsia.developer.tiles") {
     "tiles.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.developer.tiles",
+  ]
+}

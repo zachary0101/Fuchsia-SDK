@@ -21,3 +21,9 @@ fidl_library("fuchsia.bluetooth.gatt") {
     "types.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.bluetooth.gatt",
+  ]
+}

@@ -28,3 +28,9 @@ fuchsia_sdk_pkg("sys_service_cpp") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":sys_service_cpp",
+  ]
+}

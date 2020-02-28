@@ -18,3 +18,9 @@ fidl_library("fuchsia.deprecatedtimezone") {
     "deprecated_time_zone.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.deprecatedtimezone",
+  ]
+}

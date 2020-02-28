@@ -18,3 +18,9 @@ fidl_library("fuchsia.factory") {
     "factory.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.factory",
+  ]
+}

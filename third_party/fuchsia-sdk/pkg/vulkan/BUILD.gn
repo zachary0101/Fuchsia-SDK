@@ -19,3 +19,9 @@ fuchsia_sdk_pkg("vulkan") {
   ]
   include_dirs = [ "include" ]
 }
+
+group("all"){
+  deps = [
+    ":vulkan",
+  ]
+}

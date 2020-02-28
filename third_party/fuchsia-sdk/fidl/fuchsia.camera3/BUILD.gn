@@ -21,3 +21,9 @@ fidl_library("fuchsia.camera3") {
     "stream.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.camera3",
+  ]
+}

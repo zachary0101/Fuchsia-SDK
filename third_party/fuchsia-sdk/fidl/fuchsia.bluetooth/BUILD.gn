@@ -24,3 +24,9 @@ fidl_library("fuchsia.bluetooth") {
     "uuid.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.bluetooth",
+  ]
+}

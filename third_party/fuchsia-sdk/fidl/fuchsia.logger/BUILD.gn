@@ -17,3 +17,9 @@ fidl_library("fuchsia.logger") {
     "logger.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.logger",
+  ]
+}

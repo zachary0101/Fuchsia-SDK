@@ -23,3 +23,9 @@ fidl_library("fuchsia.bluetooth.sys") {
     "peer.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.bluetooth.sys",
+  ]
+}

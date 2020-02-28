@@ -21,3 +21,9 @@ fidl_library("fuchsia.auth") {
     "token_manager.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.auth",
+  ]
+}

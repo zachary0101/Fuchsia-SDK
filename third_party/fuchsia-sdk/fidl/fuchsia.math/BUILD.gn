@@ -17,3 +17,9 @@ fidl_library("fuchsia.math") {
     "math.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.math",
+  ]
+}

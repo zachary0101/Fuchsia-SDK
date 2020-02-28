@@ -30,3 +30,9 @@ fuchsia_sdk_pkg("trace") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":trace",
+  ]
+}

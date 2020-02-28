@@ -18,3 +18,9 @@ fidl_library("fuchsia.net.mdns") {
     "mdns.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.net.mdns",
+  ]
+}

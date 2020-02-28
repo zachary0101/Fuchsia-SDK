@@ -23,3 +23,9 @@ fuchsia_sdk_pkg("trace-provider-so") {
   ]
   include_dirs = [ "include" ]
 }
+
+group("all"){
+  deps = [
+    ":trace-provider-so",
+  ]
+}

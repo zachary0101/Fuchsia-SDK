@@ -29,3 +29,9 @@ fidl_library("fuchsia.web") {
     "url_request_rewrite_rules.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.web",
+  ]
+}

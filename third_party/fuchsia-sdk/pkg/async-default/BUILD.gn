@@ -19,3 +19,9 @@ fuchsia_sdk_pkg("async-default") {
   ]
   include_dirs = [ "include" ]
 }
+
+group("all"){
+  deps = [
+    ":async-default",
+  ]
+}

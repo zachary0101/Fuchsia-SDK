@@ -17,3 +17,9 @@ fidl_library("fuchsia.location.namedplace") {
     "namedplace.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.location.namedplace",
+  ]
+}

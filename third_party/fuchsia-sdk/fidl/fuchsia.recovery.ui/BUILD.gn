@@ -17,3 +17,9 @@ fidl_library("fuchsia.recovery.ui") {
     "countdown.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.recovery.ui",
+  ]
+}

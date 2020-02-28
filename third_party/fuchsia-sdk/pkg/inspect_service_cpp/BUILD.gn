@@ -22,3 +22,9 @@ fuchsia_sdk_pkg("inspect_service_cpp") {
     "../inspect",
   ]
 }
+
+group("all"){
+  deps = [
+    ":inspect_service_cpp",
+  ]
+}

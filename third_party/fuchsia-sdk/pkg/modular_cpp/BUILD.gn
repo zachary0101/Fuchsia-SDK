@@ -21,3 +21,9 @@ fuchsia_sdk_pkg("modular_cpp") {
     "../sys_cpp",
   ]
 }
+
+group("all"){
+  deps = [
+    ":modular_cpp",
+  ]
+}

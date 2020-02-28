@@ -18,3 +18,9 @@ fuchsia_sdk_pkg("images_cpp") {
     "../../fidl/fuchsia.images",
   ]
 }
+
+group("all"){
+  deps = [
+    ":images_cpp",
+  ]
+}

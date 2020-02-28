@@ -18,3 +18,9 @@ fuchsia_sdk_pkg("async-loop") {
     "../async",
   ]
 }
+
+group("all"){
+  deps = [
+    ":async-loop",
+  ]
+}

@@ -19,3 +19,9 @@ fidl_library("fuchsia.hardware.goldfish") {
     "goldfish_pipe.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.hardware.goldfish",
+  ]
+}

@@ -33,3 +33,9 @@ fuchsia_sdk_pkg("async-cpp") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":async-cpp",
+  ]
+}

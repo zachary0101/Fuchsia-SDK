@@ -21,3 +21,9 @@ fuchsia_sdk_pkg("memfs") {
   ]
   include_dirs = [ "include" ]
 }
+
+group("all"){
+  deps = [
+    ":memfs",
+  ]
+}

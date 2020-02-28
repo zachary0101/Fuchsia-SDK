@@ -18,3 +18,9 @@ fidl_library("fuchsia.ui.brightness") {
     "color_adjustment.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.brightness",
+  ]
+}

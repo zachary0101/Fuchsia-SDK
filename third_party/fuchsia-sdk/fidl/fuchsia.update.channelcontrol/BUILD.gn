@@ -18,3 +18,9 @@ fidl_library("fuchsia.update.channelcontrol") {
     "channelcontrol.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.update.channelcontrol",
+  ]
+}

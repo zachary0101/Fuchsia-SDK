@@ -68,3 +68,9 @@ fuchsia_sdk_pkg("zx") {
   public_deps = [
   ]
 }
+
+group("all"){
+  deps = [
+    ":zx",
+  ]
+}

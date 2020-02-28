@@ -21,3 +21,9 @@ fidl_library("fuchsia.ui.app") {
     "view_provider.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.app",
+  ]
+}

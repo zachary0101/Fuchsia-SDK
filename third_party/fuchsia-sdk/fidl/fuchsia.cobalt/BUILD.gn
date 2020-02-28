@@ -18,3 +18,9 @@ fidl_library("fuchsia.cobalt") {
     "cobalt_controller.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.cobalt",
+  ]
+}

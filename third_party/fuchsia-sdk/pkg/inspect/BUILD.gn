@@ -42,3 +42,9 @@ fuchsia_sdk_pkg("inspect") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":inspect",
+  ]
+}

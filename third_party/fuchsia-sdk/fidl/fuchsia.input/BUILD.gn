@@ -17,3 +17,9 @@ fidl_library("fuchsia.input") {
     "keys.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.input",
+  ]
+}

@@ -34,3 +34,9 @@ fuchsia_sdk_pkg("fidl_cpp_base") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fidl_cpp_base",
+  ]
+}

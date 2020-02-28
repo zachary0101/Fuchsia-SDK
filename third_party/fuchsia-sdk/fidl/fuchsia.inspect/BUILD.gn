@@ -18,3 +18,9 @@ fidl_library("fuchsia.inspect") {
     "tree.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.inspect",
+  ]
+}

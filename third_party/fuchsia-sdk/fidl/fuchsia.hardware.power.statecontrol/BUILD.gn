@@ -17,3 +17,9 @@ fidl_library("fuchsia.hardware.power.statecontrol") {
     "admin.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.hardware.power.statecontrol",
+  ]
+}

@@ -20,3 +20,9 @@ fidl_library("fuchsia.net.dhcp") {
     "server.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.net.dhcp",
+  ]
+}

@@ -20,3 +20,9 @@ fidl_library("fuchsia.netstack") {
     "netstack.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.netstack",
+  ]
+}

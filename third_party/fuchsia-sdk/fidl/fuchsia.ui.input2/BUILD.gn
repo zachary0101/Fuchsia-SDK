@@ -23,3 +23,9 @@ fidl_library("fuchsia.ui.input2") {
     "semantic_keys.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.input2",
+  ]
+}

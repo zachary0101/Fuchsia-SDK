@@ -17,3 +17,9 @@ fidl_library("fuchsia.bluetooth.a2dp") {
     "audio_mode.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.bluetooth.a2dp",
+  ]
+}

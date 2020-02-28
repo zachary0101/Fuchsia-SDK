@@ -17,3 +17,9 @@ fidl_library("fuchsia.recovery") {
     "factory_reset.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.recovery",
+  ]
+}

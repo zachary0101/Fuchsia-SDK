@@ -18,3 +18,9 @@ fidl_library("fuchsia.media.audio") {
     "volume_control.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.media.audio",
+  ]
+}

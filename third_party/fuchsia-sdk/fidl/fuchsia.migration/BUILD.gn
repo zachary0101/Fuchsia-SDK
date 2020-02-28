@@ -18,3 +18,9 @@ fidl_library("fuchsia.migration") {
     "migration.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.migration",
+  ]
+}

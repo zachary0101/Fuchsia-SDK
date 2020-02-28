@@ -21,3 +21,9 @@ fidl_library("fuchsia.modular.testing") {
     "test_harness.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.modular.testing",
+  ]
+}

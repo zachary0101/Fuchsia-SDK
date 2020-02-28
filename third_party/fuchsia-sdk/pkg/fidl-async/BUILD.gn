@@ -19,3 +19,9 @@ fuchsia_sdk_pkg("fidl-async") {
     "../fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fidl-async",
+  ]
+}

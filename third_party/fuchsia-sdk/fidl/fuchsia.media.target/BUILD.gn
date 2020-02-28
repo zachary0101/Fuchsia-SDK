@@ -20,3 +20,9 @@ fidl_library("fuchsia.media.target") {
     "target_discovery.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.media.target",
+  ]
+}

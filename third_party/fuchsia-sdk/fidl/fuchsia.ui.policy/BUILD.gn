@@ -23,3 +23,9 @@ fidl_library("fuchsia.ui.policy") {
     "presenter.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.policy",
+  ]
+}

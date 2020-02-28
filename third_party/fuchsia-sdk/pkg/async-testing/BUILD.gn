@@ -27,3 +27,9 @@ fuchsia_sdk_pkg("async-testing") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":async-testing",
+  ]
+}

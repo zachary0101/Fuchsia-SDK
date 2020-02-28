@@ -18,3 +18,9 @@ fidl_library("fuchsia.posix.socket") {
     "socket.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.posix.socket",
+  ]
+}

@@ -35,3 +35,9 @@ fuchsia_sdk_pkg("scenic_cpp") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":scenic_cpp",
+  ]
+}

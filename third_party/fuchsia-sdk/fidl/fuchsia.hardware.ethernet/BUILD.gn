@@ -17,3 +17,9 @@ fidl_library("fuchsia.hardware.ethernet") {
     "ethernet.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.hardware.ethernet",
+  ]
+}

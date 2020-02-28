@@ -27,3 +27,9 @@ fidl_library("fuchsia.sys") {
     "types.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.sys",
+  ]
+}

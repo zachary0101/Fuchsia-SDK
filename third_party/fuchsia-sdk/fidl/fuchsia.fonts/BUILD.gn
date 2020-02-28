@@ -22,3 +22,9 @@ fidl_library("fuchsia.fonts") {
     "styles.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.fonts",
+  ]
+}

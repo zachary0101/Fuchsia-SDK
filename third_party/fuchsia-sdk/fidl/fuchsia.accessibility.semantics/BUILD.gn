@@ -21,3 +21,9 @@ fidl_library("fuchsia.accessibility.semantics") {
     "semantics_manager.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.accessibility.semantics",
+  ]
+}

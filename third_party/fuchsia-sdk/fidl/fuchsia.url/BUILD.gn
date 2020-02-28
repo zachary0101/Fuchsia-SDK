@@ -17,3 +17,9 @@ fidl_library("fuchsia.url") {
     "url.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.url",
+  ]
+}

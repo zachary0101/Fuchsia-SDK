@@ -18,3 +18,9 @@ fidl_library("fuchsia.intl") {
     "property_provider.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.intl",
+  ]
+}

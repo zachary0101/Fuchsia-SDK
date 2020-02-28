@@ -17,3 +17,9 @@ fidl_library("fuchsia.modular.auth") {
     "account/account.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.modular.auth",
+  ]
+}

@@ -23,3 +23,9 @@ fuchsia_sdk_pkg("trace-engine") {
   ]
   include_dirs = [ "include" ]
 }
+
+group("all"){
+  deps = [
+    ":trace-engine",
+  ]
+}

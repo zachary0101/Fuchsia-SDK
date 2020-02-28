@@ -28,3 +28,9 @@ fuchsia_sdk_pkg("fdio") {
   ]
   include_dirs = [ "include" ]
 }
+
+group("all"){
+  deps = [
+    ":fdio",
+  ]
+}

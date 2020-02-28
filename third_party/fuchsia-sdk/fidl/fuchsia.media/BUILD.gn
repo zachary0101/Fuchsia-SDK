@@ -32,3 +32,9 @@ fidl_library("fuchsia.media") {
     "usage_reporter.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.media",
+  ]
+}

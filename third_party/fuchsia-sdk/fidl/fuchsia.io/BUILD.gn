@@ -18,3 +18,9 @@ fidl_library("fuchsia.io") {
     "io.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.io",
+  ]
+}

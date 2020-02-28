@@ -18,3 +18,9 @@ fidl_library("fuchsia.hwinfo") {
     "hwinfo.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.hwinfo",
+  ]
+}

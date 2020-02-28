@@ -22,3 +22,9 @@ fidl_library("fuchsia.bluetooth.control") {
     "remote_device.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.bluetooth.control",
+  ]
+}

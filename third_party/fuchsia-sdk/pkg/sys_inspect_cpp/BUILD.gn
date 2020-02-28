@@ -19,3 +19,9 @@ fuchsia_sdk_pkg("sys_inspect_cpp") {
     "../sys_cpp",
   ]
 }
+
+group("all"){
+  deps = [
+    ":sys_inspect_cpp",
+  ]
+}

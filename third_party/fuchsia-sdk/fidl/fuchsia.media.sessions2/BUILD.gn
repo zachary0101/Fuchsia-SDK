@@ -22,3 +22,9 @@ fidl_library("fuchsia.media.sessions2") {
     "publisher.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.media.sessions2",
+  ]
+}

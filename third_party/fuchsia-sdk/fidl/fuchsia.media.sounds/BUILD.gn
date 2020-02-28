@@ -20,3 +20,9 @@ fidl_library("fuchsia.media.sounds") {
     "sound_player.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.media.sounds",
+  ]
+}

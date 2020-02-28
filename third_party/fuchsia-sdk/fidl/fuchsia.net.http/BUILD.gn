@@ -18,3 +18,9 @@ fidl_library("fuchsia.net.http") {
     "client.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.net.http",
+  ]
+}

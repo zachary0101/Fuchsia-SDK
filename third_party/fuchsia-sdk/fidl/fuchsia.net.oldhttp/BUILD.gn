@@ -24,3 +24,9 @@ fidl_library("fuchsia.net.oldhttp") {
     "url_response.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.net.oldhttp",
+  ]
+}

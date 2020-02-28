@@ -20,3 +20,9 @@ fuchsia_sdk_pkg("async-loop-cpp") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":async-loop-cpp",
+  ]
+}

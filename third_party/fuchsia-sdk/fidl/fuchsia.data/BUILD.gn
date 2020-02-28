@@ -17,3 +17,9 @@ fidl_library("fuchsia.data") {
     "data.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.data",
+  ]
+}

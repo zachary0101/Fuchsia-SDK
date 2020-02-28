@@ -20,3 +20,9 @@ fidl_library("fuchsia.ui.views") {
     "view_token.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.views",
+  ]
+}

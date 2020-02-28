@@ -182,3 +182,14 @@ group("VkLayer_image_pipe_swapchain") {
   ]
 }
 
+group("all"){
+  data_deps = [
+    ":VkLayer_core_validation",
+    ":VkLayer_object_lifetimes",
+    ":VkLayer_thread_safety",
+    ":VkLayer_stateless_validation",
+    ":VkLayer_unique_objects",
+    ":VkLayer_khronos_validation",
+    ":VkLayer_image_pipe_swapchain",
+  ]
+}

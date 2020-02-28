@@ -25,3 +25,9 @@ fuchsia_sdk_pkg("async") {
     "../fit",
   ]
 }
+
+group("all"){
+  deps = [
+    ":async",
+  ]
+}

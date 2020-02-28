@@ -17,3 +17,9 @@ fidl_library("fuchsia.castsysteminfo") {
     "cast_system_info.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.castsysteminfo",
+  ]
+}

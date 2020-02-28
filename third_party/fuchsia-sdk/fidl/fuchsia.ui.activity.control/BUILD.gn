@@ -18,3 +18,9 @@ fidl_library("fuchsia.ui.activity.control") {
     "control.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.activity.control",
+  ]
+}

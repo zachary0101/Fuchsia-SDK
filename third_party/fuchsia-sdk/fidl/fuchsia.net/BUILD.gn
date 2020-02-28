@@ -19,3 +19,9 @@ fidl_library("fuchsia.net") {
     "net.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.net",
+  ]
+}

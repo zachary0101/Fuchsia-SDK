@@ -28,3 +28,9 @@ fidl_library("fuchsia.sysmem") {
     "usages.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.sysmem",
+  ]
+}

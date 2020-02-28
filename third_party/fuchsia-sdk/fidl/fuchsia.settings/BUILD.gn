@@ -30,3 +30,9 @@ fidl_library("fuchsia.settings") {
     "system.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.settings",
+  ]
+}

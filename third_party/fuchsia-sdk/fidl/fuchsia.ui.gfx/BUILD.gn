@@ -30,3 +30,9 @@ fidl_library("fuchsia.ui.gfx") {
     "types.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.gfx",
+  ]
+}

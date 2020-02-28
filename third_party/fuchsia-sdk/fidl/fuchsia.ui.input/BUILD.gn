@@ -26,3 +26,9 @@ fidl_library("fuchsia.ui.input") {
     "usages.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.ui.input",
+  ]
+}

@@ -52,3 +52,9 @@ fuchsia_sdk_pkg("vfs_cpp") {
     "../zx",
   ]
 }
+
+group("all"){
+  deps = [
+    ":vfs_cpp",
+  ]
+}

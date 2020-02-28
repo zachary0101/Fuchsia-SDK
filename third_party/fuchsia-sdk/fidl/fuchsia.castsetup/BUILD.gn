@@ -18,3 +18,9 @@ fidl_library("fuchsia.castsetup") {
     "server.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.castsetup",
+  ]
+}

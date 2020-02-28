@@ -24,3 +24,9 @@ fidl_library("fuchsia.bluetooth.le") {
     "types_deprecated.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.bluetooth.le",
+  ]
+}

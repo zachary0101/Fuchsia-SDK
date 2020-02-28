@@ -21,3 +21,9 @@ fidl_library("fuchsia.component.runner") {
     "component_runner.fidl",
   ]
 }
+
+group("all"){
+  deps = [
+    ":fuchsia.component.runner",
+  ]
+}
