@@ -16,7 +16,7 @@ DEBUG_LINE() {
 SCRIPT_SRC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 FORCE=0
 
-# Common functions.
+# shellcheck disable=SC1090
 source "${SCRIPT_SRC_DIR}/common.sh" || exit $?
 REPO_ROOT="$(get_gn_root)" # finds path to REPO_ROOT
 BUILD_TOOLS_DIR="$(get_buildtools_dir)" # finds path to BUILD_TOOLS_DIR
@@ -25,8 +25,8 @@ DOWNLOADS_DIR="${BUILD_TOOLS_DIR}/downloads"
 
 cleanup() {
   echo "Cleaning up downloaded build tools..."
-  # Remove the build tools directory
-  rm -rf "${BUILD_TOOLS_DIR}"
+  # Remove the download directories
+  rm -rf "${BUILD_TOOLS_DIR}" "${DEPOT_TOOLS_DIR}"
 }
 
 function usage {
@@ -50,8 +50,8 @@ case "${i}" in
 esac
 done
 
-# If force option is set, cleanup build tools
-if [ ! "${FORCE}" == 0 ]; then
+# If force option is set, cleanup all downloaded tools
+if (( FORCE )); then
   cleanup
 fi
 
@@ -70,72 +70,70 @@ if [ ! -d "${DOWNLOADS_DIR}" ]; then
   mkdir "${DOWNLOADS_DIR}"
 fi
 
-# Specify the version of the tools to download
-VER_CLANG=latest
-VER_NINJA=latest
-VER_GN=latest
-VER_GSUTIL=latest
+# TODO(fxb/41836): Replace hardcoded linux-amd64 with OS detection
 ARCH=linux-amd64
 
-# You can browse the CIPD repository from here to look for builds https://chrome-infra-packages.appspot.com/p/fuchsia
-# You can get the instance ID and SHA256 from here: https://chrome-infra-packages.appspot.com/p/fuchsia/sdk/core/linux-amd64/+/latest
-# You can use the cipd command-line tool to browse and search as well: cipd ls -r | grep $search
-
-# Check if downloaded ZIPs exist, if not download them.
-echo "==== Downloading needed archives ===="
-if [ ! -f "${DOWNLOADS_DIR}/clang-${ARCH}-${VER_CLANG}.zip" ]; then
-  echo "Downloading clang archive..."
-  curl -L "https://chrome-infra-packages.appspot.com/dl/fuchsia/clang/${ARCH}/+/${VER_CLANG}" -o "${DOWNLOADS_DIR}/clang-${ARCH}-${VER_CLANG}.zip" -#
-  echo
-fi
-if [ ! -f "${DOWNLOADS_DIR}/gn-${ARCH}-${VER_GN}.zip" ]; then
-  echo "Downloading gn archive..."
-  curl -L "https://chrome-infra-packages.appspot.com/dl/gn/gn/${ARCH}/+/${VER_GN}" -o "${DOWNLOADS_DIR}/gn-${ARCH}-${VER_GN}.zip" -#
-  echo
-fi
-if [ ! -f "${DOWNLOADS_DIR}/ninja-${ARCH}-${VER_NINJA}.zip" ]; then
-  echo "Downloading ninja archive..."
-  curl -L "https://chrome-infra-packages.appspot.com/dl/fuchsia/buildtools/ninja/${ARCH}/+/${VER_NINJA}" -o "${DOWNLOADS_DIR}/ninja-${ARCH}-${VER_NINJA}.zip" -#
-  echo
-fi
-if [ ! -f "${DOWNLOADS_DIR}/gsutil-${VER_GSUTIL}.zip" ]; then
-  echo "Downloading gsutil archive..."
-  curl -L "https://chrome-infra-packages.appspot.com/dl/infra/gsutil/+/${VER_GSUTIL}" -o "${DOWNLOADS_DIR}/gsutil-${VER_GSUTIL}.zip" -#
-  echo
-fi
-
-# Check if unzipped folders exist, if not unzip them.
-echo
-echo "==== Extracting needed archives ===="
-if [ ! -d "${DEPOT_TOOLS_DIR}/clang-${ARCH}" ]; then
-  echo -e "Extracting clang archive...\c"
-  unzip -q "${DOWNLOADS_DIR}/clang-${ARCH}-${VER_CLANG}.zip" -d "${DEPOT_TOOLS_DIR}/clang-${ARCH}"
-  echo "complete."
-fi
-if [ ! -e "${DEPOT_TOOLS_DIR}/clang-format" ]; then
-  ln -sf "${DEPOT_TOOLS_DIR}/clang-${ARCH}/bin/clang-format" "${DEPOT_TOOLS_DIR}/clang-format"
-fi
-if [ ! -d "${DEPOT_TOOLS_DIR}/gn-${ARCH}" ]; then
-  echo -e "Extracting gn archive...\c"
-  unzip -q "${DOWNLOADS_DIR}/gn-${ARCH}-${VER_GN}.zip" -d "${DEPOT_TOOLS_DIR}/gn-${ARCH}"
-  ln -sf "${DEPOT_TOOLS_DIR}/gn-${ARCH}/gn" "${DEPOT_TOOLS_DIR}/gn"
-  echo "complete."
-fi
-if [ ! -d "${DEPOT_TOOLS_DIR}/ninja-${ARCH}" ]; then
-  echo -e "Extracting ninja archive...\c"
-  unzip -q "${DOWNLOADS_DIR}/ninja-${ARCH}-${VER_NINJA}.zip" -d "${DEPOT_TOOLS_DIR}/ninja-${ARCH}"
-  ln -sf "${DEPOT_TOOLS_DIR}/ninja-${ARCH}/ninja" "${DEPOT_TOOLS_DIR}/ninja"
-  echo "complete."
-fi
-if [ ! -d "${DEPOT_TOOLS_DIR}/gsutil-generic" ]; then
-  echo -e "Extracting gsutil archive...\c"
-  unzip -q "${DOWNLOADS_DIR}/gsutil-${VER_GSUTIL}.zip" -d "${DEPOT_TOOLS_DIR}/gsutil-generic"
-  ln -sf "${DEPOT_TOOLS_DIR}/gsutil-generic/gsutil" "${DEPOT_TOOLS_DIR}/gsutil"
-  if [ ! -x "$(command -v gsutil)" ]; then
-    ln -sf "${DEPOT_TOOLS_DIR}/gsutil-generic/gsutil" "${REPO_ROOT}/third_party/fuchsia-sdk/bin/gsutil"
+# Download a CIPD archive and extract it to a directory based on the name and ${ARCH}
+# download_cipd [name] [cipd-ref] [cipd-version] [cipd-architecture]
+function download_cipd {
+  CIPD_NAME="$1"
+  # Valid cipd references can be found with the command-line tool: cipd ls -r | grep $search
+  CIPD_REF="$2"
+  # Valid cipd versions can be of many types, such as "latest", a git_revision, or a version string
+  CIPD_VERSION="$3"
+  # Download for a specific architecture, if empty string then download a generic version
+  # For CIPD urls, replace /dl/ with /p/ if you want to inspect the directory in a web browser
+  if [[ "$4" == "" ]]; then
+    CIPD_URL="https://chrome-infra-packages.appspot.com/dl/${CIPD_REF}/+/${CIPD_VERSION}"
+  else
+    CIPD_URL="https://chrome-infra-packages.appspot.com/dl/${CIPD_REF}/${4}/+/${CIPD_VERSION}"
   fi
-  echo "complete."
-fi
+  CIPD_FILE="${DOWNLOADS_DIR}/${CIPD_NAME}-${ARCH}-${CIPD_VERSION}.zip"
+  CIPD_TMP="${DOWNLOADS_DIR}/tmp-${CIPD_NAME}-${ARCH}-${CIPD_VERSION}"
+  CIPD_DIR="${DOWNLOADS_DIR}/${CIPD_NAME}-${ARCH}-${CIPD_VERSION}"
+  if [ ! -f "${CIPD_FILE}" ]; then
+    mkdir -p "${DOWNLOADS_DIR}"
+    echo "Downloading ${CIPD_NAME} archive ${CIPD_URL} ..."
+    curl -L "${CIPD_URL}" -o "${CIPD_FILE}" -#
+    echo -e "Verifying ${CIPD_NAME} download ${CIPD_FILE} ...\c"
+    # CIPD will return a file containing "no such ref" if the URL is invalid, so need to verify the ZIP file
+    if ! unzip -qq -t "${CIPD_FILE}" &> /dev/null; then
+      rm -f "${CIPD_FILE}"
+      echo "Error: Downloaded archive from ${CIPD_URL} failed with invalid data"
+      exit 1
+    fi
+    rm -rf "${CIPD_TMP}" "${CIPD_DIR}"
+    echo "complete."
+  fi
+  if [ ! -d "${CIPD_DIR}" ]; then
+    echo -e "Extracting ${CIPD_NAME} archive to ${CIPD_DIR} ...\c"
+    rm -rf "${CIPD_TMP}"
+    unzip -q "${CIPD_FILE}" -d "${CIPD_TMP}"
+    ln -sf "${CIPD_NAME}-${ARCH}-${CIPD_VERSION}" "${DOWNLOADS_DIR}/${CIPD_NAME}-${ARCH}"
+    mv "${CIPD_TMP}" "${CIPD_DIR}"
+    echo "complete."
+  fi
+}
 
-echo
-echo "All build tools downloaded and extracted successfully to ${BUILD_TOOLS_DIR}."
+# Download prebuilt binaries with specific versions known to work with the SDK.
+# These values can be found in $FUCHSIA_ROOT/integration/prebuilts but should
+# not need to be updated regularly since these tools do not change very often.
+download_cipd "clang"   "fuchsia/third_party/clang"  "git_revision:b25fc4123c77097c05ea221e023fa5c6a16e0f41" "${ARCH}"
+download_cipd "gn"      "gn/gn"                      "git_revision:239533d2d91a04b3317ca9101cf7189f4e651e4d" "${ARCH}"
+download_cipd "ninja"   "infra/ninja"                "version:1.9.0"                                         "${ARCH}"
+# Download python version of gsutil, not referenced by $FUCHSIA_ROOT/integration/prebuilts, with generic architecture
+download_cipd "gsutil"  "infra/gsutil"               "version:4.46"                                          ""
+
+# Always refresh the symlinks because this script may have been updated
+echo -e "Rebuilding symlinks in ${DEPOT_TOOLS_DIR} ...\c"
+ln -sf "../downloads/clang-${ARCH}" "${DEPOT_TOOLS_DIR}/clang-${ARCH}"
+ln -sf "../downloads/clang-${ARCH}/bin/clang-format" "${DEPOT_TOOLS_DIR}/clang-format"
+ln -sf "../downloads/gn-${ARCH}/gn" "${DEPOT_TOOLS_DIR}/gn"
+ln -sf "../downloads/ninja-${ARCH}/ninja" "${DEPOT_TOOLS_DIR}/ninja"
+ln -sf "../downloads/gsutil-${ARCH}/gsutil" "${DEPOT_TOOLS_DIR}/gsutil"
+if [ ! -x "$(command -v gsutil)" ]; then
+  ln -sf "../../../buildtools/downloads/gsutil-${ARCH}/gsutil" "${REPO_ROOT}/third_party/fuchsia-sdk/bin/gsutil"
+fi
+echo "complete."
+
+echo "All build tools downloaded and extracted successfully to ${BUILD_TOOLS_DIR}"
