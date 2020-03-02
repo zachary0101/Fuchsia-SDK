@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200228.2.1",
+  "id": "0.20200302.2.1",
   "parts": [
     {
       "meta": "bin/fcp-meta.json",
@@ -422,6 +422,10 @@
     },
     {
       "meta": "fidl/fuchsia.wlan.common/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.wlan.policy/meta.json",
       "type": "fidl_library"
     },
     {

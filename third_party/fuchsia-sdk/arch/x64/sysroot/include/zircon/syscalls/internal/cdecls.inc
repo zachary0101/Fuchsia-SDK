@@ -753,7 +753,7 @@ _ZX_SYSCALL_DECL(stream_create, zx_status_t, /* no attributes */, 4,
     (options, vmo, seek, out_stream), (
     uint32_t options,
     _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t vmo,
-    uint64_t seek,
+    zx_off_t seek,
     _ZX_SYSCALL_ANNO(acquire_handle("Fuchsia")) zx_handle_t* out_stream))
 
 _ZX_SYSCALL_DECL(stream_writev, zx_status_t, /* no attributes */, 5,
@@ -768,7 +768,7 @@ _ZX_SYSCALL_DECL(stream_writev_at, zx_status_t, /* no attributes */, 6,
     (handle, options, offset, vector, num_vector, actual), (
     _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t handle,
     uint32_t options,
-    uint64_t offset,
+    zx_off_t offset,
     const zx_iovec_t* vector,
     size_t num_vector,
     size_t* actual))
@@ -785,7 +785,7 @@ _ZX_SYSCALL_DECL(stream_readv_at, zx_status_t, /* no attributes */, 6,
     (handle, options, offset, vector, num_vector, actual), (
     _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t handle,
     uint32_t options,
-    uint64_t offset,
+    zx_off_t offset,
     zx_iovec_t* vector,
     size_t num_vector,
     size_t* actual))
