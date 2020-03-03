@@ -65,6 +65,7 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.intl:all",
       "${fuchsia_sdk}/fidl/fuchsia.io:all",
       "${fuchsia_sdk}/fidl/fuchsia.ldsvc:all",
+      "${fuchsia_sdk}/fidl/fuchsia.legacymetrics:all",
       "${fuchsia_sdk}/fidl/fuchsia.location.namedplace:all",
       "${fuchsia_sdk}/fidl/fuchsia.logger:all",
       "${fuchsia_sdk}/fidl/fuchsia.math:all",

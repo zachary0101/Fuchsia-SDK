@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200302.2.1",
+  "id": "0.20200303.3.1",
   "parts": [
     {
       "meta": "bin/fcp-meta.json",
@@ -210,6 +210,10 @@
     },
     {
       "meta": "fidl/fuchsia.ldsvc/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.legacymetrics/meta.json",
       "type": "fidl_library"
     },
     {
