@@ -1,5 +1,6 @@
 {
   "deps": [
+    "fuchsia.input",
     "fuchsia.ui.views"
   ],
   "name": "fuchsia.ui.input3",
@@ -7,7 +8,6 @@
   "sources": [
     "fidl/fuchsia.ui.input3/events.fidl",
     "fidl/fuchsia.ui.input3/keyboard.fidl",
-    "fidl/fuchsia.ui.input3/keys.fidl",
     "fidl/fuchsia.ui.input3/modifiers.fidl"
   ],
   "type": "fidl_library"
