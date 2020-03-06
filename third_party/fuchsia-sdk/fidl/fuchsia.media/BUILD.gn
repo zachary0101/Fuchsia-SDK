@@ -17,6 +17,7 @@ fidl_library("fuchsia.media") {
     "../fuchsia.sysmem",
   ]
   sources = [
+    "activity_reporter.fidl",
     "audio.fidl",
     "audio_capturer.fidl",
     "audio_consumer.fidl",

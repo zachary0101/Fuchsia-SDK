@@ -7,6 +7,7 @@
   "name": "fuchsia.media",
   "root": "fidl/fuchsia.media",
   "sources": [
+    "fidl/fuchsia.media/activity_reporter.fidl",
     "fidl/fuchsia.media/audio.fidl",
     "fidl/fuchsia.media/audio_capturer.fidl",
     "fidl/fuchsia.media/audio_consumer.fidl",
