@@ -12,7 +12,6 @@
   "sources": [
     "fidl/fuchsia.ui.scenic/commands.fidl",
     "fidl/fuchsia.ui.scenic/events.fidl",
-    "fidl/fuchsia.ui.scenic/pointer_capture.fidl",
     "fidl/fuchsia.ui.scenic/scenic.fidl",
     "fidl/fuchsia.ui.scenic/session.fidl",
     "fidl/fuchsia.ui.scenic/snapshot.fidl"
