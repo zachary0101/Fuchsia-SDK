@@ -156,6 +156,23 @@ group("VkLayer_khronos_validation") {
   ]
 }
 
+copy("VkLayer_standard_validation_config") {
+  sources = [
+    "data/vulkan/explicit_layer.d/VkLayer_standard_validation.json",
+  ]
+  outputs = [
+    "${root_gen_dir}/data/vulkan/explicit_layer.d/VkLayer_standard_validation.json",
+  ]
+}
+
+
+group("VkLayer_standard_validation") {
+  data_deps = [
+    ":VkLayer_standard_validation_config",
+    ":VkLayer_khronos_validation",
+  ]
+}
+
 copy("VkLayer_image_pipe_swapchain_config") {
   sources = [
     "data/vulkan/explicit_layer.d/VkLayer_image_pipe_swapchain.json",
@@ -190,6 +207,7 @@ group("all"){
     ":VkLayer_stateless_validation",
     ":VkLayer_unique_objects",
     ":VkLayer_khronos_validation",
+    ":VkLayer_standard_validation",
     ":VkLayer_image_pipe_swapchain",
   ]
 }
