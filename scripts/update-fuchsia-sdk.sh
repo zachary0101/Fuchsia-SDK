@@ -35,7 +35,11 @@ cleanup() {
 
 # Specify the version of the tools to download
 VER_FUCHSIA_SDK="latest"
-PLATFORM="linux"
+if is-mac; then
+  PLATFORM="mac"
+else
+  PLATFORM="linux"
+fi
 ARCH="${PLATFORM}-amd64"
 
 # You can browse the GCS bucket from here to look for builds https://console.cloud.google.com/storage/browser/fuchsia/development
@@ -54,7 +58,8 @@ ARCH="${PLATFORM}-amd64"
 
 # If specified version is "latest" get the latest version number
 if [ $VER_FUCHSIA_SDK == "latest" ]; then
-  VER_FUCHSIA_SDK=$(curl -sL "https://storage.googleapis.com/fuchsia/development/LATEST_${PLATFORM^^}")
+  PLATFORM_UPPER="$(echo "${PLATFORM}" | tr '[:lower:]' '[:upper:]')"
+  VER_FUCHSIA_SDK="$(curl -sL "https://storage.googleapis.com/fuchsia/development/LATEST_${PLATFORM_UPPER}")"
 fi
 
 echo "Downloading Fuchsia SDK..."

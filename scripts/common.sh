@@ -42,7 +42,13 @@ function get_depot_tools_dir() {
   # see https://chromium.googlesource.com/chromium/src/+/master/docs/linux_build_instructions.md#install
   case "$(uname -s)" in
     Linux*)   HOST_DIR="linux64";;
+    Darwin*)  HOST_DIR="mac64";;
     *)        echo "Unsupported host os: $(uname -s)" && exit 1
   esac
   echo "$(get_buildtools_dir)/${HOST_DIR}"
+}
+
+function is-mac {
+  [[ "$(uname -s)" == "Darwin" ]] && return 0
+  return 1
 }

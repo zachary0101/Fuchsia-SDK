@@ -70,8 +70,11 @@ if [ ! -d "${DOWNLOADS_DIR}" ]; then
   mkdir "${DOWNLOADS_DIR}"
 fi
 
-# TODO(fxb/41836): Replace hardcoded linux-amd64 with OS detection
-ARCH=linux-amd64
+if is-mac; then
+  ARCH=mac-amd64
+else
+  ARCH=linux-amd64
+fi
 
 # Download a CIPD archive and extract it to a directory based on the name and ${ARCH}
 # download_cipd [name] [cipd-ref] [cipd-version] [cipd-architecture]
