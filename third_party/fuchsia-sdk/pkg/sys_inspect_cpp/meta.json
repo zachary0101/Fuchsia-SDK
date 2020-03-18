@@ -1,10 +1,13 @@
 {
   "banjo_deps": [],
   "deps": [
+    "inspect_service_cpp",
     "sys_cpp",
     "inspect"
   ],
-  "fidl_deps": [],
+  "fidl_deps": [
+    "fuchsia.inspect"
+  ],
   "headers": [
     "pkg/sys_inspect_cpp/include/lib/sys/inspect/cpp/component.h"
   ],
