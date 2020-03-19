@@ -39,6 +39,7 @@ fuchsia_sdk_pkg("fidl_base") {
   ]
   include_dirs = [ "include" ]
   public_deps = [
+    "../fit",
   ]
 }
 

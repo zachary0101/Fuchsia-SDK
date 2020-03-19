@@ -1,6 +1,8 @@
 {
   "banjo_deps": [],
-  "deps": [],
+  "deps": [
+    "fit"
+  ],
   "fidl_deps": [],
   "headers": [
     "pkg/fidl_base/include/lib/fidl/coding.h",

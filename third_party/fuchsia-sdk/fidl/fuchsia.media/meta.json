@@ -15,6 +15,7 @@
     "fidl/fuchsia.media/audio_device_enumerator.fidl",
     "fidl/fuchsia.media/audio_renderer.fidl",
     "fidl/fuchsia.media/metadata.fidl",
+    "fidl/fuchsia.media/profile_provider.fidl",
     "fidl/fuchsia.media/stream.fidl",
     "fidl/fuchsia.media/stream_common.fidl",
     "fidl/fuchsia.media/stream_processor.fidl",

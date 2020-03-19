@@ -25,6 +25,7 @@ fidl_library("fuchsia.media") {
     "audio_device_enumerator.fidl",
     "audio_renderer.fidl",
     "metadata.fidl",
+    "profile_provider.fidl",
     "stream.fidl",
     "stream_common.fidl",
     "stream_processor.fidl",
