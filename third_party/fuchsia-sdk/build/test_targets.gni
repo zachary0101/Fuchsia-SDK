@@ -44,6 +44,7 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.camera3:all",
       "${fuchsia_sdk}/fidl/fuchsia.castauth:all",
       "${fuchsia_sdk}/fidl/fuchsia.castconfig:all",
+      "${fuchsia_sdk}/fidl/fuchsia.castremotecontrol:all",
       "${fuchsia_sdk}/fidl/fuchsia.castsetup:all",
       "${fuchsia_sdk}/fidl/fuchsia.castsysteminfo:all",
       "${fuchsia_sdk}/fidl/fuchsia.cobalt:all",

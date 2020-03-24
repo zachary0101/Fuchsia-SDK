@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200323.3.1",
+  "id": "0.20200324.1.1",
   "parts": [
     {
       "meta": "bin/fcp-meta.json",
@@ -126,6 +126,10 @@
     },
     {
       "meta": "fidl/fuchsia.castconfig/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.castremotecontrol/meta.json",
       "type": "fidl_library"
     },
     {
