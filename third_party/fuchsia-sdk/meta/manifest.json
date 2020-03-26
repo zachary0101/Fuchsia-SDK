@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200325.3.1",
+  "id": "0.20200326.1.1",
   "parts": [
     {
       "meta": "bin/fconfig-meta.json",
@@ -142,6 +142,10 @@
     },
     {
       "meta": "fidl/fuchsia.castsysteminfo/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.castwindow/meta.json",
       "type": "fidl_library"
     },
     {

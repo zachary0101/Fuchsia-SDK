@@ -47,6 +47,7 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.castremotecontrol:all",
       "${fuchsia_sdk}/fidl/fuchsia.castsetup:all",
       "${fuchsia_sdk}/fidl/fuchsia.castsysteminfo:all",
+      "${fuchsia_sdk}/fidl/fuchsia.castwindow:all",
       "${fuchsia_sdk}/fidl/fuchsia.cobalt:all",
       "${fuchsia_sdk}/fidl/fuchsia.component:all",
       "${fuchsia_sdk}/fidl/fuchsia.component.runner:all",

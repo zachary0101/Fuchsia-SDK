@@ -1,6 +1,7 @@
 {
   "deps": [
     "fuchsia.ui.input2",
+    "fuchsia.ui.input3",
     "fuchsia.ui.views"
   ],
   "name": "fuchsia.ui.input",

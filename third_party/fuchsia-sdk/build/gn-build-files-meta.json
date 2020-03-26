@@ -18,6 +18,7 @@
     "fidl/fuchsia.castremotecontrol/BUILD.gn",
     "fidl/fuchsia.castsetup/BUILD.gn",
     "fidl/fuchsia.castsysteminfo/BUILD.gn",
+    "fidl/fuchsia.castwindow/BUILD.gn",
     "fidl/fuchsia.cobalt/BUILD.gn",
     "fidl/fuchsia.component.runner/BUILD.gn",
     "fidl/fuchsia.component/BUILD.gn",
