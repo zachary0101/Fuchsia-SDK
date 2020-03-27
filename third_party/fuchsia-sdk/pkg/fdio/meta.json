@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/b7/c4f10db29b3db4.debug",
+      "debug": ".build-id/33/b2d448d74416ad.debug",
       "dist": "arch/arm64/dist/libfdio.so",
       "dist_path": "lib/libfdio.so",
       "link": "arch/arm64/lib/libfdio.so"
     },
     "x64": {
-      "debug": ".build-id/f5/e6386a9585d4ee.debug",
+      "debug": ".build-id/7f/e61a8be87f5652.debug",
       "dist": "arch/x64/dist/libfdio.so",
       "dist_path": "lib/libfdio.so",
       "link": "arch/x64/lib/libfdio.so"

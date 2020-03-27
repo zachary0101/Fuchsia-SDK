@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/e0/75ac478338b101.debug",
+      "debug": ".build-id/23/cca5ae8832812b.debug",
       "dist": "arch/arm64/dist/libvulkan.so",
       "dist_path": "lib/libvulkan.so",
       "link": "arch/arm64/lib/libvulkan.so"
     },
     "x64": {
-      "debug": ".build-id/97/8c0fe9bebef986.debug",
+      "debug": ".build-id/80/479279178520fd.debug",
       "dist": "arch/x64/dist/libvulkan.so",
       "dist_path": "lib/libvulkan.so",
       "link": "arch/x64/lib/libvulkan.so"

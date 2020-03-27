@@ -4,8 +4,8 @@
   "versions": {
     "arm64": {
       "debug_libs": [
-        ".build-id/71/f3e08ee233763f.debug",
-        ".build-id/61/a286f53647aa1d.debug"
+        ".build-id/d3/8748f7c3c7ef50.debug",
+        ".build-id/ac/2f3c8c7ce1cb11.debug"
       ],
       "dist_dir": "arch/arm64/sysroot",
       "dist_libs": [
@@ -310,8 +310,8 @@
     },
     "x64": {
       "debug_libs": [
-        ".build-id/6a/14a6c276b6f31f.debug",
-        ".build-id/77/d7c3e0410734b0.debug"
+        ".build-id/c4/10147e2fb24e70.debug",
+        ".build-id/14/b2634c21e0d39e.debug"
       ],
       "dist_dir": "arch/x64/sysroot",
       "dist_libs": [

@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/ef/76d69287ce16ee.debug",
+      "debug": ".build-id/f0/28674383369321.debug",
       "dist": "arch/arm64/dist/libmemfs.so",
       "dist_path": "lib/libmemfs.so",
       "link": "arch/arm64/lib/libmemfs.so"
     },
     "x64": {
-      "debug": ".build-id/b9/d386622263b0ea.debug",
+      "debug": ".build-id/0c/29ccbca4fdab10.debug",
       "dist": "arch/x64/dist/libmemfs.so",
       "dist_path": "lib/libmemfs.so",
       "link": "arch/x64/lib/libmemfs.so"
