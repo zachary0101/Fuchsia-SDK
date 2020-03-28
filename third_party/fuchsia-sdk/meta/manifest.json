@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200327.1.1",
+  "id": "0.20200327.3.1",
   "parts": [
     {
       "meta": "bin/fconfig-meta.json",
@@ -34,6 +34,10 @@
     },
     {
       "meta": "bin/fserve-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "bin/fserve-remote-meta.json",
       "type": "host_tool"
     },
     {
