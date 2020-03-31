@@ -3,6 +3,13 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+# Specify the version of the tools to download
+if [[ "$1" == "" ]]; then
+  VER_FUCHSIA_SDK="latest"
+else
+  VER_FUCHSIA_SDK="$1"
+fi
+
 set -eu # Error checking
 err_print() {
   cleanup
@@ -16,6 +23,7 @@ DEBUG_LINE() {
 SCRIPT_SRC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Common functions.
+# shellcheck disable=SC1090
 source "${SCRIPT_SRC_DIR}/common.sh" || exit $?
 THIRD_PARTY_DIR="$(get_third_party_dir)" # finds path to //third_party
 FUCHSIA_SDK_DIR="${THIRD_PARTY_DIR}/fuchsia-sdk" # finds path to //third_party/fuchsia-sdk
@@ -33,8 +41,6 @@ cleanup() {
   fi
 }
 
-# Specify the version of the tools to download
-VER_FUCHSIA_SDK="latest"
 if is-mac; then
   PLATFORM="mac"
 else
@@ -57,12 +63,12 @@ ARCH="${PLATFORM}-amd64"
 #    Mac: `gsutil cp gs://fuchsia/development/$INSTANCE_ID/sdk/mac-amd64/gn.tar.gz .`
 
 # If specified version is "latest" get the latest version number
-if [ $VER_FUCHSIA_SDK == "latest" ]; then
+if [ "${VER_FUCHSIA_SDK}" == "latest" ]; then
   PLATFORM_UPPER="$(echo "${PLATFORM}" | tr '[:lower:]' '[:upper:]')"
   VER_FUCHSIA_SDK="$(curl -sL "https://storage.googleapis.com/fuchsia/development/LATEST_${PLATFORM_UPPER}")"
 fi
 
-echo "Downloading Fuchsia SDK..."
+echo "Downloading Fuchsia SDK ${VER_FUCHSIA_SDK} ..."
 # Example URL: https://storage.googleapis.com/fuchsia/development/8888449404525421136/sdk/linux-amd64/gn.tar.gz
 curl -sL "https://storage.googleapis.com/fuchsia/development/${VER_FUCHSIA_SDK}/sdk/${ARCH}/gn.tar.gz" -o "${DOWNLOADED_SDK_PATH}"
 echo "complete."
