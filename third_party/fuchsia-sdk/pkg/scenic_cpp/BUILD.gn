@@ -11,11 +11,13 @@ import("../../build/fuchsia_sdk_pkg.gni")
 fuchsia_sdk_pkg("scenic_cpp") {
   sources = [
     "commands.cc",
+    "commands_sizing.cc",
     "resources.cc",
     "session.cc",
     "view_ref_pair.cc",
     "view_token_pair.cc",
     "include/lib/ui/scenic/cpp/commands.h",
+    "include/lib/ui/scenic/cpp/commands_sizing.h",
     "include/lib/ui/scenic/cpp/id.h",
     "include/lib/ui/scenic/cpp/resources.h",
     "include/lib/ui/scenic/cpp/session.h",

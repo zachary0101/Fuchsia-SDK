@@ -15,6 +15,7 @@
   ],
   "headers": [
     "pkg/scenic_cpp/include/lib/ui/scenic/cpp/commands.h",
+    "pkg/scenic_cpp/include/lib/ui/scenic/cpp/commands_sizing.h",
     "pkg/scenic_cpp/include/lib/ui/scenic/cpp/id.h",
     "pkg/scenic_cpp/include/lib/ui/scenic/cpp/resources.h",
     "pkg/scenic_cpp/include/lib/ui/scenic/cpp/session.h",
@@ -26,6 +27,7 @@
   "root": "pkg/scenic_cpp",
   "sources": [
     "pkg/scenic_cpp/commands.cc",
+    "pkg/scenic_cpp/commands_sizing.cc",
     "pkg/scenic_cpp/resources.cc",
     "pkg/scenic_cpp/session.cc",
     "pkg/scenic_cpp/view_ref_pair.cc",
