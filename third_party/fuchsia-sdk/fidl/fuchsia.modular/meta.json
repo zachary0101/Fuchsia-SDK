@@ -28,6 +28,7 @@
     "fidl/fuchsia.modular/module/module_manifest.fidl",
     "fidl/fuchsia.modular/module/module_state.fidl",
     "fidl/fuchsia.modular/session/focus.fidl",
+    "fidl/fuchsia.modular/session/session_restart_controller.fidl",
     "fidl/fuchsia.modular/session/session_shell.fidl",
     "fidl/fuchsia.modular/story/create_link.fidl",
     "fidl/fuchsia.modular/story/create_module_parameter_map.fidl",
