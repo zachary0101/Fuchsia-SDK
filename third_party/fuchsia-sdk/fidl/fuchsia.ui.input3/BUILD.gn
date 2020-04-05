@@ -19,6 +19,7 @@ fidl_library("fuchsia.ui.input3") {
     "events.fidl",
     "keyboard.fidl",
     "modifiers.fidl",
+    "pointer.fidl",
   ]
 }
 

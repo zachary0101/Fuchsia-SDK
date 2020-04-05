@@ -8,7 +8,8 @@
   "sources": [
     "fidl/fuchsia.ui.input3/events.fidl",
     "fidl/fuchsia.ui.input3/keyboard.fidl",
-    "fidl/fuchsia.ui.input3/modifiers.fidl"
+    "fidl/fuchsia.ui.input3/modifiers.fidl",
+    "fidl/fuchsia.ui.input3/pointer.fidl"
   ],
   "type": "fidl_library"
 }
