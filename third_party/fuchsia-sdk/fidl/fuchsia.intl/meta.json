@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.intl",
   "root": "fidl/fuchsia.intl",
   "sources": [

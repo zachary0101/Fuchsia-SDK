@@ -12,6 +12,7 @@ fidl_library("fuchsia.legacymetrics") {
   library_name = "legacymetrics"
   namespace = "fuchsia"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "event.fidl",

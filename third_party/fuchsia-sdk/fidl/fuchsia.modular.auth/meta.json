@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.modular.auth",
   "root": "fidl/fuchsia.modular.auth",
   "sources": [

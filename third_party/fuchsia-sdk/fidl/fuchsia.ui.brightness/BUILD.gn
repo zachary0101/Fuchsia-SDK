@@ -12,6 +12,7 @@ fidl_library("fuchsia.ui.brightness") {
   library_name = "brightness"
   namespace = "fuchsia.ui"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "brightness.fidl",

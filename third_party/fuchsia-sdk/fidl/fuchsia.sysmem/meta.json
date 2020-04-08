@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.sysmem",
   "root": "fidl/fuchsia.sysmem",
   "sources": [

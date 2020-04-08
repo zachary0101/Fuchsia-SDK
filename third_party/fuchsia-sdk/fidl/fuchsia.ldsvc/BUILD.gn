@@ -12,6 +12,7 @@ fidl_library("fuchsia.ldsvc") {
   library_name = "ldsvc"
   namespace = "fuchsia"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "ldsvc.fidl",

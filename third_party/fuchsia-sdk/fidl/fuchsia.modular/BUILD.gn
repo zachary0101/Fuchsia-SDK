@@ -18,6 +18,7 @@ fidl_library("fuchsia.modular") {
     "../fuchsia.sys",
     "../fuchsia.ui.policy",
     "../fuchsia.ui.views",
+    "../zx",
   ]
   sources = [
     "agent/agent.fidl",

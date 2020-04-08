@@ -1,7 +1,8 @@
 {
   "deps": [
     "fuchsia.math",
-    "fuchsia.sysmem"
+    "fuchsia.sysmem",
+    "zx"
   ],
   "name": "fuchsia.camera3",
   "root": "fidl/fuchsia.camera3",

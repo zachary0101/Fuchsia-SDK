@@ -2,7 +2,8 @@
   "deps": [
     "fuchsia.media",
     "fuchsia.media.audio",
-    "fuchsia.media.sessions2"
+    "fuchsia.media.sessions2",
+    "zx"
   ],
   "name": "fuchsia.media.target",
   "root": "fidl/fuchsia.media.target",

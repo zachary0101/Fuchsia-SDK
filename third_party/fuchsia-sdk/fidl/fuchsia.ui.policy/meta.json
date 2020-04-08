@@ -2,7 +2,8 @@
   "deps": [
     "fuchsia.ui.gfx",
     "fuchsia.ui.input",
-    "fuchsia.ui.views"
+    "fuchsia.ui.views",
+    "zx"
   ],
   "name": "fuchsia.ui.policy",
   "root": "fidl/fuchsia.ui.policy",

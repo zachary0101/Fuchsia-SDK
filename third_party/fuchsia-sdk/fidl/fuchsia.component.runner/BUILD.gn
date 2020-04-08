@@ -16,6 +16,7 @@ fidl_library("fuchsia.component.runner") {
     "../fuchsia.data",
     "../fuchsia.io",
     "../fuchsia.url",
+    "../zx",
   ]
   sources = [
     "component_runner.fidl",

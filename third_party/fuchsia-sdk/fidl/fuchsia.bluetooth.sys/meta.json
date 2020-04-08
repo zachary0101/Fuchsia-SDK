@@ -1,6 +1,7 @@
 {
   "deps": [
-    "fuchsia.bluetooth"
+    "fuchsia.bluetooth",
+    "zx"
   ],
   "name": "fuchsia.bluetooth.sys",
   "root": "fidl/fuchsia.bluetooth.sys",

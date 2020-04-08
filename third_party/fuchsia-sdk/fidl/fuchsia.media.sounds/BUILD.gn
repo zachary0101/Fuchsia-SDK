@@ -15,6 +15,7 @@ fidl_library("fuchsia.media.sounds") {
     "../fuchsia.io",
     "../fuchsia.media",
     "../fuchsia.mem",
+    "../zx",
   ]
   sources = [
     "sound_player.fidl",

@@ -98,6 +98,7 @@
     "fidl/fuchsia.wlan.policy/BUILD.gn",
     "fidl/fuchsia.wlan.service/BUILD.gn",
     "fidl/fuchsia.wlan.stats/BUILD.gn",
+    "fidl/zx/BUILD.gn",
     "pkg/async-cpp/BUILD.gn",
     "pkg/async-default/BUILD.gn",
     "pkg/async-loop-cpp/BUILD.gn",

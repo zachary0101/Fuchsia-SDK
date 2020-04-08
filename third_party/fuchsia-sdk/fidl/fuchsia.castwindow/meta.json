@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.castwindow",
   "root": "fidl/fuchsia.castwindow",
   "sources": [

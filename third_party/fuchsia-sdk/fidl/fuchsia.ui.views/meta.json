@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.ui.views",
   "root": "fidl/fuchsia.ui.views",
   "sources": [

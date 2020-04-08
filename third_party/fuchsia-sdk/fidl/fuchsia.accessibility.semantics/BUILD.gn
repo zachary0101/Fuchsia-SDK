@@ -15,6 +15,7 @@ fidl_library("fuchsia.accessibility.semantics") {
     "../fuchsia.math",
     "../fuchsia.ui.gfx",
     "../fuchsia.ui.views",
+    "../zx",
   ]
   sources = [
     "node.fidl",

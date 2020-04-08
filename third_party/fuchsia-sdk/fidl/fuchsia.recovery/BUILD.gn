@@ -12,6 +12,7 @@ fidl_library("fuchsia.recovery") {
   library_name = "recovery"
   namespace = "fuchsia"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "factory_reset.fidl",

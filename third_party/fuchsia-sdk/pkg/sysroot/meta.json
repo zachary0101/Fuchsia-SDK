@@ -4,8 +4,8 @@
   "versions": {
     "arm64": {
       "debug_libs": [
-        ".build-id/cc/a96da3ea05183c.debug",
-        ".build-id/ac/2f3c8c7ce1cb11.debug"
+        ".build-id/ad/c36647fd8105a8.debug",
+        ".build-id/d0/0e3a370b79b8a9.debug"
       ],
       "dist_dir": "arch/arm64/sysroot",
       "dist_libs": [
@@ -107,7 +107,8 @@
         "arch/arm64/sysroot/include/../../vdso/vcpu.fidl",
         "arch/arm64/sysroot/include/../../vdso/vmar.fidl",
         "arch/arm64/sysroot/include/../../vdso/vmo.fidl",
-        "arch/arm64/sysroot/include/../../vdso/zx.fidl",
+        "arch/arm64/sysroot/include/../../vdso/zx_common.fidl",
+        "arch/arm64/sysroot/include/../../vdso/zx_syscall.fidl",
         "arch/arm64/sysroot/include/zircon/testonly-syscalls.h",
         "arch/arm64/sysroot/include/alloca.h",
         "arch/arm64/sysroot/include/ar.h",
@@ -310,8 +311,8 @@
     },
     "x64": {
       "debug_libs": [
-        ".build-id/53/2af210c0b1522c.debug",
-        ".build-id/14/b2634c21e0d39e.debug"
+        ".build-id/16/932a6aecddefc2.debug",
+        ".build-id/c4/82d061e3dd6f88.debug"
       ],
       "dist_dir": "arch/x64/sysroot",
       "dist_libs": [
@@ -413,7 +414,8 @@
         "arch/x64/sysroot/include/../../vdso/vcpu.fidl",
         "arch/x64/sysroot/include/../../vdso/vmar.fidl",
         "arch/x64/sysroot/include/../../vdso/vmo.fidl",
-        "arch/x64/sysroot/include/../../vdso/zx.fidl",
+        "arch/x64/sysroot/include/../../vdso/zx_common.fidl",
+        "arch/x64/sysroot/include/../../vdso/zx_syscall.fidl",
         "arch/x64/sysroot/include/zircon/testonly-syscalls.h",
         "arch/x64/sysroot/include/alloca.h",
         "arch/x64/sysroot/include/ar.h",

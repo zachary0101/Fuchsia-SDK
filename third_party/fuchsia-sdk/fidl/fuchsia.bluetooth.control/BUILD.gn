@@ -13,6 +13,7 @@ fidl_library("fuchsia.bluetooth.control") {
   namespace = "fuchsia.bluetooth"
   public_deps = [
     "../fuchsia.bluetooth",
+    "../zx",
   ]
   sources = [
     "bonding.fidl",

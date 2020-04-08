@@ -15,6 +15,7 @@ fidl_library("fuchsia.media.target") {
     "../fuchsia.media",
     "../fuchsia.media.audio",
     "../fuchsia.media.sessions2",
+    "../zx",
   ]
   sources = [
     "target_discovery.fidl",

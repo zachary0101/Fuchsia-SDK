@@ -14,6 +14,7 @@ fidl_library("fuchsia.media.sessions2") {
   public_deps = [
     "../fuchsia.media",
     "../fuchsia.media.audio",
+    "../zx",
   ]
   sources = [
     "discovery.fidl",

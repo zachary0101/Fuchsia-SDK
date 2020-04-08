@@ -15,6 +15,7 @@ fidl_library("fuchsia.settings") {
     "../fuchsia.intl",
     "../fuchsia.media",
     "../fuchsia.ui.types",
+    "../zx",
   ]
   sources = [
     "accessibility.fidl",

@@ -12,6 +12,7 @@ fidl_library("fuchsia.net") {
   library_name = "net"
   namespace = "fuchsia"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "connectivity.fidl",

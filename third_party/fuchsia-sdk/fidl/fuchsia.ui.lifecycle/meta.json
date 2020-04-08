@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.ui.lifecycle",
   "root": "fidl/fuchsia.ui.lifecycle",
   "sources": [

@@ -12,6 +12,7 @@ fidl_library("fuchsia.castauth") {
   library_name = "castauth"
   namespace = "fuchsia"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "cast_auth.fidl",

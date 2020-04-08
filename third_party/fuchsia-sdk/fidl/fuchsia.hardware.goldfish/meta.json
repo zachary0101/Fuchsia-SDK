@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.hardware.goldfish",
   "root": "fidl/fuchsia.hardware.goldfish",
   "sources": [

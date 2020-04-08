@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.legacymetrics",
   "root": "fidl/fuchsia.legacymetrics",
   "sources": [

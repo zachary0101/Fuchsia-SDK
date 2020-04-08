@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.auth.oldtokens",
   "root": "fidl/fuchsia.auth.oldtokens",
   "sources": [

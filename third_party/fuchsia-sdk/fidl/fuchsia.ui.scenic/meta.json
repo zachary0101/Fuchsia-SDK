@@ -5,7 +5,8 @@
     "fuchsia.ui.gfx",
     "fuchsia.ui.input",
     "fuchsia.ui.views",
-    "fuchsia.mem"
+    "fuchsia.mem",
+    "zx"
   ],
   "name": "fuchsia.ui.scenic",
   "root": "fidl/fuchsia.ui.scenic",

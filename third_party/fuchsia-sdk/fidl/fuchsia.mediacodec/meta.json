@@ -1,6 +1,7 @@
 {
   "deps": [
-    "fuchsia.media"
+    "fuchsia.media",
+    "zx"
   ],
   "name": "fuchsia.mediacodec",
   "root": "fidl/fuchsia.mediacodec",

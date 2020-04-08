@@ -1,7 +1,8 @@
 {
   "deps": [
     "fuchsia.wlan.common",
-    "fuchsia.wlan.stats"
+    "fuchsia.wlan.stats",
+    "zx"
   ],
   "name": "fuchsia.wlan.service",
   "root": "fidl/fuchsia.wlan.service",

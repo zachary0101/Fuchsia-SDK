@@ -5,7 +5,8 @@
     "fuchsia.ui.gfx",
     "fuchsia.ui.views",
     "fuchsia.io",
-    "fuchsia.mem"
+    "fuchsia.mem",
+    "zx"
   ],
   "name": "fuchsia.web",
   "root": "fidl/fuchsia.web",

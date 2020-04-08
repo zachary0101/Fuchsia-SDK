@@ -12,6 +12,7 @@ fidl_library("fuchsia.castsetup") {
   library_name = "castsetup"
   namespace = "fuchsia"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "cast_setup.fidl",

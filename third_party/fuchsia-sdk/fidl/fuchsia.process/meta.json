@@ -1,7 +1,8 @@
 {
   "deps": [
     "fuchsia.io",
-    "fuchsia.ldsvc"
+    "fuchsia.ldsvc",
+    "zx"
   ],
   "name": "fuchsia.process",
   "root": "fidl/fuchsia.process",

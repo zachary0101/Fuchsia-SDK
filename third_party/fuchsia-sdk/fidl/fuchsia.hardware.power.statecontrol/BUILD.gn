@@ -12,6 +12,7 @@ fidl_library("fuchsia.hardware.power.statecontrol") {
   library_name = "statecontrol"
   namespace = "fuchsia.hardware.power"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "admin.fidl",

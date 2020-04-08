@@ -12,6 +12,7 @@ fidl_library("fuchsia.update") {
   library_name = "update"
   namespace = "fuchsia"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "update.fidl",

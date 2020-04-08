@@ -13,6 +13,7 @@ fidl_library("fuchsia.bluetooth.gatt") {
   namespace = "fuchsia.bluetooth"
   public_deps = [
     "../fuchsia.bluetooth",
+    "../zx",
   ]
   sources = [
     "client.fidl",

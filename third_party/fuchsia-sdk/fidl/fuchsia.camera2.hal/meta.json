@@ -1,7 +1,8 @@
 {
   "deps": [
     "fuchsia.camera2",
-    "fuchsia.sysmem"
+    "fuchsia.sysmem",
+    "zx"
   ],
   "name": "fuchsia.camera2.hal",
   "root": "fidl/fuchsia.camera2.hal",

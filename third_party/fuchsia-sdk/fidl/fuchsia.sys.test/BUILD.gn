@@ -12,6 +12,7 @@ fidl_library("fuchsia.sys.test") {
   library_name = "test"
   namespace = "fuchsia.sys"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "cache.fidl",

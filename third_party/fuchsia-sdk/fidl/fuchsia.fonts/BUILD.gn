@@ -14,6 +14,7 @@ fidl_library("fuchsia.fonts") {
   public_deps = [
     "../fuchsia.intl",
     "../fuchsia.mem",
+    "../zx",
   ]
   sources = [
     "events.fidl",

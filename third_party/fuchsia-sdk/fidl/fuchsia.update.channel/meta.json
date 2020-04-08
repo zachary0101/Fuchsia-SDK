@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.update.channel",
   "root": "fidl/fuchsia.update.channel",
   "sources": [

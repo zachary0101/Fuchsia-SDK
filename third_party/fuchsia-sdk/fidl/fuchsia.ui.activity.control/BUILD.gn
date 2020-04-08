@@ -13,6 +13,7 @@ fidl_library("fuchsia.ui.activity.control") {
   namespace = "fuchsia.ui.activity"
   public_deps = [
     "../fuchsia.ui.activity",
+    "../zx",
   ]
   sources = [
     "control.fidl",

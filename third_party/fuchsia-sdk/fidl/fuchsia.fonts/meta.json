@@ -1,7 +1,8 @@
 {
   "deps": [
     "fuchsia.intl",
-    "fuchsia.mem"
+    "fuchsia.mem",
+    "zx"
   ],
   "name": "fuchsia.fonts",
   "root": "fidl/fuchsia.fonts",

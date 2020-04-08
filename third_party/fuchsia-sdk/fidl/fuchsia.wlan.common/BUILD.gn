@@ -12,6 +12,7 @@ fidl_library("fuchsia.wlan.common") {
   library_name = "common"
   namespace = "fuchsia.wlan"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "wlan_common.fidl",

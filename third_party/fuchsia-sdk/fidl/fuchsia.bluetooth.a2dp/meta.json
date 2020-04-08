@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.bluetooth.a2dp",
   "root": "fidl/fuchsia.bluetooth.a2dp",
   "sources": [

@@ -1,6 +1,7 @@
 {
   "deps": [
-    "fuchsia.io"
+    "fuchsia.io",
+    "zx"
   ],
   "name": "fuchsia.factory",
   "root": "fidl/fuchsia.factory",

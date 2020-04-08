@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.component",
   "root": "fidl/fuchsia.component",
   "sources": [

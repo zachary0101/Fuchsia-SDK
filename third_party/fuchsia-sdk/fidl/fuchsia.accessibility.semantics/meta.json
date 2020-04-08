@@ -2,7 +2,8 @@
   "deps": [
     "fuchsia.math",
     "fuchsia.ui.gfx",
-    "fuchsia.ui.views"
+    "fuchsia.ui.views",
+    "zx"
   ],
   "name": "fuchsia.accessibility.semantics",
   "root": "fidl/fuchsia.accessibility.semantics",

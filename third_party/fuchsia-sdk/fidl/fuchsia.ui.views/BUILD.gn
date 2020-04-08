@@ -12,6 +12,7 @@ fidl_library("fuchsia.ui.views") {
   library_name = "views"
   namespace = "fuchsia.ui"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "commands.fidl",

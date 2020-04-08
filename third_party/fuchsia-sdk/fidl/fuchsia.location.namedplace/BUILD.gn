@@ -12,6 +12,7 @@ fidl_library("fuchsia.location.namedplace") {
   library_name = "namedplace"
   namespace = "fuchsia.location"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "namedplace.fidl",

@@ -16,6 +16,7 @@ fidl_library("fuchsia.modular.testing") {
     "../fuchsia.modular",
     "../fuchsia.modular.session",
     "../fuchsia.sys",
+    "../zx",
   ]
   sources = [
     "test_harness.fidl",

@@ -2,7 +2,8 @@
   "deps": [
     "fuchsia.sys",
     "fuchsia.ui.policy",
-    "fuchsia.io"
+    "fuchsia.io",
+    "zx"
   ],
   "name": "fuchsia.modular.session",
   "root": "fidl/fuchsia.modular.session",

@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.castauth",
   "root": "fidl/fuchsia.castauth",
   "sources": [

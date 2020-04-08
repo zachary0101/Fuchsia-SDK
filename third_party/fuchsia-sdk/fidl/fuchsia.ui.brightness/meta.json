@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.ui.brightness",
   "root": "fidl/fuchsia.ui.brightness",
   "sources": [

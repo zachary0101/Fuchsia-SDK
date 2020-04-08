@@ -2,7 +2,8 @@
   "deps": [
     "fuchsia.media",
     "fuchsia.io",
-    "fuchsia.mem"
+    "fuchsia.mem",
+    "zx"
   ],
   "name": "fuchsia.media.sounds",
   "root": "fidl/fuchsia.media.sounds",
