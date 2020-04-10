@@ -13,7 +13,6 @@ fidl_library("fuchsia.auth") {
   namespace = "fuchsia"
   public_deps = [
     "../fuchsia.ui.views",
-    "../zx",
   ]
   sources = [
     "attestation_signer.fidl",

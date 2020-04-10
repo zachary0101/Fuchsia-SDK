@@ -3,8 +3,7 @@
     "fuchsia.media",
     "fuchsia.url",
     "fuchsia.io",
-    "fuchsia.mem",
-    "zx"
+    "fuchsia.mem"
   ],
   "name": "fuchsia.media.drm",
   "root": "fidl/fuchsia.media.drm",

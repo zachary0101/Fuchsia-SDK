@@ -15,7 +15,6 @@ fidl_library("fuchsia.ui.app") {
     "../fuchsia.intl",
     "../fuchsia.sys",
     "../fuchsia.ui.views",
-    "../zx",
   ]
   sources = [
     "view.fidl",

@@ -12,7 +12,6 @@ fidl_library("fuchsia.ui.lifecycle") {
   library_name = "lifecycle"
   namespace = "fuchsia.ui"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "lifecycle_controller.fidl",

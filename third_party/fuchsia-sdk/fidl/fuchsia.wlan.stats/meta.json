@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.wlan.stats",
   "root": "fidl/fuchsia.wlan.stats",
   "sources": [

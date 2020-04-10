@@ -12,7 +12,6 @@ fidl_library("fuchsia.castwindow") {
   library_name = "castwindow"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "window.fidl",

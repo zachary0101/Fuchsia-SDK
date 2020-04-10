@@ -12,7 +12,6 @@ fidl_library("fuchsia.sysinfo") {
   library_name = "sysinfo"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "sysinfo.fidl",

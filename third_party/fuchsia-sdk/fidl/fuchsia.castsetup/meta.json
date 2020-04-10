@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.castsetup",
   "root": "fidl/fuchsia.castsetup",
   "sources": [

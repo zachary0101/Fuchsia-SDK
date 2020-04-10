@@ -2,8 +2,7 @@
   "deps": [
     "fuchsia.net.dhcp",
     "fuchsia.hardware.ethernet",
-    "fuchsia.net",
-    "zx"
+    "fuchsia.net"
   ],
   "name": "fuchsia.netstack",
   "root": "fidl/fuchsia.netstack",

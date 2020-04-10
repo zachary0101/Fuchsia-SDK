@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.memorypressure",
   "root": "fidl/fuchsia.memorypressure",
   "sources": [

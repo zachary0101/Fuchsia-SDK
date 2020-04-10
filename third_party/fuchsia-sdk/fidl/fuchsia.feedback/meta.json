@@ -1,8 +1,7 @@
 {
   "deps": [
     "fuchsia.math",
-    "fuchsia.mem",
-    "zx"
+    "fuchsia.mem"
   ],
   "name": "fuchsia.feedback",
   "root": "fidl/fuchsia.feedback",

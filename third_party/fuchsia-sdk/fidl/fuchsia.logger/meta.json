@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.logger",
   "root": "fidl/fuchsia.logger",
   "sources": [

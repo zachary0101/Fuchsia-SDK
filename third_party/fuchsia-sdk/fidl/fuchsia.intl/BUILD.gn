@@ -12,7 +12,6 @@ fidl_library("fuchsia.intl") {
   library_name = "intl"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "intl.fidl",

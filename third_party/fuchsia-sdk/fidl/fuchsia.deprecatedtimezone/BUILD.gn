@@ -12,7 +12,6 @@ fidl_library("fuchsia.deprecatedtimezone") {
   library_name = "deprecatedtimezone"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "deprecated_time_service.fidl",

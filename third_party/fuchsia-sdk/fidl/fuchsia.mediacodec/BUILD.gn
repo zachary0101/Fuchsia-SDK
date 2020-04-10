@@ -13,7 +13,6 @@ fidl_library("fuchsia.mediacodec") {
   namespace = "fuchsia"
   public_deps = [
     "../fuchsia.media",
-    "../zx",
   ]
   sources = [
     "codec_factory.fidl",

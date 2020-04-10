@@ -12,7 +12,6 @@ fidl_library("fuchsia.wlan.stats") {
   library_name = "stats"
   namespace = "fuchsia.wlan"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "wlan_stats.fidl",

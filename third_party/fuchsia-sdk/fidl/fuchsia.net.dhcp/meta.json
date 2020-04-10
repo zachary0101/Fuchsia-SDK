@@ -1,7 +1,6 @@
 {
   "deps": [
-    "fuchsia.net",
-    "zx"
+    "fuchsia.net"
   ],
   "name": "fuchsia.net.dhcp",
   "root": "fidl/fuchsia.net.dhcp",

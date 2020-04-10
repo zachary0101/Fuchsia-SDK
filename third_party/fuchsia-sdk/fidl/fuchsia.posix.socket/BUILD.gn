@@ -13,7 +13,6 @@ fidl_library("fuchsia.posix.socket") {
   namespace = "fuchsia.posix"
   public_deps = [
     "../fuchsia.io",
-    "../zx",
   ]
   sources = [
     "socket.fidl",

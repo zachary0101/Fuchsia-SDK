@@ -12,7 +12,6 @@ fidl_library("fuchsia.memorypressure") {
   library_name = "memorypressure"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "memorypressure.fidl",

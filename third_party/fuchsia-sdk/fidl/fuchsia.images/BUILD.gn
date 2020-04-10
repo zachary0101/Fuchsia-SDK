@@ -13,7 +13,6 @@ fidl_library("fuchsia.images") {
   namespace = "fuchsia"
   public_deps = [
     "../fuchsia.sysmem",
-    "../zx",
   ]
   sources = [
     "encoded_image.fidl",

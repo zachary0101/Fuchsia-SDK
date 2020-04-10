@@ -12,7 +12,6 @@ fidl_library("fuchsia.component") {
   library_name = "component"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "constants.fidl",

@@ -12,7 +12,6 @@ fidl_library("fuchsia.modular.auth") {
   library_name = "auth"
   namespace = "fuchsia.modular"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "account/account.fidl",

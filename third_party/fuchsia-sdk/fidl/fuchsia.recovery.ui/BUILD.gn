@@ -12,7 +12,6 @@ fidl_library("fuchsia.recovery.ui") {
   library_name = "ui"
   namespace = "fuchsia.recovery"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "countdown.fidl",

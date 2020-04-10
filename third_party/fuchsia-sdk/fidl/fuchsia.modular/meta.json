@@ -5,8 +5,7 @@
     "fuchsia.sys",
     "fuchsia.ui.policy",
     "fuchsia.ui.views",
-    "fuchsia.mem",
-    "zx"
+    "fuchsia.mem"
   ],
   "name": "fuchsia.modular",
   "root": "fidl/fuchsia.modular",

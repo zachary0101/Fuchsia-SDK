@@ -3,8 +3,7 @@
     "fuchsia.component",
     "fuchsia.data",
     "fuchsia.url",
-    "fuchsia.io",
-    "zx"
+    "fuchsia.io"
   ],
   "name": "fuchsia.component.runner",
   "root": "fidl/fuchsia.component.runner",

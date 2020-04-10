@@ -2,8 +2,7 @@
   "deps": [
     "fuchsia.intl",
     "fuchsia.sys",
-    "fuchsia.ui.views",
-    "zx"
+    "fuchsia.ui.views"
   ],
   "name": "fuchsia.ui.app",
   "root": "fidl/fuchsia.ui.app",

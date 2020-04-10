@@ -1,7 +1,6 @@
 {
   "deps": [
-    "fuchsia.intl",
-    "zx"
+    "fuchsia.intl"
   ],
   "name": "fuchsia.hwinfo",
   "root": "fidl/fuchsia.hwinfo",

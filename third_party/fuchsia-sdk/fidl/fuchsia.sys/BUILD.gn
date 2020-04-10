@@ -13,7 +13,6 @@ fidl_library("fuchsia.sys") {
   namespace = "fuchsia"
   public_deps = [
     "../fuchsia.mem",
-    "../zx",
   ]
   sources = [
     "component_controller.fidl",

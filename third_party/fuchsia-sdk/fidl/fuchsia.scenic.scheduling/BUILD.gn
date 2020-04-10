@@ -12,7 +12,6 @@ fidl_library("fuchsia.scenic.scheduling") {
   library_name = "scheduling"
   namespace = "fuchsia.scenic"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "prediction_info.fidl",

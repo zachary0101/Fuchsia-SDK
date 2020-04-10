@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.scenic.scheduling",
   "root": "fidl/fuchsia.scenic.scheduling",
   "sources": [

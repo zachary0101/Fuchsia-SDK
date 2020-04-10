@@ -12,7 +12,6 @@ fidl_library("fuchsia.hardware.light") {
   library_name = "light"
   namespace = "fuchsia.hardware"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "light.fidl",

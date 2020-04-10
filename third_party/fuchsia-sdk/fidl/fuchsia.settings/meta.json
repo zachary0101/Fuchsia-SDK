@@ -2,8 +2,7 @@
   "deps": [
     "fuchsia.intl",
     "fuchsia.media",
-    "fuchsia.ui.types",
-    "zx"
+    "fuchsia.ui.types"
   ],
   "name": "fuchsia.settings",
   "root": "fidl/fuchsia.settings",

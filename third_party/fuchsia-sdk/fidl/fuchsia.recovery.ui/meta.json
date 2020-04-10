@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.recovery.ui",
   "root": "fidl/fuchsia.recovery.ui",
   "sources": [

@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.location.namedplace",
   "root": "fidl/fuchsia.location.namedplace",
   "sources": [

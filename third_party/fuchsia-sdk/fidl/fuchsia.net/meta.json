@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.net",
   "root": "fidl/fuchsia.net",
   "sources": [

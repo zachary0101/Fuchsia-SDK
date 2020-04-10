@@ -13,7 +13,6 @@ fidl_library("fuchsia.inspect") {
   namespace = "fuchsia"
   public_deps = [
     "../fuchsia.mem",
-    "../zx",
   ]
   sources = [
     "tree.fidl",

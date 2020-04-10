@@ -16,7 +16,6 @@ fidl_library("fuchsia.media.playback") {
     "../fuchsia.media",
     "../fuchsia.media.audio",
     "../fuchsia.ui.views",
-    "../zx",
   ]
   sources = [
     "player.fidl",

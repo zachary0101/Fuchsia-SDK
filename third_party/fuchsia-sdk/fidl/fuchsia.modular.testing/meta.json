@@ -3,8 +3,7 @@
     "fuchsia.modular",
     "fuchsia.modular.session",
     "fuchsia.sys",
-    "fuchsia.mem",
-    "zx"
+    "fuchsia.mem"
   ],
   "name": "fuchsia.modular.testing",
   "root": "fidl/fuchsia.modular.testing",

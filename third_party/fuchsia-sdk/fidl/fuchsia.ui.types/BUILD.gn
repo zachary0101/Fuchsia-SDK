@@ -12,7 +12,6 @@ fidl_library("fuchsia.ui.types") {
   library_name = "types"
   namespace = "fuchsia.ui"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "types.fidl",

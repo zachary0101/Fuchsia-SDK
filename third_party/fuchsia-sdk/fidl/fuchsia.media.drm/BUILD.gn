@@ -16,7 +16,6 @@ fidl_library("fuchsia.media.drm") {
     "../fuchsia.media",
     "../fuchsia.mem",
     "../fuchsia.url",
-    "../zx",
   ]
   sources = [
     "content_decryption.fidl",

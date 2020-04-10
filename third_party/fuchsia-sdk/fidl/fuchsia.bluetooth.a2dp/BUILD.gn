@@ -12,7 +12,6 @@ fidl_library("fuchsia.bluetooth.a2dp") {
   library_name = "a2dp"
   namespace = "fuchsia.bluetooth"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "audio_mode.fidl",

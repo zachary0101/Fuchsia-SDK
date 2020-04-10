@@ -14,7 +14,6 @@ fidl_library("fuchsia.bluetooth.le") {
   public_deps = [
     "../fuchsia.bluetooth",
     "../fuchsia.bluetooth.gatt",
-    "../zx",
   ]
   sources = [
     "advertising_data.fidl",

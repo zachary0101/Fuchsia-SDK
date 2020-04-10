@@ -18,7 +18,6 @@ fidl_library("fuchsia.ui.scenic") {
     "../fuchsia.ui.gfx",
     "../fuchsia.ui.input",
     "../fuchsia.ui.views",
-    "../zx",
   ]
   sources = [
     "commands.fidl",

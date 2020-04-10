@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.deprecatedtimezone",
   "root": "fidl/fuchsia.deprecatedtimezone",
   "sources": [

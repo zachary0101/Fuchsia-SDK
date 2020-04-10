@@ -12,7 +12,6 @@ fidl_library("fuchsia.tracing.provider") {
   library_name = "provider"
   namespace = "fuchsia.tracing"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "provider.fidl",

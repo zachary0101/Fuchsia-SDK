@@ -12,7 +12,6 @@ fidl_library("fuchsia.url") {
   library_name = "url"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "url.fidl",

@@ -13,7 +13,6 @@ fidl_library("fuchsia.castconfig") {
   namespace = "fuchsia"
   public_deps = [
     "../fuchsia.mem",
-    "../zx",
   ]
   sources = [
     "cast_config.fidl",

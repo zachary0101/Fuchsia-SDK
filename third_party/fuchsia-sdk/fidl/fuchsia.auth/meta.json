@@ -1,7 +1,6 @@
 {
   "deps": [
-    "fuchsia.ui.views",
-    "zx"
+    "fuchsia.ui.views"
   ],
   "name": "fuchsia.auth",
   "root": "fidl/fuchsia.auth",

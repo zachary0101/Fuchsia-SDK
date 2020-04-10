@@ -13,7 +13,6 @@ fidl_library("fuchsia.update.channelcontrol") {
   namespace = "fuchsia.update"
   public_deps = [
     "../fuchsia.update.channel",
-    "../zx",
   ]
   sources = [
     "channelcontrol.fidl",

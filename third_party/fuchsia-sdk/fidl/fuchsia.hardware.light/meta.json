@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.hardware.light",
   "root": "fidl/fuchsia.hardware.light",
   "sources": [

@@ -18,7 +18,6 @@ fidl_library("fuchsia.web") {
     "../fuchsia.net.http",
     "../fuchsia.ui.gfx",
     "../fuchsia.ui.views",
-    "../zx",
   ]
   sources = [
     "constants.fidl",

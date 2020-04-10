@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.castremotecontrol",
   "root": "fidl/fuchsia.castremotecontrol",
   "sources": [

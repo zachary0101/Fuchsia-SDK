@@ -15,7 +15,6 @@ fidl_library("fuchsia.ui.input") {
     "../fuchsia.ui.input2",
     "../fuchsia.ui.input3",
     "../fuchsia.ui.views",
-    "../zx",
   ]
   sources = [
     "commands.fidl",

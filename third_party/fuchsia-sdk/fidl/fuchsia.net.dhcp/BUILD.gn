@@ -13,7 +13,6 @@ fidl_library("fuchsia.net.dhcp") {
   namespace = "fuchsia.net"
   public_deps = [
     "../fuchsia.net",
-    "../zx",
   ]
   sources = [
     "client.fidl",

@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.ldsvc",
   "root": "fidl/fuchsia.ldsvc",
   "sources": [

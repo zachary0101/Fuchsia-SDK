@@ -14,7 +14,6 @@ fidl_library("fuchsia.process") {
   public_deps = [
     "../fuchsia.io",
     "../fuchsia.ldsvc",
-    "../zx",
   ]
   sources = [
     "launcher.fidl",

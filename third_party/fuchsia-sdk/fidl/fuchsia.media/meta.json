@@ -2,8 +2,7 @@
   "deps": [
     "fuchsia.images",
     "fuchsia.media.audio",
-    "fuchsia.sysmem",
-    "zx"
+    "fuchsia.sysmem"
   ],
   "name": "fuchsia.media",
   "root": "fidl/fuchsia.media",

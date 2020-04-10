@@ -12,7 +12,6 @@ fidl_library("fuchsia.cobalt") {
   library_name = "cobalt"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "cobalt.fidl",

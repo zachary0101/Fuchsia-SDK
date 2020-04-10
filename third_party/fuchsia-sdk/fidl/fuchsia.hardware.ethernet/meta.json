@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.hardware.ethernet",
   "root": "fidl/fuchsia.hardware.ethernet",
   "sources": [

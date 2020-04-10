@@ -15,7 +15,6 @@ fidl_library("fuchsia.ui.gfx") {
     "../fuchsia.images",
     "../fuchsia.mem",
     "../fuchsia.ui.views",
-    "../zx",
   ]
   sources = [
     "commands.fidl",

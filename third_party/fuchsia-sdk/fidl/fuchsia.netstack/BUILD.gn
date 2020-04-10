@@ -15,7 +15,6 @@ fidl_library("fuchsia.netstack") {
     "../fuchsia.hardware.ethernet",
     "../fuchsia.net",
     "../fuchsia.net.dhcp",
-    "../zx",
   ]
   sources = [
     "netstack.fidl",

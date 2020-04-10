@@ -13,7 +13,6 @@ fidl_library("fuchsia.hwinfo") {
   namespace = "fuchsia"
   public_deps = [
     "../fuchsia.intl",
-    "../zx",
   ]
   sources = [
     "hwinfo.fidl",

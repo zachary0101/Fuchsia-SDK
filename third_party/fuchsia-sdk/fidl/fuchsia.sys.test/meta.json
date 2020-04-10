@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.sys.test",
   "root": "fidl/fuchsia.sys.test",
   "sources": [

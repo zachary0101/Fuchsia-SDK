@@ -14,7 +14,6 @@ fidl_library("fuchsia.ui.input3") {
   public_deps = [
     "../fuchsia.input",
     "../fuchsia.ui.views",
-    "../zx",
   ]
   sources = [
     "events.fidl",

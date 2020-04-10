@@ -13,7 +13,6 @@ fidl_library("fuchsia.camera2") {
   namespace = "fuchsia"
   public_deps = [
     "../fuchsia.sysmem",
-    "../zx",
   ]
   sources = [
     "manager.fidl",

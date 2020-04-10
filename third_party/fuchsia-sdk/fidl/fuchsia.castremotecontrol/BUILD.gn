@@ -12,7 +12,6 @@ fidl_library("fuchsia.castremotecontrol") {
   library_name = "castremotecontrol"
   namespace = "fuchsia"
   public_deps = [
-    "../zx",
   ]
   sources = [
     "remote_control.fidl",

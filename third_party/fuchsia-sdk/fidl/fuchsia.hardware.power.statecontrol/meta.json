@@ -1,7 +1,5 @@
 {
-  "deps": [
-    "zx"
-  ],
+  "deps": [],
   "name": "fuchsia.hardware.power.statecontrol",
   "root": "fidl/fuchsia.hardware.power.statecontrol",
   "sources": [

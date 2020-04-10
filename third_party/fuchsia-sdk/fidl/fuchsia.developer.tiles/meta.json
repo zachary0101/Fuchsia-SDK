@@ -1,8 +1,7 @@
 {
   "deps": [
     "fuchsia.ui.app",
-    "fuchsia.ui.gfx",
-    "zx"
+    "fuchsia.ui.gfx"
   ],
   "name": "fuchsia.developer.tiles",
   "root": "fidl/fuchsia.developer.tiles",

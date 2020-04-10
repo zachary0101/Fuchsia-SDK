@@ -1,7 +1,6 @@
 {
   "deps": [
-    "fuchsia.ui.activity",
-    "zx"
+    "fuchsia.ui.activity"
   ],
   "name": "fuchsia.ui.activity.control",
   "root": "fidl/fuchsia.ui.activity.control",

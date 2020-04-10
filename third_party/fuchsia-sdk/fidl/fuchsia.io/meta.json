@@ -1,7 +1,6 @@
 {
   "deps": [
-    "fuchsia.mem",
-    "zx"
+    "fuchsia.mem"
   ],
   "name": "fuchsia.io",
   "root": "fidl/fuchsia.io",

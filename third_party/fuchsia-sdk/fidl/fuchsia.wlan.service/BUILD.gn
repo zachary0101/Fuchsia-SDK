@@ -14,7 +14,6 @@ fidl_library("fuchsia.wlan.service") {
   public_deps = [
     "../fuchsia.wlan.common",
     "../fuchsia.wlan.stats",
-    "../zx",
   ]
   sources = [
     "wlan_service.fidl",

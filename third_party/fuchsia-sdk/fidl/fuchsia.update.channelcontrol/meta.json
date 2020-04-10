@@ -1,7 +1,6 @@
 {
   "deps": [
-    "fuchsia.update.channel",
-    "zx"
+    "fuchsia.update.channel"
   ],
   "name": "fuchsia.update.channelcontrol",
   "root": "fidl/fuchsia.update.channelcontrol",

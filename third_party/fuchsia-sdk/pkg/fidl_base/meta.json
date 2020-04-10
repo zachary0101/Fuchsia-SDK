@@ -34,6 +34,7 @@
     "pkg/fidl_base/message_builder.cc",
     "pkg/fidl_base/transformer.cc",
     "pkg/fidl_base/txn_header.c",
+    "pkg/fidl_base/validate_string.cc",
     "pkg/fidl_base/validating.cc",
     "pkg/fidl_base/walker.cc"
   ],
