@@ -5,7 +5,8 @@
   "sources": [
     "fidl/fuchsia.net/connectivity.fidl",
     "fidl/fuchsia.net/namelookup.fidl",
-    "fidl/fuchsia.net/net.fidl"
+    "fidl/fuchsia.net/net.fidl",
+    "fidl/fuchsia.net/socket.fidl"
   ],
   "type": "fidl_library"
 }

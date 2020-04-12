@@ -12,7 +12,6 @@ fidl_library("fuchsia.ui.policy") {
   library_name = "policy"
   namespace = "fuchsia.ui"
   public_deps = [
-    "../fuchsia.ui.gfx",
     "../fuchsia.ui.input",
     "../fuchsia.ui.views",
   ]

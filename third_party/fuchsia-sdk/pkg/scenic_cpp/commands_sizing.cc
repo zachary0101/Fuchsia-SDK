@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 // File is automatically generated; do not modify.
-// See tools/fidl/hlcpp-measure-tape/README.md
+// See tools/fidl/measure-tape/README.md
 
 #include <lib/ui/scenic/cpp/commands_sizing.h>
 #include <fuchsia/ui/scenic/cpp/fidl.h>
@@ -1012,7 +1012,7 @@ class MeasuringTape {
       case fuchsia::ui::gfx::RendererParam::Tag::kShadowTechnique:
         num_bytes_ += 8;
         break;
-      case fuchsia::ui::gfx::RendererParam::Tag::kRenderFrequency:
+      case fuchsia::ui::gfx::RendererParam::Tag::kReserved:
         num_bytes_ += 8;
         break;
       case fuchsia::ui::gfx::RendererParam::Tag::kEnableDebugging:
