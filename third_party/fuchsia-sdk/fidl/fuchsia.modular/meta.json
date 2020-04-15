@@ -19,7 +19,6 @@
     "fidl/fuchsia.modular/component/component_context.fidl",
     "fidl/fuchsia.modular/config/config.fidl",
     "fidl/fuchsia.modular/intent/intent.fidl",
-    "fidl/fuchsia.modular/intent/intent_handler.fidl",
     "fidl/fuchsia.modular/lifecycle/lifecycle.fidl",
     "fidl/fuchsia.modular/module/link_path.fidl",
     "fidl/fuchsia.modular/module/module_context.fidl",
