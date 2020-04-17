@@ -23,6 +23,7 @@ fidl_library("fuchsia.media.drm") {
     "license_session.fidl",
     "provisioning.fidl",
     "services.fidl",
+    "types.fidl",
   ]
 }
 

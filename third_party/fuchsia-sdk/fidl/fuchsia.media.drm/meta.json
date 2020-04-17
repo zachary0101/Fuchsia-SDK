@@ -12,7 +12,8 @@
     "fidl/fuchsia.media.drm/error.fidl",
     "fidl/fuchsia.media.drm/license_session.fidl",
     "fidl/fuchsia.media.drm/provisioning.fidl",
-    "fidl/fuchsia.media.drm/services.fidl"
+    "fidl/fuchsia.media.drm/services.fidl",
+    "fidl/fuchsia.media.drm/types.fidl"
   ],
   "type": "fidl_library"
 }
