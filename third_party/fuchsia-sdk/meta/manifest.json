@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200417.2.1",
+  "id": "0.20200419.1.1",
   "parts": [
     {
       "meta": "bin/fconfig-meta.json",
@@ -174,6 +174,10 @@
     },
     {
       "meta": "fidl/fuchsia.developer.tiles/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.diagnostics/meta.json",
       "type": "fidl_library"
     },
     {

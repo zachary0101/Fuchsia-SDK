@@ -6,6 +6,7 @@
     "fidl/fuchsia.ui.views/commands.fidl",
     "fidl/fuchsia.ui.views/focuser.fidl",
     "fidl/fuchsia.ui.views/view.fidl",
+    "fidl/fuchsia.ui.views/view_ref.fidl",
     "fidl/fuchsia.ui.views/view_token.fidl"
   ],
   "type": "fidl_library"
