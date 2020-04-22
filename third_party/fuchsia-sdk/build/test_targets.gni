@@ -29,6 +29,7 @@ template("fuchsia_sdk_test_fidl_targets") {
   not_needed(["invoker"])
   group(target_name){
     deps = [
+      "${fuchsia_sdk}/fidl/fuchsia.accessibility.gesture:all",
       "${fuchsia_sdk}/fidl/fuchsia.accessibility.semantics:all",
       "${fuchsia_sdk}/fidl/fuchsia.auth:all",
       "${fuchsia_sdk}/fidl/fuchsia.auth.oldtokens:all",

@@ -1,5 +1,6 @@
 {
   "docs": [
+    "fidl/fuchsia.accessibility.gesture/BUILD.gn",
     "fidl/fuchsia.accessibility.semantics/BUILD.gn",
     "fidl/fuchsia.auth.oldtokens/BUILD.gn",
     "fidl/fuchsia.auth/BUILD.gn",
