@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200422.4.1",
+  "id": "0.20200423.1.1",
   "parts": [
     {
       "meta": "bin/fconfig-meta.json",
@@ -194,6 +194,10 @@
     },
     {
       "meta": "fidl/fuchsia.fonts/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.hardware.audio/meta.json",
       "type": "fidl_library"
     },
     {

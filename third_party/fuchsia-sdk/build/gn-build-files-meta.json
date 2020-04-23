@@ -30,6 +30,7 @@
     "fidl/fuchsia.factory/BUILD.gn",
     "fidl/fuchsia.feedback/BUILD.gn",
     "fidl/fuchsia.fonts/BUILD.gn",
+    "fidl/fuchsia.hardware.audio/BUILD.gn",
     "fidl/fuchsia.hardware.ethernet/BUILD.gn",
     "fidl/fuchsia.hardware.goldfish/BUILD.gn",
     "fidl/fuchsia.hardware.light/BUILD.gn",

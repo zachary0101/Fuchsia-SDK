@@ -12,6 +12,7 @@ fidl_library("fuchsia.media") {
   library_name = "media"
   namespace = "fuchsia"
   public_deps = [
+    "../fuchsia.hardware.audio",
     "../fuchsia.images",
     "../fuchsia.media.audio",
     "../fuchsia.sysmem",

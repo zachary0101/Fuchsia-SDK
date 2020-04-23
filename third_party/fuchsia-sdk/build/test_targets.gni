@@ -59,6 +59,7 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.factory:all",
       "${fuchsia_sdk}/fidl/fuchsia.feedback:all",
       "${fuchsia_sdk}/fidl/fuchsia.fonts:all",
+      "${fuchsia_sdk}/fidl/fuchsia.hardware.audio:all",
       "${fuchsia_sdk}/fidl/fuchsia.hardware.ethernet:all",
       "${fuchsia_sdk}/fidl/fuchsia.hardware.goldfish:all",
       "${fuchsia_sdk}/fidl/fuchsia.hardware.light:all",
