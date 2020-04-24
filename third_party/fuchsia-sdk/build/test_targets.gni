@@ -128,6 +128,7 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.web:all",
       "${fuchsia_sdk}/fidl/fuchsia.wlan.common:all",
       "${fuchsia_sdk}/fidl/fuchsia.wlan.policy:all",
+      "${fuchsia_sdk}/fidl/fuchsia.wlan.product.deprecatedconfiguration:all",
       "${fuchsia_sdk}/fidl/fuchsia.wlan.service:all",
       "${fuchsia_sdk}/fidl/fuchsia.wlan.stats:all",
     ]

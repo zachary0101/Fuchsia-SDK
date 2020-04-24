@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200423.4.1",
+  "id": "0.20200424.1.1",
   "parts": [
     {
       "meta": "bin/fconfig-meta.json",
@@ -470,6 +470,10 @@
     },
     {
       "meta": "fidl/fuchsia.wlan.policy/meta.json",
+      "type": "fidl_library"
+    },
+    {
+      "meta": "fidl/fuchsia.wlan.product.deprecatedconfiguration/meta.json",
       "type": "fidl_library"
     },
     {

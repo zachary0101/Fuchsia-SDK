@@ -99,6 +99,7 @@
     "fidl/fuchsia.web/BUILD.gn",
     "fidl/fuchsia.wlan.common/BUILD.gn",
     "fidl/fuchsia.wlan.policy/BUILD.gn",
+    "fidl/fuchsia.wlan.product.deprecatedconfiguration/BUILD.gn",
     "fidl/fuchsia.wlan.service/BUILD.gn",
     "fidl/fuchsia.wlan.stats/BUILD.gn",
     "pkg/async-cpp/BUILD.gn",
