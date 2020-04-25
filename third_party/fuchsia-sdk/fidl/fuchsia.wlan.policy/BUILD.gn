@@ -13,6 +13,7 @@ fidl_library("fuchsia.wlan.policy") {
   namespace = "fuchsia.wlan"
   public_deps = [
     "../fuchsia.wlan.common",
+    "../zx",
   ]
   sources = [
     "access_point_provider.fidl",

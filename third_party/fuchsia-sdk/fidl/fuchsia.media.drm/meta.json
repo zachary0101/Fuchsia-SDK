@@ -11,6 +11,7 @@
     "fidl/fuchsia.media.drm/content_decryption.fidl",
     "fidl/fuchsia.media.drm/error.fidl",
     "fidl/fuchsia.media.drm/license_session.fidl",
+    "fidl/fuchsia.media.drm/properties.fidl",
     "fidl/fuchsia.media.drm/provisioning.fidl",
     "fidl/fuchsia.media.drm/services.fidl",
     "fidl/fuchsia.media.drm/types.fidl"

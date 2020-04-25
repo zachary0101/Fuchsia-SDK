@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.hardware.audio",
   "root": "fidl/fuchsia.hardware.audio",
   "sources": [

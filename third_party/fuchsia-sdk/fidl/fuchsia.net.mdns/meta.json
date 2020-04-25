@@ -1,6 +1,7 @@
 {
   "deps": [
-    "fuchsia.net"
+    "fuchsia.net",
+    "zx"
   ],
   "name": "fuchsia.net.mdns",
   "root": "fidl/fuchsia.net.mdns",

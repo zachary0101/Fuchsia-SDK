@@ -12,6 +12,7 @@ fidl_library("fuchsia.sysmem") {
   library_name = "sysmem"
   namespace = "fuchsia"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "allocator.fidl",

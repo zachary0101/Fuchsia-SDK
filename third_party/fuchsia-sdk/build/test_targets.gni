@@ -120,6 +120,7 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.ui.scenic:all",
       "${fuchsia_sdk}/fidl/fuchsia.ui.types:all",
       "${fuchsia_sdk}/fidl/fuchsia.ui.views:all",
+      "${fuchsia_sdk}/fidl/fuchsia.ultrasound:all",
       "${fuchsia_sdk}/fidl/fuchsia.update:all",
       "${fuchsia_sdk}/fidl/fuchsia.update.channel:all",
       "${fuchsia_sdk}/fidl/fuchsia.update.channelcontrol:all",
@@ -131,6 +132,7 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.wlan.product.deprecatedconfiguration:all",
       "${fuchsia_sdk}/fidl/fuchsia.wlan.service:all",
       "${fuchsia_sdk}/fidl/fuchsia.wlan.stats:all",
+      "${fuchsia_sdk}/fidl/zx:all",
     ]
   }
 }

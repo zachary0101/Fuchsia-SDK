@@ -1,0 +1,11 @@
+{
+  "deps": [
+    "fuchsia.media"
+  ],
+  "name": "fuchsia.ultrasound",
+  "root": "fidl/fuchsia.ultrasound",
+  "sources": [
+    "fidl/fuchsia.ultrasound/factory.fidl"
+  ],
+  "type": "fidl_library"
+}

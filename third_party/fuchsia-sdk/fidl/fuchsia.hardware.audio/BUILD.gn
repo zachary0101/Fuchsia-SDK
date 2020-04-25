@@ -12,6 +12,7 @@ fidl_library("fuchsia.hardware.audio") {
   library_name = "audio"
   namespace = "fuchsia.hardware"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "audio.fidl",

@@ -1,7 +1,8 @@
 {
   "deps": [
     "fuchsia.input",
-    "fuchsia.ui.views"
+    "fuchsia.ui.views",
+    "zx"
   ],
   "name": "fuchsia.ui.input3",
   "root": "fidl/fuchsia.ui.input3",

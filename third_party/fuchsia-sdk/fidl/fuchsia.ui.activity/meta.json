@@ -1,5 +1,7 @@
 {
-  "deps": [],
+  "deps": [
+    "zx"
+  ],
   "name": "fuchsia.ui.activity",
   "root": "fidl/fuchsia.ui.activity",
   "sources": [

@@ -1,6 +1,7 @@
 {
   "deps": [
-    "fuchsia.wlan.common"
+    "fuchsia.wlan.common",
+    "zx"
   ],
   "name": "fuchsia.wlan.policy",
   "root": "fidl/fuchsia.wlan.policy",

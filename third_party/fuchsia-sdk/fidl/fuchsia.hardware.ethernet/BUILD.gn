@@ -12,6 +12,7 @@ fidl_library("fuchsia.hardware.ethernet") {
   library_name = "ethernet"
   namespace = "fuchsia.hardware"
   public_deps = [
+    "../zx",
   ]
   sources = [
     "ethernet.fidl",
