@@ -443,6 +443,21 @@ _ZX_SYSCALL_DECL(futex_wake_handle_close_thread_exit, void, __NO_RETURN, 4,
     int32_t new_value,
     _ZX_SYSCALL_ANNO(release_handle("Fuchsia")) zx_handle_t close_handle))
 
+_ZX_SYSCALL_DECL(msi_allocate, zx_status_t, /* no attributes */, 3,
+    (handle, count, out_allocation), (
+    _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t handle,
+    uint32_t count,
+    _ZX_SYSCALL_ANNO(acquire_handle("Fuchsia")) zx_handle_t* out_allocation))
+
+_ZX_SYSCALL_DECL(msi_create, zx_status_t, /* no attributes */, 6,
+    (handle, options, msi_id, vmo, vmo_offset, out_interrupt), (
+    _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t handle,
+    uint32_t options,
+    uint32_t msi_id,
+    _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t vmo,
+    size_t vmo_offset,
+    _ZX_SYSCALL_ANNO(acquire_handle("Fuchsia")) zx_handle_t* out_interrupt))
+
 _ZX_SYSCALL_DECL(mtrace_control, zx_status_t, /* no attributes */, 6,
     (handle, kind, action, options, ptr, ptr_size), (
     _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t handle,

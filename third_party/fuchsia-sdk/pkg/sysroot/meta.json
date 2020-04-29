@@ -4,8 +4,8 @@
   "versions": {
     "arm64": {
       "debug_libs": [
-        ".build-id/5f/49e21a6334ac33.debug",
-        ".build-id/3b/ae66cb4bb6fda0.debug"
+        ".build-id/96/e81ff6c0640964.debug",
+        ".build-id/14/574d84e8cbcbac.debug"
       ],
       "dist_dir": "arch/arm64/sysroot",
       "dist_libs": [
@@ -85,6 +85,7 @@
         "arch/arm64/sysroot/include/../../vdso/job.fidl",
         "arch/arm64/sysroot/include/../../vdso/ktrace.fidl",
         "arch/arm64/sysroot/include/../../vdso/misc.fidl",
+        "arch/arm64/sysroot/include/../../vdso/msi.fidl",
         "arch/arm64/sysroot/include/../../vdso/mtrace.fidl",
         "arch/arm64/sysroot/include/../../vdso/object.fidl",
         "arch/arm64/sysroot/include/../../vdso/pager.fidl",
@@ -311,8 +312,8 @@
     },
     "x64": {
       "debug_libs": [
-        ".build-id/0b/cb098f3f2f9cf7.debug",
-        ".build-id/55/76ef729fd761ec.debug"
+        ".build-id/8b/62e7b588bca4c0.debug",
+        ".build-id/00/65597bee6a5c3b.debug"
       ],
       "dist_dir": "arch/x64/sysroot",
       "dist_libs": [
@@ -392,6 +393,7 @@
         "arch/x64/sysroot/include/../../vdso/job.fidl",
         "arch/x64/sysroot/include/../../vdso/ktrace.fidl",
         "arch/x64/sysroot/include/../../vdso/misc.fidl",
+        "arch/x64/sysroot/include/../../vdso/msi.fidl",
         "arch/x64/sysroot/include/../../vdso/mtrace.fidl",
         "arch/x64/sysroot/include/../../vdso/object.fidl",
         "arch/x64/sysroot/include/../../vdso/pager.fidl",
