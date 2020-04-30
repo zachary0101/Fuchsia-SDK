@@ -6,7 +6,7 @@
       "x64"
     ]
   },
-  "id": "0.20200429.3.1",
+  "id": "0.20200430.1.1",
   "parts": [
     {
       "meta": "bin/fconfig-meta.json",
@@ -838,6 +838,10 @@
     },
     {
       "meta": "tools/x64/symbolize-meta.json",
+      "type": "host_tool"
+    },
+    {
+      "meta": "tools/x64/trace2json-meta.json",
       "type": "host_tool"
     },
     {
