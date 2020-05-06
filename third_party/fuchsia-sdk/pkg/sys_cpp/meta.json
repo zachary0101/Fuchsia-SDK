@@ -1,6 +1,7 @@
 {
   "banjo_deps": [],
   "deps": [
+    "fdio",
     "sys_service_cpp",
     "vfs_cpp",
     "fit",

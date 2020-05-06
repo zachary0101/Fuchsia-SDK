@@ -25,6 +25,7 @@ fuchsia_sdk_pkg("sys_cpp") {
   public_deps = [
     "../../fidl/fuchsia.io",
     "../../fidl/fuchsia.sys",
+    "../fdio",
     "../fit",
     "../sys_service_cpp",
     "../vfs_cpp",

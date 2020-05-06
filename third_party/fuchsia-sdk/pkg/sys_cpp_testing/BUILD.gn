@@ -22,6 +22,7 @@ fuchsia_sdk_pkg("sys_cpp_testing") {
   include_dirs = [ "include" ]
   public_deps = [
     "../../fidl/fuchsia.io",
+    "../fdio",
     "../fit",
     "../sys_cpp",
     "../vfs_cpp",
