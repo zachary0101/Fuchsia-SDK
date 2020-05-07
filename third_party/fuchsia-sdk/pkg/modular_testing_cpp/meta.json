@@ -1,10 +1,10 @@
 {
   "banjo_deps": [],
   "deps": [
-    "modular_cpp",
-    "sys_cpp",
     "async-loop-cpp",
-    "async-loop-default"
+    "async-loop-default",
+    "modular_cpp",
+    "sys_cpp"
   ],
   "fidl_deps": [
     "fuchsia.modular",

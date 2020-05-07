@@ -2,14 +2,14 @@
   "banjo_deps": [],
   "deps": [
     "fdio",
+    "fit",
     "sys_service_cpp",
     "vfs_cpp",
-    "fit",
     "zx"
   ],
   "fidl_deps": [
-    "fuchsia.sys",
-    "fuchsia.io"
+    "fuchsia.io",
+    "fuchsia.sys"
   ],
   "headers": [
     "pkg/sys_cpp/include/lib/sys/cpp/component_context.h",

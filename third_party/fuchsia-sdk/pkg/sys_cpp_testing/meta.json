@@ -2,9 +2,9 @@
   "banjo_deps": [],
   "deps": [
     "fdio",
+    "fit",
     "sys_cpp",
     "vfs_cpp",
-    "fit",
     "zx"
   ],
   "fidl_deps": [

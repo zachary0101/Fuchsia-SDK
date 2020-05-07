@@ -1,9 +1,9 @@
 {
   "banjo_deps": [],
   "deps": [
-    "fidl_cpp",
     "async",
     "fdio",
+    "fidl_cpp",
     "zx"
   ],
   "fidl_deps": [

@@ -1,11 +1,11 @@
 {
   "banjo_deps": [],
   "deps": [
-    "fidl_cpp_sync",
     "async",
     "async-default",
     "fidl",
     "fidl-async",
+    "fidl_cpp_sync",
     "fit",
     "zx"
   ],

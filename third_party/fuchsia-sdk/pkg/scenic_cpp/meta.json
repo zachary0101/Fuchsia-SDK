@@ -2,8 +2,8 @@
   "banjo_deps": [],
   "deps": [
     "fidl_cpp",
-    "images_cpp",
     "fit",
+    "images_cpp",
     "syslog",
     "zx"
   ],

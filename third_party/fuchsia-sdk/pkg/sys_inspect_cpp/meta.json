@@ -1,9 +1,9 @@
 {
   "banjo_deps": [],
   "deps": [
+    "inspect",
     "inspect_service_cpp",
-    "sys_cpp",
-    "inspect"
+    "sys_cpp"
   ],
   "fidl_deps": [
     "fuchsia.inspect"
