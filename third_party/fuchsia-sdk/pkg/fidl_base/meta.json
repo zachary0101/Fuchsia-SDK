@@ -14,7 +14,6 @@
     "pkg/fidl_base/include/lib/fidl/cpp/message_part.h",
     "pkg/fidl_base/include/lib/fidl/envelope_frames.h",
     "pkg/fidl_base/include/lib/fidl/internal.h",
-    "pkg/fidl_base/include/lib/fidl/transformer.h",
     "pkg/fidl_base/include/lib/fidl/internal_callable_traits.h",
     "pkg/fidl_base/include/lib/fidl/visitor.h",
     "pkg/fidl_base/include/lib/fidl/walker.h"
@@ -32,7 +31,6 @@
     "pkg/fidl_base/message.cc",
     "pkg/fidl_base/message_buffer.cc",
     "pkg/fidl_base/message_builder.cc",
-    "pkg/fidl_base/transformer.cc",
     "pkg/fidl_base/txn_header.c",
     "pkg/fidl_base/validate_string.cc",
     "pkg/fidl_base/validating.cc",
