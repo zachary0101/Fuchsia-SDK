@@ -94,6 +94,14 @@ function download_cipd {
   CIPD_FILE="${DOWNLOADS_DIR}/${CIPD_NAME}-${ARCH}-${CIPD_VERSION}.zip"
   CIPD_TMP="${DOWNLOADS_DIR}/tmp-${CIPD_NAME}-${ARCH}-${CIPD_VERSION}"
   CIPD_DIR="${DOWNLOADS_DIR}/${CIPD_NAME}-${ARCH}-${CIPD_VERSION}"
+
+  # Check that unzip is available, otherwise it will fail below and imply that the data was invalid
+  UNZIP_BIN="$(command -v unzip)"
+  if [[ "${UNZIP_BIN}" == "" ]]; then
+    fx-error "Cannot find unzip."
+    exit 2
+  fi
+
   if [ ! -f "${CIPD_FILE}" ]; then
     mkdir -p "${DOWNLOADS_DIR}"
     echo "Downloading ${CIPD_NAME} archive ${CIPD_URL} ..."
