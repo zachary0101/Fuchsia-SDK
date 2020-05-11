@@ -4,17 +4,29 @@
 
 # Top level BUILD file for gn samples
 
-
-
-group("default") {
-  deps = [
-    "//src/hello_world",
-  ]
-  if (is_fuchsia) {
-    deps += [
+if (is_fuchsia) {
+  # When building Fuchsia packages, copy all the .far files to the root_out_dir
+  copy("default") {
+    deps = [
+      "//src/hello_world",
       "//src/bouncing_ball",
       "//src/calculator",
-      "//src/rot13",
+      "//src/rot13"
+    ]
+    sources = [
+      "${target_gen_dir}/src/hello_world/hello_world/hello_world.far",
+      "${target_gen_dir}/src/bouncing_ball/bouncing_ball/bouncing_ball.far",
+      "${target_gen_dir}/src/rot13/client/rot13_client/rot13_client.far",
+      "${target_gen_dir}/src/rot13/server/rot13_server/rot13_server.far",
+      "${target_gen_dir}/src/calculator/cli/calculator_cli/calculator_cli.far",
+      "${target_gen_dir}/src/calculator/engine/calculator_engine/calculator_engine.far"
+    ]
+    outputs = [ "${root_out_dir}/{{source_file_part}}" ]
+  }
+} else {
+  group("default") {
+    deps = [
+      "//src/hello_world",
     ]
   }
 }
@@ -51,3 +63,4 @@ generated_file("all_host_tests") {
   ]
   data_keys = [ "host_test_name" ]
 }
+

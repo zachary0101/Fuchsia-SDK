@@ -11,7 +11,7 @@ group("hello_world") {
     ":hello_bin",
   ]
   if (is_fuchsia) {
-    deps += [ ":hello_world_package" ]
+    public_deps = [ ":hello_world_package" ]
   }
 }
 

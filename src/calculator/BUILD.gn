@@ -3,7 +3,7 @@
 # found in the LICENSE file.
 
 group("calculator") {
-  deps = [
+  public_deps = [
     "//src/calculator/cli",
     "//src/calculator/engine",
   ]

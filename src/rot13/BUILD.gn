@@ -3,7 +3,7 @@
 # found in the LICENSE file.
 
 group("rot13") {
-  deps = [
+  public_deps = [
     "//src/rot13/client:rot13_client",
     "//src/rot13/server:rot13_server",
   ]
