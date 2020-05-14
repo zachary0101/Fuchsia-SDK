@@ -1,9 +1,9 @@
 {
   "banjo_deps": [],
   "deps": [
+    "async",
     "async-default",
     "fdio",
-    "async",
     "fit",
     "zx"
   ],

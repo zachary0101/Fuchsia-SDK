@@ -19,6 +19,7 @@ fidl_library("fuchsia.feedback") {
   sources = [
     "annotation.fidl",
     "attachment.fidl",
+    "crash_register.fidl",
     "crash_reporter.fidl",
     "data_provider.fidl",
     "data_register.fidl",

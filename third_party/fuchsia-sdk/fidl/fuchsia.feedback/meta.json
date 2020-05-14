@@ -9,6 +9,7 @@
   "sources": [
     "fidl/fuchsia.feedback/annotation.fidl",
     "fidl/fuchsia.feedback/attachment.fidl",
+    "fidl/fuchsia.feedback/crash_register.fidl",
     "fidl/fuchsia.feedback/crash_reporter.fidl",
     "fidl/fuchsia.feedback/data_provider.fidl",
     "fidl/fuchsia.feedback/data_register.fidl",
