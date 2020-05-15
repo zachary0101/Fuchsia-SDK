@@ -2,9 +2,9 @@
   "banjo_deps": [],
   "deps": [
     "async",
-    "trace-engine",
     "async-cpp",
     "fit",
+    "trace-engine",
     "zx"
   ],
   "fidl_deps": [],

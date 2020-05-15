@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/b2/5457a2924ff899.debug",
+      "debug": ".build-id/49/e961332e0dd3fa.debug",
       "dist": "arch/arm64/dist/libsvc.so",
       "dist_path": "lib/libsvc.so",
       "link": "arch/arm64/lib/libsvc.so"
     },
     "x64": {
-      "debug": ".build-id/fc/94f183a9ed4557.debug",
+      "debug": ".build-id/21/46b20f017e820a.debug",
       "dist": "arch/x64/dist/libsvc.so",
       "dist_path": "lib/libsvc.so",
       "link": "arch/x64/lib/libsvc.so"
