@@ -8,7 +8,6 @@
     }
   },
   "deps": [
-    "async-default",
     "async-loop"
   ],
   "format": "static",

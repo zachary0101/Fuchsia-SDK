@@ -15,6 +15,7 @@ fuchsia_sdk_pkg("memfs") {
     "../async",
     "../fit",
     "../sync",
+    "../trace-engine",
   ]
   sources = [
     "include/lib/memfs/memfs.h",
