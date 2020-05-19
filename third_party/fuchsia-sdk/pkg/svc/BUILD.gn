@@ -13,6 +13,7 @@ fuchsia_sdk_pkg("svc") {
 
   deps = [
     "../async",
+    "../async-default",
     "../fdio",
   ]
   sources = [

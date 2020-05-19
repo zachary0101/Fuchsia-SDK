@@ -12,6 +12,7 @@ fuchsia_sdk_pkg("async-loop-default") {
   static_libs = [ "async-loop-default" ]
 
   deps = [
+    "../async-default",
     "../async-loop",
   ]
   sources = [

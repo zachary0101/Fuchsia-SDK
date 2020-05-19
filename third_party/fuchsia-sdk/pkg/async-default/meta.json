@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/1f/0367eae413f9ed.debug",
+      "debug": ".build-id/e9/80e2a1c6a4132a.debug",
       "dist": "arch/arm64/dist/libasync-default.so",
       "dist_path": "lib/libasync-default.so",
       "link": "arch/arm64/lib/libasync-default.so"
     },
     "x64": {
-      "debug": ".build-id/0c/9b7381ebc6bd44.debug",
+      "debug": ".build-id/58/7b5eade464e1ca.debug",
       "dist": "arch/x64/dist/libasync-default.so",
       "dist_path": "lib/libasync-default.so",
       "link": "arch/x64/lib/libasync-default.so"

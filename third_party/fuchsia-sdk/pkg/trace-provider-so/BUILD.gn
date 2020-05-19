@@ -13,6 +13,7 @@ fuchsia_sdk_pkg("trace-provider-so") {
 
   deps = [
     "../async",
+    "../async-default",
     "../trace-engine",
     "../zx",
   ]
