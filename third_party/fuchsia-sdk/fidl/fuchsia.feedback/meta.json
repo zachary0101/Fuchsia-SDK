@@ -1,6 +1,7 @@
 {
   "deps": [
     "fuchsia.math",
+    "fuchsia.sys",
     "fuchsia.mem",
     "zx"
   ],
