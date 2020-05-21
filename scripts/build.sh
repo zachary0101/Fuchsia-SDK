@@ -28,7 +28,7 @@ cleanup() {
     echo "Error: out directory cannot be \"/\""
     exit 1
   else
-    rm -rf "${CLEANUP_DIR}"
+    rm -rf "${OUT_DIR}"
   fi
 }
 
