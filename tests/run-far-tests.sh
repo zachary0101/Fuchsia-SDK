@@ -15,15 +15,34 @@ DEBUG_LINE() {
 TEST_SRC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Common functions.
+# shellcheck disable=SC1090
 source "${TEST_SRC_DIR}/../scripts/common.sh" || exit $?
 REPO_ROOT=$(get_gn_root) # finds path to REPO_ROOT
 
-FAR_DIRS=(
-  out/arm64
-  out/x64
-)
-# Rewrite FAR_DIRS to be prefixed with $REPO_ROOT
-FAR_DIRS=( "${FAR_DIRS[@]/#/$REPO_ROOT/}" )
+ROOT_OUT_DIR="out"
+
+function usage {
+  echo "Usage: $0"
+  echo "  [--release]"
+  echo "    Uses the out-release/ directory to run tests."
+}
+
+# Parse command line
+for i in "$@"
+do
+case $i in
+    --release)
+    ROOT_OUT_DIR="${ROOT_OUT_DIR}-release"
+    ;;
+    *)
+    # unknown option
+    usage
+    exit 1
+    ;;
+esac
+done
+
+FAR_DIRS=( "${REPO_ROOT}/${ROOT_OUT_DIR}/arm64" "${REPO_ROOT}/${ROOT_OUT_DIR}/x64" )
 
 echo "==== Testing FAR files ===="
 far_files=()
