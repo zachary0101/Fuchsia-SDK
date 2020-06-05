@@ -12,7 +12,7 @@ namespace calculator_engine {
 
 namespace calculator = ::fuchsia::examples::calculator;
 
-Engine::Engine() : Engine(sys::ComponentContext::Create()) {}
+Engine::Engine() : Engine(sys::ComponentContext::CreateAndServeOutgoingDirectory()) {}
 
 Engine::Engine(std::unique_ptr<sys::ComponentContext> context) : context_(std::move(context)) {
   context_->outgoing()->AddPublicService(bindings_.GetHandler(this));

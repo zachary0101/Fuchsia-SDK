@@ -4,7 +4,7 @@
 #include "client.h"
 
 namespace calculator_cli {
-CalculatorClient::CalculatorClient() : CalculatorClient(sys::ComponentContext::Create()) {}
+CalculatorClient::CalculatorClient() : CalculatorClient(sys::ComponentContext::CreateAndServeOutgoingDirectory()) {}
 
 CalculatorClient::CalculatorClient(std::unique_ptr<sys::ComponentContext> context)
     : context_(std::move(context)) {}

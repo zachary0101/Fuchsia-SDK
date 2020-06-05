@@ -10,7 +10,7 @@
 
 namespace rot13 {
 Rot13ServerApp::Rot13ServerApp()
-    : Rot13ServerApp(sys::ComponentContext::Create()) {}
+    : Rot13ServerApp(sys::ComponentContext::CreateAndServeOutgoingDirectory()) {}
 
 Rot13ServerApp::Rot13ServerApp(std::unique_ptr<sys::ComponentContext> context)
     : context_(std::move(context)) {
