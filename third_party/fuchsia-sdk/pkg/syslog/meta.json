@@ -1,19 +1,21 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/99/7c2a574a050bee.debug",
+      "debug": ".build-id/f8/e8f629460e6123.debug",
       "dist": "arch/arm64/dist/libsyslog.so",
       "dist_path": "lib/libsyslog.so",
       "link": "arch/arm64/lib/libsyslog.so"
     },
     "x64": {
-      "debug": ".build-id/08/ff075a392f0ebb.debug",
+      "debug": ".build-id/65/251c502eb1c0ab.debug",
       "dist": "arch/x64/dist/libsyslog.so",
       "dist_path": "lib/libsyslog.so",
       "link": "arch/x64/lib/libsyslog.so"
     }
   },
-  "deps": [],
+  "deps": [
+    "fdio"
+  ],
   "format": "shared",
   "headers": [
     "pkg/syslog/include/lib/syslog/global.h",

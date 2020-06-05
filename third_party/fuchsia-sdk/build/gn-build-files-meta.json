@@ -27,6 +27,7 @@
     "fidl/fuchsia.deprecatedtimezone/BUILD.gn",
     "fidl/fuchsia.developer.tiles/BUILD.gn",
     "fidl/fuchsia.diagnostics/BUILD.gn",
+    "fidl/fuchsia.factory.wlan/BUILD.gn",
     "fidl/fuchsia.factory/BUILD.gn",
     "fidl/fuchsia.feedback/BUILD.gn",
     "fidl/fuchsia.fonts/BUILD.gn",

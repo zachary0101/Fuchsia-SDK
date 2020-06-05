@@ -13,6 +13,7 @@ fuchsia_sdk_pkg("memfs") {
 
   deps = [
     "../async",
+    "../fdio",
     "../fit",
     "../sync",
     "../trace-engine",

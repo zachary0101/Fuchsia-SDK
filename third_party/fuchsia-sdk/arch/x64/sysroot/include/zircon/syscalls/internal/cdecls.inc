@@ -564,6 +564,15 @@ _ZX_SYSCALL_DECL(pager_supply_pages, zx_status_t, /* no attributes */, 6,
     _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t aux_vmo,
     uint64_t aux_offset))
 
+_ZX_SYSCALL_DECL(pager_op_range, zx_status_t, /* no attributes */, 6,
+    (pager, op, pager_vmo, offset, length, data), (
+    _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t pager,
+    uint32_t op,
+    _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t pager_vmo,
+    uint64_t offset,
+    uint64_t length,
+    uint64_t data))
+
 _ZX_SYSCALL_DECL(pc_firmware_tables, zx_status_t, /* no attributes */, 3,
     (handle, acpi_rsdp, smbios), (
     _ZX_SYSCALL_ANNO(use_handle("Fuchsia")) zx_handle_t handle,

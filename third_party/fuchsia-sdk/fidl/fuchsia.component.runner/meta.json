@@ -2,8 +2,8 @@
   "deps": [
     "fuchsia.component",
     "fuchsia.data",
-    "fuchsia.url",
-    "fuchsia.io"
+    "fuchsia.io",
+    "fuchsia.url"
   ],
   "name": "fuchsia.component.runner",
   "root": "fidl/fuchsia.component.runner",

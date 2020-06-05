@@ -14,18 +14,16 @@ fidl_library("fuchsia.modular") {
   public_deps = [
     "../fuchsia.auth",
     "../fuchsia.mem",
-    "../fuchsia.modular.auth",
     "../fuchsia.sys",
     "../fuchsia.ui.policy",
     "../fuchsia.ui.views",
+    "../zx",
   ]
   sources = [
     "agent/agent.fidl",
     "agent/agent_context.fidl",
     "agent/agent_controller/agent_controller.fidl",
     "annotation/annotation.fidl",
-    "basemgr/base_shell.fidl",
-    "basemgr/user_provider.fidl",
     "component/component_context.fidl",
     "config/config.fidl",
     "intent/intent.fidl",

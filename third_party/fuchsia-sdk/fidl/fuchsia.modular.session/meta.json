@@ -1,8 +1,8 @@
 {
   "deps": [
+    "fuchsia.io",
     "fuchsia.sys",
-    "fuchsia.ui.policy",
-    "fuchsia.io"
+    "fuchsia.ui.policy"
   ],
   "name": "fuchsia.modular.session",
   "root": "fidl/fuchsia.modular.session",

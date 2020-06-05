@@ -1,11 +1,12 @@
 {
   "deps": [
     "fuchsia.images",
+    "fuchsia.mem",
     "fuchsia.scenic.scheduling",
     "fuchsia.ui.gfx",
     "fuchsia.ui.input",
     "fuchsia.ui.views",
-    "fuchsia.mem"
+    "zx"
   ],
   "name": "fuchsia.ui.scenic",
   "root": "fidl/fuchsia.ui.scenic",

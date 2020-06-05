@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/47/5a8321228e4dbe.debug",
+      "debug": ".build-id/4b/b0dec47f585fcc.debug",
       "dist": "arch/arm64/dist/libtrace-provider-so.so",
       "dist_path": "lib/libtrace-provider-so.so",
       "link": "arch/arm64/lib/libtrace-provider-so.so"
     },
     "x64": {
-      "debug": ".build-id/f0/c930cd974cd8a9.debug",
+      "debug": ".build-id/39/52b3a78a3e54f9.debug",
       "dist": "arch/x64/dist/libtrace-provider-so.so",
       "dist_path": "lib/libtrace-provider-so.so",
       "link": "arch/x64/lib/libtrace-provider-so.so"
@@ -16,6 +16,7 @@
   "deps": [
     "async",
     "async-default",
+    "fdio",
     "trace-engine",
     "zx"
   ],

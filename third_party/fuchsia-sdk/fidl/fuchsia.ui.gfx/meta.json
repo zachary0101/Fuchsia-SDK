@@ -1,8 +1,9 @@
 {
   "deps": [
     "fuchsia.images",
+    "fuchsia.mem",
     "fuchsia.ui.views",
-    "fuchsia.mem"
+    "zx"
   ],
   "name": "fuchsia.ui.gfx",
   "root": "fidl/fuchsia.ui.gfx",

@@ -1,7 +1,7 @@
 {
   "deps": [
-    "fuchsia.url",
     "fuchsia.mem",
+    "fuchsia.url",
     "zx"
   ],
   "name": "fuchsia.net.http",

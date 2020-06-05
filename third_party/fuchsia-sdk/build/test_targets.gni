@@ -57,6 +57,7 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.developer.tiles:all",
       "${fuchsia_sdk}/fidl/fuchsia.diagnostics:all",
       "${fuchsia_sdk}/fidl/fuchsia.factory:all",
+      "${fuchsia_sdk}/fidl/fuchsia.factory.wlan:all",
       "${fuchsia_sdk}/fidl/fuchsia.feedback:all",
       "${fuchsia_sdk}/fidl/fuchsia.fonts:all",
       "${fuchsia_sdk}/fidl/fuchsia.hardware.audio:all",

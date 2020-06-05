@@ -42,12 +42,12 @@ struct FileObject {
     /// connection that does not have the capability to read.
     ///
     /// The "`FILE_SIGNAL_`" values may be observed on this event.
-    handle<event>? event;
+    zx.handle:EVENT? event;
 
     /// A placeholder for future stream support.
     ///
     /// Currently, servers are required not to send a handle in this field.
-    handle<stream>? stream;
+    zx.handle:STREAM? stream;
 };
 
 /// The object may be cast to interface 'Directory'.
@@ -56,7 +56,7 @@ struct DirectoryObject {
 
 /// The object is accompanied by a pipe.
 struct Pipe {
-    handle<socket> socket;
+    zx.handle:SOCKET socket;
 };
 
 /// The object is a file which is represented as an immutable VMO.
@@ -65,7 +65,7 @@ struct Pipe {
 /// that represents the single file, an offset and length parameter are also supplied.
 struct Vmofile {
     /// The VMO which backs this file.
-    handle<vmo> vmo;
+    zx.handle:VMO vmo;
     /// The index into `vmo` which represents the first byte of the file.
     uint64 offset;
     /// The number of bytes, starting at `offset`, which may be used to represent this file.
@@ -88,23 +88,23 @@ struct Device {
     /// An optional event which transmits information about a device's state.
     ///
     /// The "`DEVICE_SIGNAL_`" values may be observed on this event.
-    handle<eventpair>? event;
+    zx.handle:EVENTPAIR? event;
 };
 
 /// The object may be cast to interface 'Tty'
 struct Tty {
-    handle<eventpair>? event;
+    zx.handle:EVENTPAIR? event;
 };
 
 /// The object may be cast to interface [`fuchsia.posix.socket.DatagramSocket`].
 struct DatagramSocket {
     /// See [`fuchsia.posix.socket.DatagramSocket`] for details.
-    handle<eventpair> event;
+    zx.handle:EVENTPAIR event;
 };
 
 /// The object may be cast to interface [`fuchsia.posix.socket.StreamSocket`].
 struct StreamSocket {
-    handle<socket> socket;
+    zx.handle:SOCKET socket;
 };
 
 /// Can read from target object.
@@ -173,7 +173,7 @@ const uint32 OPEN_FLAG_NOT_DIRECTORY = 0x02000000;
 const uint32 CLONE_FLAG_SAME_RIGHTS = 0x04000000;
 
 /// Node defines the minimal interface for entities which can be accessed in a filesystem.
-[Layout = "Simple"]
+[ForDeprecatedCBindings]
 protocol Node {
     /// Create another connection to the same remote object.
     ///
@@ -326,7 +326,7 @@ const uint32 VMO_FLAG_PRIVATE = 0x00010000;
 const uint32 VMO_FLAG_EXACT = 0x00020000;
 
 /// File defines the interface of a node which contains a flat layout of data.
-[Layout = "Simple"]
+[ForDeprecatedCBindings]
 protocol File {
     compose Node;
 
@@ -446,14 +446,14 @@ struct WatchedEvent {
 /// about events happening in the filesystem. Clients can register
 /// new watchers using the `Directory.Watch` method, where they can
 /// filter which events they want to receive notifications for.
-[Layout = "Simple"]
+[ForDeprecatedCBindings]
 protocol DirectoryWatcher {
     // TODO(smklein): Convert this to a vector of WatchedEvents, when possible.
     OnEvent(vector<uint8>:MAX_BUF events);
 };
 
 /// Directory defines a node which is capable of containing other Objects.
-[Layout = "Simple"]
+[ForDeprecatedCBindings]
 protocol Directory {
     compose Node;
 
@@ -592,7 +592,7 @@ protocol Directory {
     /// Options must be zero; it is reserved.
     ///
     /// This method does not require any rights, similar to ReadDirents.
-    Watch(uint32 mask, uint32 options, handle<channel> watcher) -> (zx.status s);
+    Watch(uint32 mask, uint32 options, zx.handle:CHANNEL watcher) -> (zx.status s);
 };
 
 const uint32 MOUNT_CREATE_FLAG_REPLACE = 0x00000001;
@@ -629,7 +629,7 @@ struct FilesystemInfo {
 
 /// DirectoryAdmin defines a directory which is capable of handling
 /// administrator tasks within the filesystem.
-[Layout = "Simple"]
+[ForDeprecatedCBindings]
 protocol DirectoryAdmin {
     compose Directory;
 

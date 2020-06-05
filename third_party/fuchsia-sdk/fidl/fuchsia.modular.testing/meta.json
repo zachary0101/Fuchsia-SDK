@@ -1,9 +1,10 @@
 {
   "deps": [
+    "fuchsia.mem",
     "fuchsia.modular",
     "fuchsia.modular.session",
     "fuchsia.sys",
-    "fuchsia.mem"
+    "zx"
   ],
   "name": "fuchsia.modular.testing",
   "root": "fidl/fuchsia.modular.testing",

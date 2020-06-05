@@ -12,6 +12,7 @@ fuchsia_sdk_pkg("syslog") {
   shared_libs = [ "syslog" ]
 
   deps = [
+    "../fdio",
   ]
   sources = [
     "include/lib/syslog/global.h",

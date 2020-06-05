@@ -1,11 +1,11 @@
 {
   "deps": [
+    "fuchsia.io",
     "fuchsia.media.sessions2",
+    "fuchsia.mem",
     "fuchsia.net.http",
     "fuchsia.ui.gfx",
-    "fuchsia.ui.views",
-    "fuchsia.io",
-    "fuchsia.mem"
+    "fuchsia.ui.views"
   ],
   "name": "fuchsia.web",
   "root": "fidl/fuchsia.web",

@@ -1,6 +1,7 @@
 {
   "deps": [
-    "fuchsia.sysmem"
+    "fuchsia.sysmem",
+    "zx"
   ],
   "name": "fuchsia.images",
   "root": "fidl/fuchsia.images",

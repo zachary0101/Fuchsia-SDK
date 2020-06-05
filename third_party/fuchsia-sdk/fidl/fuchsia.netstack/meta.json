@@ -1,8 +1,8 @@
 {
   "deps": [
     "fuchsia.hardware.ethernet",
-    "fuchsia.net.dhcp",
     "fuchsia.net",
+    "fuchsia.net.dhcp",
     "fuchsia.posix.socket"
   ],
   "name": "fuchsia.netstack",

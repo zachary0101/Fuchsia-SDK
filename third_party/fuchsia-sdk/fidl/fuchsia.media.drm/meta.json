@@ -1,9 +1,9 @@
 {
   "deps": [
-    "fuchsia.media",
-    "fuchsia.url",
     "fuchsia.io",
-    "fuchsia.mem"
+    "fuchsia.media",
+    "fuchsia.mem",
+    "fuchsia.url"
   ],
   "name": "fuchsia.media.drm",
   "root": "fidl/fuchsia.media.drm",

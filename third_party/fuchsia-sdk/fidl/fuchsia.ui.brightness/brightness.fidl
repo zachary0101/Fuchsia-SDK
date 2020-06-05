@@ -4,6 +4,8 @@
 
 library fuchsia.ui.brightness;
 
+using zx;
+
 /// A normalized relative brightness adjustment in the range
 /// 0.0 (off/minimum) to 1.0 (maximum).
 using brightness = float32;
@@ -24,6 +26,10 @@ protocol Control {
     /// Value is in the range 0.0 to 1.0 representing min to max and
     /// will be clamped if out of range.
     SetManualBrightness(brightness value);
+
+    /// Set manual brightness specifying the duration over which the
+    /// target brightness will be set.
+    SetManualBrightnessSmooth(brightness value, zx.duration duration);
 
     /// Gets the current brightness in the range 0.0 to 1.0.
     /// This result is valid for both manual and auto-brightness modes

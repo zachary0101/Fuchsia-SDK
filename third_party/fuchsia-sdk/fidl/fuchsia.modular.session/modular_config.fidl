@@ -84,23 +84,16 @@ table StoryShellConfig {
 };
 
 table SessionmgrConfig {
-    1: CloudProvider cloud_provider;
+    1: reserved;
 
     /// When set to false, Cobalt statistics are disabled. This is used for
     /// testing.
     /// Default: true
     2: bool enable_cobalt;
 
-    /// When set to false, StoryShell instances are not warmed up as a startup
-    /// latency optimization. This is used for testing.
-    /// Default: true
-    3: bool enable_story_shell_preload;
+    3: bool reserved;
 
-    /// Tells the sessionmgr whether it should host+pass a memfs-backed
-    /// directory to the ledger for the user's repository, or to use
-    /// /data/LEDGER.
-    /// Default: false
-    4: bool use_memfs_for_ledger;
+    4: reserved;
 
     /// A list of fuchsia package urls that specify which agents to launch at
     /// startup.
@@ -116,13 +109,17 @@ table SessionmgrConfig {
     /// A map of agents to the arguments they should be started with.
     8: vector<AppConfig> component_args;
 
-    /// Deprecated
-    9: bool use_parent_runner_for_story_realm;
+    9: reserved;
 
     /// A list of supported services and the URL of the agent known to provide
     /// that service. Used by the Session Manager to implement
     /// `ComponentContext` method ConnectToAgentService().
     10: vector<AgentServiceIndexEntry> agent_service_index;
+
+    /// A list of agent URLs that will cause the session to be restarted
+    /// when they terminate. If an agent is not in this list, sessionmgr will
+    /// restart it individually, preserving the session.
+    11: vector<string:fuchsia.io.MAX_PATH>:MAX restart_session_on_agent_crash;
 };
 
 /// Used to pass around configuration references to apps such as base shell,
@@ -142,18 +139,6 @@ table AgentServiceIndexEntry {
 
     /// The fuchsia component url for agent.
     2: fuchsia.sys.component_url agent_url;
-};
-
-enum CloudProvider {
-    /// Use a cloud provider configured by Ledger.
-    LET_LEDGER_DECIDE = 1;
-
-    /// Use a cloud provider available in the incoming namespace, rather than
-    /// initializing and instance within sessionmgr. This can be used to inject
-    /// a custom cloud provider.
-    FROM_ENVIRONMENT = 2;
-
-    NONE = 3;
 };
 
 /// Contains the configurations for the modular framework components.

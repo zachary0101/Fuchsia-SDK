@@ -3,7 +3,8 @@
     "fuchsia.hardware.audio",
     "fuchsia.images",
     "fuchsia.media.audio",
-    "fuchsia.sysmem"
+    "fuchsia.sysmem",
+    "zx"
   ],
   "name": "fuchsia.media",
   "root": "fidl/fuchsia.media",
