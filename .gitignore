@@ -1,5 +1,6 @@
 .vscode/
 /out/
+/out-release/
 /buildtools/
 *.pyc
 *.code-workspace
