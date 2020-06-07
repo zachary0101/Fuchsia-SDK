@@ -91,7 +91,6 @@ template("fuchsia_sdk_test_fidl_targets") {
       "${fuchsia_sdk}/fidl/fuchsia.memorypressure:all",
       "${fuchsia_sdk}/fidl/fuchsia.migration:all",
       "${fuchsia_sdk}/fidl/fuchsia.modular:all",
-      "${fuchsia_sdk}/fidl/fuchsia.modular.auth:all",
       "${fuchsia_sdk}/fidl/fuchsia.modular.session:all",
       "${fuchsia_sdk}/fidl/fuchsia.modular.testing:all",
       "${fuchsia_sdk}/fidl/fuchsia.net:all",

@@ -61,7 +61,6 @@
     "fidl/fuchsia.mem/BUILD.gn",
     "fidl/fuchsia.memorypressure/BUILD.gn",
     "fidl/fuchsia.migration/BUILD.gn",
-    "fidl/fuchsia.modular.auth/BUILD.gn",
     "fidl/fuchsia.modular.session/BUILD.gn",
     "fidl/fuchsia.modular.testing/BUILD.gn",
     "fidl/fuchsia.modular/BUILD.gn",
