@@ -11,6 +11,7 @@
     "fidl/fuchsia.bluetooth.sys/host_watcher.fidl",
     "fidl/fuchsia.bluetooth.sys/identity.fidl",
     "fidl/fuchsia.bluetooth.sys/pairing_delegate.fidl",
+    "fidl/fuchsia.bluetooth.sys/pairing_options.fidl",
     "fidl/fuchsia.bluetooth.sys/peer.fidl"
   ],
   "type": "fidl_library"
