@@ -1,7 +1,8 @@
 {
   "deps": [
     "fuchsia.media",
-    "fuchsia.media.audio"
+    "fuchsia.media.audio",
+    "fuchsia.url"
   ],
   "name": "fuchsia.media.sessions2",
   "root": "fidl/fuchsia.media.sessions2",
