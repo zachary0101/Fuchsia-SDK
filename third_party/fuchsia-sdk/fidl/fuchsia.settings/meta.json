@@ -14,6 +14,7 @@
     "fidl/fuchsia.settings/do_not_disturb.fidl",
     "fidl/fuchsia.settings/input.fidl",
     "fidl/fuchsia.settings/intl.fidl",
+    "fidl/fuchsia.settings/light.fidl",
     "fidl/fuchsia.settings/night_mode.fidl",
     "fidl/fuchsia.settings/privacy.fidl",
     "fidl/fuchsia.settings/settings.fidl",
