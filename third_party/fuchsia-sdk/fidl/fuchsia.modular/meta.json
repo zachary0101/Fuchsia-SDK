@@ -1,6 +1,5 @@
 {
   "deps": [
-    "fuchsia.auth",
     "fuchsia.mem",
     "fuchsia.sys",
     "fuchsia.ui.policy",
