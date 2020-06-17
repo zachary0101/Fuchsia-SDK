@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/b8/15bb516cb6c6c8.debug",
+      "debug": ".build-id/d8/99c6ff9536fac2.debug",
       "dist": "arch/arm64/dist/libsyslog.so",
       "dist_path": "lib/libsyslog.so",
       "link": "arch/arm64/lib/libsyslog.so"
     },
     "x64": {
-      "debug": ".build-id/de/776da901c5ed64.debug",
+      "debug": ".build-id/56/3cfd82d454eb25.debug",
       "dist": "arch/x64/dist/libsyslog.so",
       "dist_path": "lib/libsyslog.so",
       "link": "arch/x64/lib/libsyslog.so"
