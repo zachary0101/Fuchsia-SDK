@@ -1,13 +1,13 @@
 {
   "binaries": {
     "arm64": {
-      "debug": ".build-id/52/0a39e60b92246d.debug",
+      "debug": ".build-id/4b/1250ae1780710a.debug",
       "dist": "arch/arm64/dist/libtrace-provider-so.so",
       "dist_path": "lib/libtrace-provider-so.so",
       "link": "arch/arm64/lib/libtrace-provider-so.so"
     },
     "x64": {
-      "debug": ".build-id/09/315aff5369bacf.debug",
+      "debug": ".build-id/7f/8a70bb2aa7a995.debug",
       "dist": "arch/x64/dist/libtrace-provider-so.so",
       "dist_path": "lib/libtrace-provider-so.so",
       "link": "arch/x64/lib/libtrace-provider-so.so"

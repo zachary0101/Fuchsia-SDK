@@ -27,7 +27,6 @@
     "pkg/fidl_base/encoding.cc",
     "pkg/fidl_base/formatting.cc",
     "pkg/fidl_base/internal.c",
-    "pkg/fidl_base/linearizing.cc",
     "pkg/fidl_base/message.cc",
     "pkg/fidl_base/message_buffer.cc",
     "pkg/fidl_base/message_builder.cc",
