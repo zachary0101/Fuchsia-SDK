@@ -4,7 +4,7 @@
   "versions": {
     "arm64": {
       "debug_libs": [
-        ".build-id/a1/311464409d9999.debug",
+        ".build-id/3c/801d0aa8c0b36a.debug",
         ".build-id/d1/7aee5a20df2efc.debug"
       ],
       "dist_dir": "arch/arm64/sysroot",
@@ -312,7 +312,7 @@
     },
     "x64": {
       "debug_libs": [
-        ".build-id/8b/7e37aa6998af07.debug",
+        ".build-id/14/afd201bfdbc6d6.debug",
         ".build-id/e9/31c9775d9b783e.debug"
       ],
       "dist_dir": "arch/x64/sysroot",
