@@ -134,6 +134,9 @@ download_cipd "gn"      "gn/gn"                      "git_revision:239533d2d91a0
 download_cipd "ninja"   "infra/ninja"                "version:1.9.0"                                         "${ARCH}"
 # Download python version of gsutil, not referenced by $FUCHSIA_ROOT/integration/prebuilts, with generic architecture
 download_cipd "gsutil"  "infra/gsutil"               "version:4.46"                                          ""
+# buildidtool is used to extract build id symbols from binaries.
+download_cipd "buildidtool"  "fuchsia/tools/buildidtool"  "git_revision:5c546d2e55ae0a2afe565333c6118a48780f8017" "${ARCH}"
+
 
 # Always refresh the symlinks because this script may have been updated
 echo -e "Rebuilding symlinks in ${DEPOT_TOOLS_DIR} ...\c"
@@ -141,6 +144,7 @@ ln -sf "../downloads/clang-${ARCH}" "${DEPOT_TOOLS_DIR}/clang-${ARCH}"
 ln -sf "../downloads/clang-${ARCH}/bin/clang-format" "${DEPOT_TOOLS_DIR}/clang-format"
 ln -sf "../downloads/gn-${ARCH}/gn" "${DEPOT_TOOLS_DIR}/gn"
 ln -sf "../downloads/ninja-${ARCH}/ninja" "${DEPOT_TOOLS_DIR}/ninja"
+ln -sf "../downloads/buildidtool-${ARCH}/buildidtool" "${DEPOT_TOOLS_DIR}/buildidtool"
 ln -sf "../downloads/gsutil-${ARCH}/gsutil" "${DEPOT_TOOLS_DIR}/gsutil"
 if [ ! -x "$(command -v gsutil)" ]; then
   ln -sf "../../../buildtools/downloads/gsutil-${ARCH}/gsutil" "${REPO_ROOT}/third_party/fuchsia-sdk/bin/gsutil"

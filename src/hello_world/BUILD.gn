@@ -7,27 +7,23 @@ import("//build/testing.gni")
 
 # default group
 group("hello_world") {
-  deps = [
-    ":hello_bin",
-  ]
+  deps = [ ":hello_bin" ]
   if (is_fuchsia) {
-    public_deps = [ ":hello_world_package" ]
+    public_deps = [
+      ":hello_world_package",
+    ]
   }
 }
 
 # Tests group
 group("tests") {
   testonly = true
-  deps = [
-    ":hello_world_test",
-  ]
+  deps = [ ":hello_world_test" ]
 }
 
 # Executable using both a static and shared lib.
 executable("hello_bin") {
-  sources = [
-    "hello.cc",
-  ]
+  sources = [ "hello.cc" ]
   deps = [
     ":hello_shared",
     ":hello_static",
@@ -51,9 +47,7 @@ static_library("hello_static") {
 
 # Host unit test
 test("hello_world_test") {
-  sources = [
-    "test/hello_test.cc",
-  ]
+  sources = [ "test/hello_test.cc" ]
   deps = [
     ":hello_static",
     "//third_party/googletest:gtest",
@@ -67,15 +61,11 @@ if (is_fuchsia) {
 
   fuchsia_component("hello_world_cmx") {
     manifest = "hello_world.cmx"
-    data_deps = [
-      ":hello_bin",
-    ]
+    data_deps = [ ":hello_bin" ]
   }
 
   fuchsia_package("hello_world_package") {
     package_name = "hello_world"
-    deps = [
-      ":hello_world_cmx",
-    ]
+    deps = [ ":hello_world_cmx" ]
   }
 }
