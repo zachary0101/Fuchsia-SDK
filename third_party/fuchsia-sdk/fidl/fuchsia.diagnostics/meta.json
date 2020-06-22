@@ -6,8 +6,10 @@
   "root": "fidl/fuchsia.diagnostics",
   "sources": [
     "fidl/fuchsia.diagnostics/format.fidl",
+    "fidl/fuchsia.diagnostics/interest.fidl",
     "fidl/fuchsia.diagnostics/reader.fidl",
-    "fidl/fuchsia.diagnostics/selector.fidl"
+    "fidl/fuchsia.diagnostics/selector.fidl",
+    "fidl/fuchsia.diagnostics/severity.fidl"
   ],
   "type": "fidl_library"
 }

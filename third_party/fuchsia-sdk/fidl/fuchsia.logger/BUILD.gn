@@ -12,6 +12,7 @@ fidl_library("fuchsia.logger") {
   library_name = "logger"
   namespace = "fuchsia"
   public_deps = [
+    "../fuchsia.diagnostics",
     "../zx",
   ]
   sources = [

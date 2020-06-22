@@ -16,8 +16,10 @@ fidl_library("fuchsia.diagnostics") {
   ]
   sources = [
     "format.fidl",
+    "interest.fidl",
     "reader.fidl",
     "selector.fidl",
+    "severity.fidl",
   ]
 }
 

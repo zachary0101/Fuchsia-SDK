@@ -1,6 +1,7 @@
 {
   "deps": [
-    "zx"
+    "zx",
+    "fuchsia.diagnostics"
   ],
   "name": "fuchsia.logger",
   "root": "fidl/fuchsia.logger",
