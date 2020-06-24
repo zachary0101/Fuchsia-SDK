@@ -12,7 +12,6 @@
     "pkg/fidl_base/include/lib/fidl/cpp/message_buffer.h",
     "pkg/fidl_base/include/lib/fidl/cpp/message_builder.h",
     "pkg/fidl_base/include/lib/fidl/cpp/message_part.h",
-    "pkg/fidl_base/include/lib/fidl/envelope_frames.h",
     "pkg/fidl_base/include/lib/fidl/internal.h",
     "pkg/fidl_base/include/lib/fidl/internal_callable_traits.h",
     "pkg/fidl_base/include/lib/fidl/visitor.h",

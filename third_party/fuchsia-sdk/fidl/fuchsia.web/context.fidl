@@ -95,15 +95,16 @@ bits ContextFeatureFlags : uint64 {
 table CreateContextParams {
     /// Service directory to be used by the context. The following services must be present in the
     /// directory:
-    /// - [`fuchsia.accessibility.semantics.SemanticsManager`]
     /// - [`fuchsia.device.NameProvider`]
     /// - [`fuchsia.fonts.Provider`]
     /// - [`fuchsia.intl.PropertyProvider`]
     /// - [`fuchsia.logger.LogSink`]
+    /// - [`fuchsia.memorypressure.Provider`]
     /// - [`fuchsia.process.Launcher`]
     ///
     /// The following services must be present in order to present web content in a Scenic view
     /// using [`fuchsia.web.Frame/CreateView`]:
+    /// - [`fuchsia.accessibility.semantics.SemanticsManager`]
     /// - [`fuchsia.ui.input.ImeService`]
     /// - [`fuchsia.ui.input.ImeVisibilityService`]
     /// - [`fuchsia.ui.scenic.Scenic`]

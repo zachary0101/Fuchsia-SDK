@@ -95,27 +95,44 @@ enum Result { kContinue, kExit };
 
 // Macro to insert the relevant goop required to support two control flows here in case of error:
 // one where we keep reading after error, and another where we return immediately.
-#define FIDL_STATUS_GUARD(status)                           \
-  switch ((status)) {                                       \
-    case Status::kSuccess:                                  \
-      break;                                                \
-    case Status::kConstraintViolationError:                 \
-      if (VisitorImpl::kContinueAfterConstraintViolation) { \
-        return Result::kContinue;                           \
-      } else {                                              \
-        return Result::kExit;                               \
-      }                                                     \
-    case Status::kMemoryError:                              \
-      return Result::kExit;                                 \
+#define FIDL_STATUS_GUARD(status)                             \
+  if (unlikely((status) != Status::kSuccess)) {               \
+    switch ((status)) {                                       \
+      case Status::kSuccess:                                  \
+        __builtin_unreachable();                              \
+      case Status::kConstraintViolationError:                 \
+        if (VisitorImpl::kContinueAfterConstraintViolation) { \
+          return Result::kContinue;                           \
+        } else {                                              \
+          return Result::kExit;                               \
+        }                                                     \
+      case Status::kMemoryError:                              \
+        return Result::kExit;                                 \
+    }                                                         \
+  }
+
+// Variant of FIDL_STATUS_GUARD that continues in the same scope after a constraint violation,
+// rather than exiting the current function and continuing in the next.
+#define FIDL_CONTINUE_IN_SCOPE_STATUS_GUARD(status)           \
+  if (unlikely((status) != Status::kSuccess)) {               \
+    switch ((status)) {                                       \
+      case Status::kSuccess:                                  \
+        __builtin_unreachable();                              \
+      case Status::kConstraintViolationError:                 \
+        if (VisitorImpl::kContinueAfterConstraintViolation) { \
+          break;                                              \
+        } else {                                              \
+          return Result::kExit;                               \
+        }                                                     \
+      case Status::kMemoryError:                              \
+        return Result::kExit;                                 \
+    }                                                         \
   }
 
 // Macro to handle exiting if called function signaled exit.
-#define FIDL_RESULT_GUARD(result) \
-  switch ((result)) {             \
-    case Result::kContinue:       \
-      break;                      \
-    case Result::kExit:           \
-      return Result::kExit;       \
+#define FIDL_RESULT_GUARD(result)            \
+  if (unlikely((result) == Result::kExit)) { \
+    return Result::kExit;                    \
   }
 
 typedef uint8_t OutOfLineDepth;
@@ -123,7 +140,7 @@ typedef uint8_t OutOfLineDepth;
 #define INCREASE_DEPTH(depth) OutOfLineDepth(depth + 1)
 
 #define FIDL_DEPTH_GUARD(depth)                           \
-  if ((depth) > FIDL_MAX_DEPTH) {                         \
+  if (unlikely((depth) > FIDL_MAX_DEPTH)) {               \
     visitor_->OnError("recursion depth exceeded");        \
     if (VisitorImpl::kContinueAfterConstraintViolation) { \
       return Result::kContinue;                           \
@@ -142,7 +159,9 @@ class Walker final {
 
   using Position = typename VisitorImpl::Position;
 
-  using VisitorSuper = Visitor<MutationTrait, Position>;
+  using EnvelopeCheckpoint = typename VisitorImpl::EnvelopeCheckpoint;
+
+  using VisitorSuper = Visitor<MutationTrait, Position, EnvelopeCheckpoint>;
 
   using Status = typename VisitorSuper::Status;
 
@@ -177,6 +196,8 @@ class Walker final {
   Result WalkStruct(const FidlCodedStruct* coded_struct, Position position, OutOfLineDepth depth);
   Result WalkStructPointer(const FidlCodedStructPointer* coded_struct, Position position,
                            OutOfLineDepth depth);
+  Result WalkEnvelope(Position envelope_position, const fidl_type_t* payload_type,
+                      OutOfLineDepth depth);
   Result WalkTable(const FidlCodedTable* coded_table, Position position, OutOfLineDepth depth);
   Result WalkXUnion(const FidlCodedXUnion* coded_table, Position position, OutOfLineDepth depth);
   Result WalkArray(const FidlCodedArray* coded_array, Position position, OutOfLineDepth depth);
@@ -256,7 +277,7 @@ Result Walker<VisitorImpl>::WalkPrimitive(const FidlCodedPrimitive* fidl_coded_p
   switch (fidl_coded_primitive->type) {
     case kFidlCodedPrimitiveSubtype_Bool: {
       uint8_t value = *PtrTo<uint8_t>(position);
-      if (value != 0 && value != 1) {
+      if (unlikely(value != 0 && value != 1)) {
         visitor_->OnError("not a valid bool value");
         FIDL_STATUS_GUARD(Status::kConstraintViolationError);
       }
@@ -300,7 +321,7 @@ Result Walker<VisitorImpl>::WalkEnum(const FidlCodedEnum* fidl_coded_enum,
     default:
       __builtin_unreachable();
   }
-  if (!fidl_coded_enum->validate(value)) {
+  if (unlikely(!fidl_coded_enum->validate(value))) {
     // TODO(FIDL-523): Make this strictness dependent.
     visitor_->OnError("not a valid enum member");
     FIDL_STATUS_GUARD(Status::kConstraintViolationError);
@@ -328,7 +349,7 @@ Result Walker<VisitorImpl>::WalkBits(const FidlCodedBits* coded_bits,
     default:
       __builtin_unreachable();
   }
-  if (value & ~coded_bits->mask) {
+  if (unlikely(value & ~coded_bits->mask)) {
     visitor_->OnError("not a valid bits member");
     FIDL_STATUS_GUARD(Status::kConstraintViolationError);
   }
@@ -379,23 +400,57 @@ Result Walker<VisitorImpl>::WalkStructPointer(const FidlCodedStructPointer* code
 }
 
 template <typename VisitorImpl>
+Result Walker<VisitorImpl>::WalkEnvelope(Position envelope_position,
+                                         const fidl_type_t* payload_type, OutOfLineDepth depth) {
+  auto envelope = PtrTo<fidl_envelope_t>(envelope_position);
+
+  EnvelopeCheckpoint checkpoint = visitor_->EnterEnvelope();
+
+  if (envelope->data != nullptr) {
+    OutOfLineDepth obj_depth = INCREASE_DEPTH(depth);
+    FIDL_DEPTH_GUARD(obj_depth);
+
+    uint32_t num_bytes = payload_type != nullptr ? TypeSize(payload_type) : envelope->num_bytes;
+    Position obj_position;
+    auto status =
+        visitor_->VisitPointer(envelope_position, VisitorImpl::PointeeType::kOther,
+                               // casting since |envelope_ptr->data| is always void*
+                               &const_cast<Ptr<void>&>(envelope->data), num_bytes, &obj_position);
+    FIDL_CONTINUE_IN_SCOPE_STATUS_GUARD(status);
+
+    if (likely(payload_type != nullptr)) {
+      auto result = WalkInternal(payload_type, obj_position, obj_depth);
+      FIDL_RESULT_GUARD(result);
+    } else {
+      status = visitor_->VisitUnknownEnvelope(envelope);
+      FIDL_STATUS_GUARD(status);
+    }
+  }
+
+  auto status = visitor_->LeaveEnvelope(envelope, checkpoint);
+  FIDL_STATUS_GUARD(status);
+
+  return Result::kContinue;
+}
+
+template <typename VisitorImpl>
 Result Walker<VisitorImpl>::WalkTable(const FidlCodedTable* coded_table,
                                       Walker<VisitorImpl>::Position position,
                                       OutOfLineDepth depth) {
   auto envelope_vector_ptr = PtrTo<fidl_vector_t>(position);
   if (envelope_vector_ptr->data == nullptr) {
     // The vector of envelope headers in a table is always non-nullable.
-    if (!VisitorImpl::kAllowNonNullableCollectionsToBeAbsent) {
+    if (unlikely(!VisitorImpl::kAllowNonNullableCollectionsToBeAbsent)) {
       visitor_->OnError("Table data cannot be absent");
       FIDL_STATUS_GUARD(Status::kConstraintViolationError);
     }
-    if (envelope_vector_ptr->count != 0) {
+    if (unlikely(envelope_vector_ptr->count != 0)) {
       visitor_->OnError("Table envelope vector data absent but non-zero count");
       FIDL_STATUS_GUARD(Status::kConstraintViolationError);
     }
   }
   uint32_t size;
-  if (mul_overflow(envelope_vector_ptr->count, sizeof(fidl_envelope_t), &size)) {
+  if (unlikely(mul_overflow(envelope_vector_ptr->count, sizeof(fidl_envelope_t), &size))) {
     visitor_->OnError("integer overflow calculating table size");
     FIDL_STATUS_GUARD(Status::kConstraintViolationError);
   }
@@ -417,34 +472,9 @@ Result Walker<VisitorImpl>::WalkTable(const FidlCodedTable* coded_table,
     }
     Position envelope_position =
         envelope_vector_position + field_index * uint32_t(sizeof(fidl_envelope_t));
-    auto envelope_ptr = PtrTo<fidl_envelope_t>(envelope_position);
-
     const fidl_type_t* payload_type = known_field ? known_field->type : nullptr;
-    status = visitor_->EnterEnvelope(envelope_position, envelope_ptr, payload_type);
-    FIDL_STATUS_GUARD(status);
-
-    if (envelope_ptr->data != nullptr) {
-      uint32_t num_bytes =
-          payload_type != nullptr ? TypeSize(payload_type) : envelope_ptr->num_bytes;
-      OutOfLineDepth obj_depth = INCREASE_DEPTH(envelope_vector_depth);
-      FIDL_DEPTH_GUARD(obj_depth);
-      Position obj_position;
-      status = visitor_->VisitPointer(envelope_position, VisitorImpl::PointeeType::kOther,
-                                      // casting since |envelope_ptr->data| is always void*
-                                      &const_cast<Ptr<void>&>(envelope_ptr->data), num_bytes,
-                                      &obj_position);
-      if (status == Status::kMemoryError || (status == Status::kConstraintViolationError &&
-                                             !VisitorImpl::kContinueAfterConstraintViolation)) {
-        return Result::kExit;
-      }
-      if (payload_type != nullptr) {
-        auto result = WalkInternal(payload_type, obj_position, obj_depth);
-        FIDL_RESULT_GUARD(result);
-      }
-    }
-
-    status = visitor_->LeaveEnvelope(envelope_position, envelope_ptr);
-    FIDL_STATUS_GUARD(status);
+    auto result = WalkEnvelope(envelope_position, payload_type, envelope_vector_depth);
+    FIDL_RESULT_GUARD(result);
   }
   return Result::kContinue;
 }
@@ -459,70 +489,39 @@ Result Walker<VisitorImpl>::WalkXUnion(const FidlCodedXUnion* coded_xunion,
 
   // Validate zero-ordinal invariants
   if (xunion->tag == 0) {
-    if (envelope_ptr->data != nullptr || envelope_ptr->num_bytes != 0 ||
-        envelope_ptr->num_handles != 0) {
+    if (unlikely(envelope_ptr->data != nullptr || envelope_ptr->num_bytes != 0 ||
+                 envelope_ptr->num_handles != 0)) {
       visitor_->OnError("xunion with zero as ordinal must be empty");
       FIDL_STATUS_GUARD(Status::kConstraintViolationError);
     }
-    if (!coded_xunion->nullable) {
+    if (unlikely(!coded_xunion->nullable)) {
       visitor_->OnError("non-nullable xunion is absent");
       FIDL_STATUS_GUARD(Status::kConstraintViolationError);
     }
     return Result::kContinue;
+  } else if (unlikely(envelope_ptr->data == nullptr)) {
+    visitor_->OnError("empty xunion must have zero as ordinal");
+    FIDL_STATUS_GUARD(Status::kConstraintViolationError);
   }
 
   const fidl_type_t* payload_type = nullptr;
   if (xunion->tag <= coded_xunion->field_count) {
     payload_type = coded_xunion->fields[xunion->tag - 1].type;
   }
-  if (payload_type == nullptr && coded_xunion->strictness == kFidlStrictness_Strict) {
+  if (unlikely(payload_type == nullptr && coded_xunion->strictness == kFidlStrictness_Strict)) {
     visitor_->OnError("strict xunion has unknown ordinal");
     FIDL_STATUS_GUARD(Status::kConstraintViolationError);
   }
 
-  // Make sure we don't process a malformed envelope
-  auto status = visitor_->EnterEnvelope(envelope_pos, envelope_ptr, payload_type);
-  FIDL_STATUS_GUARD(status);
-  // Skip empty envelopes
-  if (envelope_ptr->data == nullptr) {
-    if (xunion->tag != 0) {
-      visitor_->OnError("empty xunion must have zero as ordinal");
-      if (status == Status::kMemoryError || (status == Status::kConstraintViolationError &&
-                                             !VisitorImpl::kContinueAfterConstraintViolation)) {
-        return Result::kExit;
-      }
-    }
-  } else {
-    uint32_t num_bytes = payload_type != nullptr ? TypeSize(payload_type) : envelope_ptr->num_bytes;
-    OutOfLineDepth obj_depth = INCREASE_DEPTH(depth);
-    FIDL_DEPTH_GUARD(obj_depth);
-    Position obj_position;
-    status = visitor_->VisitPointer(position, VisitorImpl::PointeeType::kOther,
-                                    &const_cast<Ptr<void>&>(envelope_ptr->data), num_bytes,
-                                    &obj_position);
-    if (status == Status::kMemoryError || (status == Status::kConstraintViolationError &&
-                                           !VisitorImpl::kContinueAfterConstraintViolation)) {
-      return Result::kExit;
-    }
-    if (payload_type != nullptr) {
-      auto result = WalkInternal(payload_type, obj_position, obj_depth);
-      FIDL_RESULT_GUARD(result);
-    }
-  }
-  status = visitor_->LeaveEnvelope(envelope_pos, envelope_ptr);
-  FIDL_STATUS_GUARD(status);
-  return Result::kContinue;
+  return WalkEnvelope(envelope_pos, payload_type, depth);
 }
 
 template <typename VisitorImpl>
 Result Walker<VisitorImpl>::WalkArray(const FidlCodedArray* coded_array,
                                       Walker<VisitorImpl>::Position position,
                                       OutOfLineDepth depth) {
-  if (coded_array->element) {
-    return WalkIterableInternal(coded_array->element, position, coded_array->element_size,
-                                coded_array->array_size, depth);
-  }
-  return Result::kContinue;
+  return WalkIterableInternal(coded_array->element, position, coded_array->element_size,
+                              coded_array->array_size, depth);
 }
 
 template <typename VisitorImpl>
@@ -537,11 +536,11 @@ Result Walker<VisitorImpl>::WalkString(const FidlCodedString* coded_string,
   auto status = visitor_->VisitVectorOrStringCount(&string_ptr->size);
   FIDL_STATUS_GUARD(status);
   if (string_ptr->data == nullptr) {
-    if (!coded_string->nullable && !VisitorImpl::kAllowNonNullableCollectionsToBeAbsent) {
+    if (unlikely(!coded_string->nullable && !VisitorImpl::kAllowNonNullableCollectionsToBeAbsent)) {
       visitor_->OnError("non-nullable string is absent");
       FIDL_STATUS_GUARD(Status::kConstraintViolationError);
     }
-    if (size == 0) {
+    if (likely(size == 0)) {
       if (coded_string->nullable || !VisitorImpl::kAllowNonNullableCollectionsToBeAbsent) {
         return Result::kContinue;
       }
@@ -551,11 +550,11 @@ Result Walker<VisitorImpl>::WalkString(const FidlCodedString* coded_string,
     }
   }
   uint64_t bound = coded_string->max_size;
-  if (size > std::numeric_limits<uint32_t>::max()) {
+  if (unlikely(size > std::numeric_limits<uint32_t>::max())) {
     visitor_->OnError("string size overflows 32 bits");
     FIDL_STATUS_GUARD(Status::kMemoryError);
   }
-  if (size > bound) {
+  if (unlikely(size > bound)) {
     visitor_->OnError("message tried to access too large of a bounded string");
     FIDL_STATUS_GUARD(Status::kConstraintViolationError);
   }
@@ -575,7 +574,7 @@ Result Walker<VisitorImpl>::WalkHandle(const FidlCodedHandle* coded_handle,
                                        Walker<VisitorImpl>::Position position) {
   auto handle_ptr = PtrTo<zx_handle_t>(position);
   if (*handle_ptr == ZX_HANDLE_INVALID) {
-    if (!coded_handle->nullable) {
+    if (unlikely(!coded_handle->nullable)) {
       visitor_->OnError("message is missing a non-nullable handle");
       FIDL_STATUS_GUARD(Status::kConstraintViolationError);
     }
@@ -599,11 +598,11 @@ Result Walker<VisitorImpl>::WalkVector(const FidlCodedVector* coded_vector,
   auto status = visitor_->VisitVectorOrStringCount(&vector_ptr->count);
   FIDL_STATUS_GUARD(status);
   if (vector_ptr->data == nullptr) {
-    if (!coded_vector->nullable && !VisitorImpl::kAllowNonNullableCollectionsToBeAbsent) {
+    if (unlikely(!coded_vector->nullable && !VisitorImpl::kAllowNonNullableCollectionsToBeAbsent)) {
       visitor_->OnError("non-nullable vector is absent");
       FIDL_STATUS_GUARD(Status::kConstraintViolationError);
     }
-    if (count == 0) {
+    if (likely(count == 0)) {
       if (coded_vector->nullable || !VisitorImpl::kAllowNonNullableCollectionsToBeAbsent) {
         return Result::kContinue;
       }
@@ -612,12 +611,12 @@ Result Walker<VisitorImpl>::WalkVector(const FidlCodedVector* coded_vector,
       FIDL_STATUS_GUARD(Status::kConstraintViolationError);
     }
   }
-  if (count > coded_vector->max_count) {
+  if (unlikely(count > coded_vector->max_count)) {
     visitor_->OnError("message tried to access too large of a bounded vector");
     FIDL_STATUS_GUARD(Status::kConstraintViolationError);
   }
   uint32_t size;
-  if (mul_overflow(count, coded_vector->element_size, &size)) {
+  if (unlikely(mul_overflow(count, coded_vector->element_size, &size))) {
     visitor_->OnError("integer overflow calculating vector size");
     FIDL_STATUS_GUARD(Status::kConstraintViolationError);
   }
@@ -627,14 +626,12 @@ Result Walker<VisitorImpl>::WalkVector(const FidlCodedVector* coded_vector,
   status = visitor_->VisitPointer(position, VisitorImpl::PointeeType::kVector, &vector_ptr->data,
                                   size, &array_position);
   FIDL_STATUS_GUARD(status);
-  if (coded_vector->element) {
-    uint32_t stride = coded_vector->element_size;
-    ZX_ASSERT(count <= std::numeric_limits<uint32_t>::max());
-    uint32_t end_offset = uint32_t(count) * stride;
-    return WalkIterableInternal(coded_vector->element, array_position, stride, end_offset,
-                                array_depth);
-  }
-  return Result::kContinue;
+
+  uint32_t stride = coded_vector->element_size;
+  ZX_ASSERT(count <= std::numeric_limits<uint32_t>::max());
+  uint32_t end_offset = uint32_t(count) * stride;
+  return WalkIterableInternal(coded_vector->element, array_position, stride, end_offset,
+                              array_depth);
 }
 
 }  // namespace internal
