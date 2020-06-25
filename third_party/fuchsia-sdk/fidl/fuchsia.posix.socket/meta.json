@@ -1,6 +1,7 @@
 {
   "deps": [
-    "fuchsia.io"
+    "fuchsia.io",
+    "fuchsia.net"
   ],
   "name": "fuchsia.posix.socket",
   "root": "fidl/fuchsia.posix.socket",
