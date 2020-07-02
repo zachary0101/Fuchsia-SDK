@@ -28,6 +28,7 @@ fidl_library("fuchsia.settings") {
     "privacy.fidl",
     "settings.fidl",
     "setup.fidl",
+    "system.fidl",
   ]
 }
 

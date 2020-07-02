@@ -18,7 +18,8 @@
     "fidl/fuchsia.settings/night_mode.fidl",
     "fidl/fuchsia.settings/privacy.fidl",
     "fidl/fuchsia.settings/settings.fidl",
-    "fidl/fuchsia.settings/setup.fidl"
+    "fidl/fuchsia.settings/setup.fidl",
+    "fidl/fuchsia.settings/system.fidl"
   ],
   "type": "fidl_library"
 }
