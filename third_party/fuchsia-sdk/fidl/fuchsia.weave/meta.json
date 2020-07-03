@@ -1,5 +1,6 @@
 {
   "deps": [
+    "fuchsia.mem",
     "fuchsia.net"
   ],
   "name": "fuchsia.weave",
